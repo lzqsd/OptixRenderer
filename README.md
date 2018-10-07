@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 OptiX Advanced Samples
 ======================
@@ -24,3 +25,7 @@ For requirements and build instructions see [INSTALL-LINUX.txt](./INSTALL-LINUX.
 Technical support is available on [NVIDIA's Developer Zone](https://devtalk.nvidia.com/default/board/90/), or 
 you can create a git issue.
 
+=======
+# optixRendererForSUNCG
+An optix path tracer currently designed for SUNCG dataset
+>>>>>>> 728081d4f7e155e0a412b7f60104083a296500c5
