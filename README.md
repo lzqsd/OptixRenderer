@@ -50,6 +50,15 @@ We use xml file to define the scene. The format will be very similar to mitsuba.
   ...
 </scene>
 ```
+### Integrator
+Currently we only support path tracer. So the only acceptable way to define the integrator will be
+```
+<integrator type="path"/>
+```
+
+### Sensor
+We support two type of sensors, the panorama camera and the perspective camera. 
+
 
 ## To be finished
 * Add support of relative path. All paths of images and shapes have to be absolute path currently. This may cause inconveniences.
