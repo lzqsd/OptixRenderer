@@ -62,7 +62,7 @@ We support three types of sensors, the panorama camera (`envmap`), the hemispher
 * `fov`: Field of view, the measurement is degree.
 * `transform`: The extrinsic parameter of the camera
 * `sampler`: Currently we support two types of sampler. `independent` will actually do stratified sampling. `adaptive` sampling will render two images with different random seeds, scale the two images so that the mean value of pixel will be 0.5 and then compute the variance. If the variance is larger than a threshold, we will average the two images and render a new images by doubling the number of samples. We repeat this process until the variance is smaller than the threshold or the number of samples is too large. 
-* `film`:
+* `film`: We currently support two types of film. `ldrfilm` will render ldr image with gamma correction (2.2). `hdrfilm` will render hdr image (.rgbe). The `height` and `width` of the images are set here. 
 Following is an example of the xml file of a perspective sensor. 
 ```
 <sensor type="perspective">
