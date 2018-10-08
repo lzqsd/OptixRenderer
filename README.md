@@ -17,7 +17,7 @@ To run the code you can use the following command
   ```
   N           # Number of view points
   a_0 a_1 a_2 # The origin of the camera 1
-  b_0 b_1 b_2 # The lookAt position of the camera 1
+  b_0 b_1 b_2 # The lookAt of the camera 1
   c_0 c_1 c_2 # The up vector of camera 1
   .....
   ```
