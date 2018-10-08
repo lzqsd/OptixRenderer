@@ -99,7 +99,32 @@ Following is an example of `phong` material. Notice that the path to the texture
 </bsdf>
 ```
 ### Shape
-Currently we 
+Currently we only support `.obj` file. `.mtl` file is not supported so the material can only be defined in `.xml` file. However, we support using `usemtl ...` in `.obj` file so that you can have different materials for a single `.obj` file. Following is an example of a shape with two different materials. In `.obj` file, the material is defined using 
+```
+...
+usemtl Model#317-1_material_28
+...
+usemtl Model#317-1_material_29
+...
+```
+The corresponding `.xml` file should be
+```
+<shape id="Model#317-1_object" type="obj">
+  <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Dataset/house_obj_render/train/Shape__0004d52d1aeeb8ae6de39d6bd993e992/Model#317-1_object.obj"/>
+  <bsdf id="Model#317-1_material_27" type="phong">
+    <rgb name="diffuseReflectance" value="0.27843 0.27843 0.27843"/>
+    <rgb name="specularReflectance" value="1.00000 1.00000 1.00000"/>
+    <float name="alpha" value="300.00000"/>
+  </bsdf>
+  <bsdf id="Model#317-1_material_28" type="phong">
+    <texture name="diffuseReflectance" type="bitmap">
+      <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Dataset/texture/wood_5.jpg"/>
+    </texture>
+    <rgb name="specularReflectance" value="0.43922 0.43922 0.43922"/>
+    <float name="alpha" value="40.00000"/>
+  </bsdf>
+</shape>
+```
 
 ### Emitter
 
