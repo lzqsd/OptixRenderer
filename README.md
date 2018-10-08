@@ -13,7 +13,8 @@ To run the code you can use the following command
 ```
 * `shape_file`: The xml file use to define the scene.  See [Shape file](https://github.com/lzqsd/optixRendererForSUNCG/edit/master/README.md#shape-file)
 * `output_file`: The name of the rendered image. For ldr image, we support formats jpg, bmp, png, etc. For hdr image, currently we support .rgbe image only. 
-* `camera_file`: 
+* `camera_file`: The 
+* `mode`: 
 * `gpuIds`: 
 
 ## Shape file
