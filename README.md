@@ -21,8 +21,15 @@ To run the code you can use the following command
   c_0 c_1 c_2 # The up vector of camera 1
   .....
   ```
-* `mode`: 
-* `gpuIds`: 
+* `mode`: The type of output of renderer
+  - 0: Image (ldr or hdr)
+  - 1: baseColor (.png)
+  - 2: normal (.png)
+  - 3: roughness (.png)
+  - 4: mask (.png, If a ray from the pixel can hit an object, then the value of the pixel will be 255. If the ray hit an area light source or nothing, then the value will be 0)
+  - 5: depth (.dat)
+  - 6: metallic (.png)
+* `gpuIds`: The ids of devices used for rendering. For example --gpuIds 0 1 2, then 3 gpus will be used for rendering. 
 
 ## Shape file
 
