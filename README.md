@@ -11,9 +11,12 @@ To run the code you can use the following command
 ```
 ./src/bin/optixSUNCG -f [shape_file] -o [output_file] -c [camera_file] -m [mode] --gpuIds [gpu_ids]
 ```
-* shape_file: the xml file use to define the scene.  
-* output_file: the name of the rendered image. For ldr image, we support formats jpg, bmp, png, etc. For hdr image, currently we support .rgbe image only. 
-* 
+* `shape_file`: The xml file use to define the scene.  See [Shape File]()
+* `output_file`: The name of the rendered image. For ldr image, we support formats jpg, bmp, png, etc. For hdr image, currently we support .rgbe image only. 
+* `camera_file`: 
+* `gpuIds`: 
+
+## Shape File
 
 
 ## To be finished
