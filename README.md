@@ -7,7 +7,7 @@ We also need opencv 2 for image processing.
 ccmake is needed to compile the code. Please check [INTALL-LINUX.txt](./INSTALL-LINUX.txt) and [INSTALL-WIN.txt](./INSTALL-WIN.txt) for details. After compiling, the executable file will be ./src/bin/optixSUNCG
 
 ## Running the code
-To run the code you can use the following command
+To run the code, use the following command
 ```
 ./src/bin/optixSUNCG -f [shape_file] -o [output_file] -c [camera_file] -m [mode] --gpuIds [gpu_ids]
 ```
