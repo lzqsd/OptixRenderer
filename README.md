@@ -33,7 +33,18 @@ To run the code you can use the following command
 * `gpuIds`: The ids of devices used for rendering. For example --gpuIds 0 1 2, then 3 gpus will be used for rendering. 
 
 ## Shape file
+We use xml file to define the scene. The format will be very similar to mitsuba. The main elements of the shape file include shape, material, light, sensor and integrator. We will introduce how to define the 5 elements in details in the following. A typical shape file will be like:
+```
+<?xml version="1.0" encoding="utf-8"?>
 
+<scene version="0.5.0">
+  <integrator .../>
+  <sensor .../>
+  <bsdf .../>
+  <emitter ../>
+  <shape ../>
+</scene>
+```
 
 ## To be finished
 * Add support of relative path. All paths of images and shapes have to be absolute path currently. This may cause inconveniences.
