@@ -133,6 +133,20 @@ We support three kinds of emitter, area light (`area`), point light (`point`), f
 * `point` and `flash`: The `point` light has two parameters. The `radiance` controls the light intensity while `position` controls its position in the scene. The type of `position` is `point`. The `flash` light only has parameter `radiance`. The `position` will be the same as origin of camera. That will be useful when rendering with camera file. 
 * `envmap`: The image used for environmental map must be of format `.hdr`.  The `scale` parameter can be used to control the intensity of the environmental map. 
 
+Followings are examples of `area` light and `envmap` respectively. 
+```
+<shape type="obj">
+  <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_luminaire.obj"/>
+  <emitter type="area">
+    <rgb name="radiance" value="20.0 20.0 20.0"/>
+  </emitter>
+</shape>
+
+<emitter type = "envmap">
+  <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/envmap.hdr"/>
+</emitter>
+```
+
 ## To be finished
 * Add support of relative path. All paths of images and shapes have to be absolute path currently. This may cause inconveniences.
 * Use OpenCV 3 to load and save hdr image. Installing OpenCV 3 might be non-trivial on Adobe Cluster, so I use OpenCV 2 instead, which does not support hdr image. 
