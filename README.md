@@ -57,8 +57,23 @@ Currently we only support path tracer. So the only acceptable way to define the 
 ```
 
 ### Sensor
-We support two type of sensors, the panorama camera and the perspective camera. 
+We support three types of sensors, the panorama camera (`envmap`), the hemisphere camera (`hemisphere`) and the perspective camera (`perspective`). The sub-elements belong to sensor include
+* `fovAxis`: 
+* `fov`: 
+* `transform`: 
+* `sampler`
+* `film`
+Following is an example of the xml file of a perspective sensor. 
+```
+<sensor type="perspective">
 
+</sensor>
+```
+### Material
+
+### Shape
+
+### Emitter
 
 ## To be finished
 * Add support of relative path. All paths of images and shapes have to be absolute path currently. This may cause inconveniences.
