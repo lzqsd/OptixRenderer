@@ -86,8 +86,18 @@ Following is an example of the xml file of a perspective sensor. The xml for `en
 The renderer currently supports three kinds of materials: `diffuse`, `phong` and `microfacet`
 * `diffuse`: The parameters include `reflectance` and `normal`. The type of `reflectance` can be `rgb` or `texture`. The type of `normal` can only be `texture`. The normal map should be a bitmap. 
 * `phong`: The parameters include `diffuseReflectance`, `specularReflectance`, `alpha` and `normal`. The type of `diffuseReflectance` and `specularReflectance` can be `rgb` or `texture`. The type of `alpha` can be `float` or `texture`. 
-* `microfacet`: The parameters include `albedo`, `normal`, `roughness`, `metallic` and `fresnel`. The type of `albedo` can be `rgb` or `texture`. The type of `roughness`, `metallic` and `fresnel` can be `texture` and `float`. Following are two examples for diffuse material and phong materials respectively. 
+* `microfacet`: The parameters include `albedo`, `normal`, `roughness`, `metallic` and `fresnel`. The type of `albedo` can be `rgb` or `texture`. The type of `roughness`, `metallic` and `fresnel` can be `texture` and `float`. 
 
+Following is an example of `phong` material. 
+‘’‘
+<bsdf id="Model#317-1_material_28" type="phong">
+  <texture name="diffuseReflectance" type="bitmap">
+    <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Dataset/texture/wood_5.jpg"/>
+  </texture>
+  <rgb name="specularReflectance" value="0.43922 0.43922 0.43922"/>
+  <float name="alpha" value="40.00000"/>
+</bsdf>
+’‘’
 ### Shape
 
 
