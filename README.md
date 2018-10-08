@@ -55,4 +55,4 @@ We use xml file to define the scene. The format will be very similar to mitsuba.
 * Add support of relative path. All paths of images and shapes have to be absolute path currently. This may cause inconveniences.
 * Use OpenCV 3 to load and save hdr image. Installing OpenCV 3 might be non-trivial on Adobe Cluster, so I use OpenCV 2 instead, which does not support hdr image. 
 * Add more materials, especially transparent materials.
-* Bidirectional path tracing should be added, if we have time. 
+* Bidirectional path tracing should be added, if we have time in the future. 
