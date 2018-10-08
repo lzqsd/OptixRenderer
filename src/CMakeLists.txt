@@ -310,7 +310,6 @@ add_subdirectory(optixProgressivePhotonMap)
 add_subdirectory(optixVox)
 add_subdirectory(optixParticleVolumes)
 add_subdirectory(optixSUNCG)
-add_subdirectory(optixPlanar)
 #add_subdirectory(optixIntroduction)
 
 # Our sutil library.  The rules to build it are found in the subdirectory.
