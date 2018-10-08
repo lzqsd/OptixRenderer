@@ -88,8 +88,8 @@ The renderer currently supports three kinds of materials: `diffuse`, `phong` and
 * `phong`: The parameters include `diffuseReflectance`, `specularReflectance`, `alpha` and `normal`. The type of `diffuseReflectance` and `specularReflectance` can be `rgb` or `texture`. The type of `alpha` can be `float` or `texture`. 
 * `microfacet`: The parameters include `albedo`, `normal`, `roughness`, `metallic` and `fresnel`. The type of `albedo` can be `rgb` or `texture`. The type of `roughness`, `metallic` and `fresnel` can be `texture` and `float`. 
 
-Following is an example of `phong` material. 
-‘’‘
+Following is an example of `phong` material. Notice that the path to the texture should be absolute path. 
+```
 <bsdf id="Model#317-1_material_28" type="phong">
   <texture name="diffuseReflectance" type="bitmap">
     <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Dataset/texture/wood_5.jpg"/>
@@ -97,9 +97,9 @@ Following is an example of `phong` material.
   <rgb name="specularReflectance" value="0.43922 0.43922 0.43922"/>
   <float name="alpha" value="40.00000"/>
 </bsdf>
-’‘’
+```
 ### Shape
-
+Currently we 
 
 ### Emitter
 
