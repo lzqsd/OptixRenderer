@@ -61,8 +61,8 @@ We support three types of sensors, the panorama camera (`envmap`), the hemispher
 * `fovAxis`: 
 * `fov`: 
 * `transform`: 
-* `sampler`
-* `film`
+* `sampler`:
+* `film`:
 Following is an example of the xml file of a perspective sensor. 
 ```
 <sensor type="perspective">
