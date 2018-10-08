@@ -125,6 +125,7 @@ The corresponding `.xml` file should be
   </bsdf>
 </shape>
 ```
+Notice that the `id` of brdf should be consistent with the material defined by `usemtl` commmand. 
 
 ### Emitter
 
