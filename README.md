@@ -64,7 +64,7 @@ We support three types of sensors, the panorama camera (`envmap`), the hemispher
 * `sampler`: Currently we support two types of sampler. `independent` will actually do stratified sampling. `adaptive` sampling will render two images with different random seeds, scale the two images so that the mean value of pixel will be 0.5 and then compute the variance. If the variance is larger than a threshold, we will average the two images and render a new images by doubling the number of samples. We repeat this process until the variance is smaller than the threshold or the number of samples is too large. Adaptive sampling is highly recommended when rendering dataset.
 * `film`: We currently support two types of film. `ldrfilm` will render ldr image with gamma correction (2.2). `hdrfilm` will render hdr image (.rgbe). The `height` and `width` of the images are set here. 
 
-Following is an example of the xml file of a perspective sensor. 
+Following is an example of the xml file of a perspective sensor. The xml for `envmap` and `hemisphere` camera should be almost the same, except that `fov` and `fovAxis` is no longer useful. 
 ```
 <sensor type="perspective">
   <string name="fovAxis" value="x"/>
@@ -86,9 +86,10 @@ Following is an example of the xml file of a perspective sensor.
 The renderer currently supports three kinds of materials: `diffuse`, `phong` and `microfacet`
 * `diffuse`: The parameters include `reflectance` and `normal`. The type of `reflectance` can be `rgb` or `texture`. The type of `normal` can only be `texture`. The normal map should be a bitmap. 
 * `phong`: The parameters include `diffuseReflectance`, `specularReflectance`, `alpha` and `normal`. The type of `diffuseReflectance` and `specularReflectance` can be `rgb` or `texture`. The type of `alpha` can be `float` or `texture`. 
-* `microfacet`: The parameters include `albedo`, `normal`, `roughness`, `metallic` and `fresnel`. The type of `albedo` can be `rgb` or `texture`. The type of `roughness`, `metallic` and `fresnel` can be `texture` and `float`. 
+* `microfacet`: The parameters include `albedo`, `normal`, `roughness`, `metallic` and `fresnel`. The type of `albedo` can be `rgb` or `texture`. The type of `roughness`, `metallic` and `fresnel` can be `texture` and `float`. Following are two examples for diffuse material and phong materials respectively. 
 
 ### Shape
+
 
 ### Emitter
 
