@@ -84,8 +84,9 @@ Following is an example of the xml file of a perspective sensor.
 ```
 ### Material
 The renderer currently supports three kinds of materials: `diffuse`, `phong` and `microfacet`
-* `diffuse`: The parameters includes `reflectance` and `normal`. The type of `reflectance` can be `rgb` or `texture`. The type of `normal` can only be `texture`. The normal map should be a bitmap. 
-* `phong`: 
+* `diffuse`: The parameters include `reflectance` and `normal`. The type of `reflectance` can be `rgb` or `texture`. The type of `normal` can only be `texture`. The normal map should be a bitmap. 
+* `phong`: The parameters include `diffuseReflectance`, `specularReflectance`, `alpha` and `normal`. The type of `diffuseReflectance` and `specularReflectance` can be `rgb` or `texture`. The type of `alpha` can be `float` or `texture`. 
+* `microfacet`: The parameters include `albedo`, `normal`, `roughness`, `metallic` and `fresnel`. The type of `albedo` can be `rgb` or `texture`. The type of `roughness`, `metallic` and `fresnel` can be `texture` and `float`. 
 
 ### Shape
 
