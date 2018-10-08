@@ -125,9 +125,10 @@ The corresponding `.xml` file should be
   </bsdf>
 </shape>
 ```
-Notice that the `id` of brdf should be consistent with the material defined by `usemtl` commmand. 
+Notice that the `id` of brdf should be consistent with the material defined by `usemtl` commmand. We also support scale and translate object. The format is exactly the same as mitsuba. 
 
 ### Emitter
+We support three kinds of emitter, area light (`area`), point light (`point`), flash light (`flash`) and environment map (`envmap`). 
 
 ## To be finished
 * Add support of relative path. All paths of images and shapes have to be absolute path currently. This may cause inconveniences.
