@@ -66,7 +66,19 @@ We support three types of sensors, the panorama camera (`envmap`), the hemispher
 Following is an example of the xml file of a perspective sensor. 
 ```
 <sensor type="perspective">
+  <string name="fovAxis" value="x"/>
+  <float name="fov" value="60.0"/>
+  <transform name="toWorld">
+    <lookAt origin="278, 273, -800" target="278, 273, -799" up="0, 1, 0"/>
+  </transform>
+  <sampler type="independent">
+    <integer name="sampleCount" value="10000"/>
+  </sampler>
 
+  <film type="ldrfilm">
+    <integer name="width" value="512"/>
+    <integer name="height" value="512"/>
+  </film>
 </sensor>
 ```
 ### Material
