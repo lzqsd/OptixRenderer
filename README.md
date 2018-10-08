@@ -33,7 +33,7 @@ To run the code you can use the following command
 * `gpuIds`: The ids of devices used for rendering. For example --gpuIds 0 1 2, then 3 gpus will be used for rendering. 
 
 ## Shape file
-We use xml file to define the scene. The format will be very similar to mitsuba. The main elements of the shape file include shape, material, light, sensor and integrator. We will introduce how to define the 5 elements in details in the following. A typical shape file will be like:
+We use xml file to define the scene. The format will be very similar to mitsuba. The main elements of the shape file include integrator, sensor, material, shape and emitter. We will introduce how to define the 5 elements in details in the following. A typical shape file will be like:
 ```
 <?xml version="1.0" encoding="utf-8"?>
 
