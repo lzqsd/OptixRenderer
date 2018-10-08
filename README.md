@@ -129,6 +129,9 @@ Notice that the `id` of brdf should be consistent with the material defined by `
 
 ### Emitter
 We support three kinds of emitter, area light (`area`), point light (`point`), flash light (`flash`) and environment map (`envmap`). 
+* `area`: The area light can be considered as an sub-elements of shape. It has one parameter `radiance`. The type of `radiance` is `rgb`
+* `point` and `flash`: The `point` light has two parameters. The `radiance` controls the light intensity while `position` controls its position in the scene. The type of `position` is `point`. The `flash` light only has parameter `radiance`. The `position` will be the same as origin of camera. That will be useful when rendering with camera file. 
+* `envmap`: The image used for environmental map must be of format `.hdr`.  The `scale` parameter can be used to control the intensity of the environmental map. 
 
 ## To be finished
 * Add support of relative path. All paths of images and shapes have to be absolute path currently. This may cause inconveniences.
