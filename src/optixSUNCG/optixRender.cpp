@@ -1374,7 +1374,7 @@ bool adaptiveSampling(
         imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
         // Repeated render the image until the noise below the threshold
         int expo = 1;
-        float threshold = 0.075;
+        float threshold = 0.025;
         while(true ){
             float error = RMSEAfterScaling(tempBuffer, imgDataBuffer, pixelNum, scale);
             for(int i = 0; i < pixelNum; i++)

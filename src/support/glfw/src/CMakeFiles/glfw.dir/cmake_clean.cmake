@@ -18,6 +18,10 @@ FILE(REMOVE_RECURSE
   "../../../lib/libglfw.so"
   "../../../lib/libglfw.so.3.2"
   "../../../lib/libglfw.so.3"
+  "../../../lib/libglfw.pdb"
+  "CMakeFiles/CMakeRelink.dir/libglfw.so"
+  "CMakeFiles/CMakeRelink.dir/libglfw.so.3.2"
+  "CMakeFiles/CMakeRelink.dir/libglfw.so.3"
 )
 
 # Per-language clean rules from dependency scanning.

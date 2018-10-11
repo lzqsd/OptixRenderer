@@ -118,12 +118,28 @@ void meshIntersect( int primIdx )
           float2 t2 = texcoord_buffer[ v_idx.z];
           float2 duv1 = t1 - t0;
           float2 duv2 = t2 - t0;
-          float a1 = duv1.x, a2 = duv1.y;
-          float a3 = duv2.x, a4 = duv2.y;
           float3 dp1 = p1 - p0;
           float3 dp2 = p2 - p0;
-          tangent_direction = normalize( a4 * dp1 - a2 * dp2 );
-          bitangent_direction = cross(shading_normal, tangent_direction);
+          float3 td = duv2.y * dp1 - duv1.y * dp2;
+          float3 btd = -duv2.x * dp1 + duv1.x * dp2;
+          if (length(td) >= length(btd) ){
+              if(length(td) > 0){
+                tangent_direction = normalize(td );
+              }
+              else{
+                tangent_direction = make_float3(0.0) ;
+              }
+              bitangent_direction = cross(shading_normal, tangent_direction);
+          }
+          else if(length(td ) < length(btd) ){
+              if(length(btd ) > 0){
+                bitangent_direction = normalize(btd );
+              }
+              else{
+                  bitangent_direction = make_float3(0.0);
+              }
+              tangent_direction = cross(bitangent_direction, shading_normal);
+          }
       }
 
       if( DO_REFINE ) {
