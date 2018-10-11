@@ -38,10 +38,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src
+CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src
+CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
 
 # Include any dependencies generated for this target.
 include support/glfw/src/CMakeFiles/glfw.dir/depend.make
@@ -54,17 +54,17 @@ include support/glfw/src/CMakeFiles/glfw.dir/flags.make
 
 support/glfw/src/CMakeFiles/glfw.dir/context.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/context.c.o: support/glfw/src/context.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/context.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/context.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/context.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/context.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/context.c
 
 support/glfw/src/CMakeFiles/glfw.dir/context.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/context.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/context.c > CMakeFiles/glfw.dir/context.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/context.c > CMakeFiles/glfw.dir/context.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/context.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/context.c -o CMakeFiles/glfw.dir/context.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/context.c -o CMakeFiles/glfw.dir/context.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/context.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/context.c.o.requires
@@ -77,17 +77,17 @@ support/glfw/src/CMakeFiles/glfw.dir/context.c.o.provides.build: support/glfw/sr
 
 support/glfw/src/CMakeFiles/glfw.dir/init.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/init.c.o: support/glfw/src/init.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/init.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/init.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/init.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/init.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/init.c
 
 support/glfw/src/CMakeFiles/glfw.dir/init.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/init.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/init.c > CMakeFiles/glfw.dir/init.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/init.c > CMakeFiles/glfw.dir/init.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/init.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/init.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/init.c -o CMakeFiles/glfw.dir/init.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/init.c -o CMakeFiles/glfw.dir/init.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/init.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/init.c.o.requires
@@ -100,17 +100,17 @@ support/glfw/src/CMakeFiles/glfw.dir/init.c.o.provides.build: support/glfw/src/C
 
 support/glfw/src/CMakeFiles/glfw.dir/input.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/input.c.o: support/glfw/src/input.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/input.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/input.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/input.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/input.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/input.c
 
 support/glfw/src/CMakeFiles/glfw.dir/input.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/input.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/input.c > CMakeFiles/glfw.dir/input.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/input.c > CMakeFiles/glfw.dir/input.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/input.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/input.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/input.c -o CMakeFiles/glfw.dir/input.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/input.c -o CMakeFiles/glfw.dir/input.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/input.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/input.c.o.requires
@@ -123,17 +123,17 @@ support/glfw/src/CMakeFiles/glfw.dir/input.c.o.provides.build: support/glfw/src/
 
 support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o: support/glfw/src/monitor.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/monitor.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/monitor.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/monitor.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/monitor.c
 
 support/glfw/src/CMakeFiles/glfw.dir/monitor.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/monitor.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/monitor.c > CMakeFiles/glfw.dir/monitor.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/monitor.c > CMakeFiles/glfw.dir/monitor.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/monitor.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/monitor.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/monitor.c -o CMakeFiles/glfw.dir/monitor.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/monitor.c -o CMakeFiles/glfw.dir/monitor.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o.requires
@@ -146,17 +146,17 @@ support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o.provides.build: support/glfw/sr
 
 support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o: support/glfw/src/vulkan.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/vulkan.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/vulkan.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/vulkan.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/vulkan.c
 
 support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/vulkan.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/vulkan.c > CMakeFiles/glfw.dir/vulkan.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/vulkan.c > CMakeFiles/glfw.dir/vulkan.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/vulkan.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/vulkan.c -o CMakeFiles/glfw.dir/vulkan.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/vulkan.c -o CMakeFiles/glfw.dir/vulkan.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o.requires
@@ -169,17 +169,17 @@ support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o.provides.build: support/glfw/src
 
 support/glfw/src/CMakeFiles/glfw.dir/window.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/window.c.o: support/glfw/src/window.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/window.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/window.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/window.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/window.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/window.c
 
 support/glfw/src/CMakeFiles/glfw.dir/window.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/window.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/window.c > CMakeFiles/glfw.dir/window.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/window.c > CMakeFiles/glfw.dir/window.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/window.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/window.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/window.c -o CMakeFiles/glfw.dir/window.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/window.c -o CMakeFiles/glfw.dir/window.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/window.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/window.c.o.requires
@@ -192,17 +192,17 @@ support/glfw/src/CMakeFiles/glfw.dir/window.c.o.provides.build: support/glfw/src
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o: support/glfw/src/x11_init.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_init.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_init.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_init.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_init.c
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/x11_init.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_init.c > CMakeFiles/glfw.dir/x11_init.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_init.c > CMakeFiles/glfw.dir/x11_init.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/x11_init.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_init.c -o CMakeFiles/glfw.dir/x11_init.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_init.c -o CMakeFiles/glfw.dir/x11_init.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o.requires
@@ -215,17 +215,17 @@ support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o.provides.build: support/glfw/s
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o: support/glfw/src/x11_monitor.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_monitor.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_monitor.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_monitor.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_monitor.c
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/x11_monitor.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_monitor.c > CMakeFiles/glfw.dir/x11_monitor.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_monitor.c > CMakeFiles/glfw.dir/x11_monitor.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/x11_monitor.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_monitor.c -o CMakeFiles/glfw.dir/x11_monitor.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_monitor.c -o CMakeFiles/glfw.dir/x11_monitor.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o.requires
@@ -238,17 +238,17 @@ support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o.provides.build: support/glf
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o: support/glfw/src/x11_window.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_window.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_window.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/x11_window.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_window.c
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/x11_window.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_window.c > CMakeFiles/glfw.dir/x11_window.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_window.c > CMakeFiles/glfw.dir/x11_window.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/x11_window.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/x11_window.c -o CMakeFiles/glfw.dir/x11_window.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_window.c -o CMakeFiles/glfw.dir/x11_window.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o.requires
@@ -261,17 +261,17 @@ support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o.provides.build: support/glfw
 
 support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o: support/glfw/src/xkb_unicode.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/xkb_unicode.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/xkb_unicode.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/xkb_unicode.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/xkb_unicode.c
 
 support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/xkb_unicode.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/xkb_unicode.c > CMakeFiles/glfw.dir/xkb_unicode.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/xkb_unicode.c > CMakeFiles/glfw.dir/xkb_unicode.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/xkb_unicode.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/xkb_unicode.c -o CMakeFiles/glfw.dir/xkb_unicode.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/xkb_unicode.c -o CMakeFiles/glfw.dir/xkb_unicode.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o.requires
@@ -284,17 +284,17 @@ support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o.provides.build: support/glf
 
 support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o: support/glfw/src/linux_joystick.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/linux_joystick.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/linux_joystick.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/linux_joystick.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/linux_joystick.c
 
 support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/linux_joystick.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/linux_joystick.c > CMakeFiles/glfw.dir/linux_joystick.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/linux_joystick.c > CMakeFiles/glfw.dir/linux_joystick.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/linux_joystick.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/linux_joystick.c -o CMakeFiles/glfw.dir/linux_joystick.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/linux_joystick.c -o CMakeFiles/glfw.dir/linux_joystick.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o.requires
@@ -307,17 +307,17 @@ support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o.provides.build: support/
 
 support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o: support/glfw/src/posix_time.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/posix_time.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/posix_time.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/posix_time.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/posix_time.c
 
 support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/posix_time.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/posix_time.c > CMakeFiles/glfw.dir/posix_time.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/posix_time.c > CMakeFiles/glfw.dir/posix_time.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/posix_time.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/posix_time.c -o CMakeFiles/glfw.dir/posix_time.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/posix_time.c -o CMakeFiles/glfw.dir/posix_time.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o.requires
@@ -330,17 +330,17 @@ support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o.provides.build: support/glfw
 
 support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o: support/glfw/src/posix_tls.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/posix_tls.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/posix_tls.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/posix_tls.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/posix_tls.c
 
 support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/posix_tls.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/posix_tls.c > CMakeFiles/glfw.dir/posix_tls.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/posix_tls.c > CMakeFiles/glfw.dir/posix_tls.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/posix_tls.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/posix_tls.c -o CMakeFiles/glfw.dir/posix_tls.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/posix_tls.c -o CMakeFiles/glfw.dir/posix_tls.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o.requires
@@ -353,17 +353,17 @@ support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o.provides.build: support/glfw/
 
 support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o: support/glfw/src/glx_context.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/glx_context.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/glx_context.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/glx_context.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/glx_context.c
 
 support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/glx_context.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/glx_context.c > CMakeFiles/glfw.dir/glx_context.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/glx_context.c > CMakeFiles/glfw.dir/glx_context.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/glx_context.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/glx_context.c -o CMakeFiles/glfw.dir/glx_context.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/glx_context.c -o CMakeFiles/glfw.dir/glx_context.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o.requires
@@ -376,17 +376,17 @@ support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o.provides.build: support/glf
 
 support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o: support/glfw/src/CMakeFiles/glfw.dir/flags.make
 support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o: support/glfw/src/egl_context.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/egl_context.c.o   -c /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/egl_context.c
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/glfw.dir/egl_context.c.o   -c /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/egl_context.c
 
 support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/egl_context.c.i"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/egl_context.c > CMakeFiles/glfw.dir/egl_context.c.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/egl_context.c > CMakeFiles/glfw.dir/egl_context.c.i
 
 support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/egl_context.c.s"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/egl_context.c -o CMakeFiles/glfw.dir/egl_context.c.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/egl_context.c -o CMakeFiles/glfw.dir/egl_context.c.s
 
 support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o.requires:
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o.requires
@@ -443,8 +443,8 @@ lib/libglfw.so.3.2: /usr/lib64/libXxf86vm.so
 lib/libglfw.so.3.2: /usr/lib64/libXcursor.so
 lib/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C shared library ../../../lib/libglfw.so"
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/glfw.dir/link.txt --verbose=$(VERBOSE)
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && $(CMAKE_COMMAND) -E cmake_symlink_library ../../../lib/libglfw.so.3.2 ../../../lib/libglfw.so.3 ../../../lib/libglfw.so
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/glfw.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && $(CMAKE_COMMAND) -E cmake_symlink_library ../../../lib/libglfw.so.3.2 ../../../lib/libglfw.so.3 ../../../lib/libglfw.so
 
 lib/libglfw.so.3: lib/libglfw.so.3.2
 
@@ -453,6 +453,63 @@ lib/libglfw.so: lib/libglfw.so.3.2
 # Rule to build all files generated by this target.
 support/glfw/src/CMakeFiles/glfw.dir/build: lib/libglfw.so
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/build
+
+# Object files for target glfw
+glfw_OBJECTS = \
+"CMakeFiles/glfw.dir/context.c.o" \
+"CMakeFiles/glfw.dir/init.c.o" \
+"CMakeFiles/glfw.dir/input.c.o" \
+"CMakeFiles/glfw.dir/monitor.c.o" \
+"CMakeFiles/glfw.dir/vulkan.c.o" \
+"CMakeFiles/glfw.dir/window.c.o" \
+"CMakeFiles/glfw.dir/x11_init.c.o" \
+"CMakeFiles/glfw.dir/x11_monitor.c.o" \
+"CMakeFiles/glfw.dir/x11_window.c.o" \
+"CMakeFiles/glfw.dir/xkb_unicode.c.o" \
+"CMakeFiles/glfw.dir/linux_joystick.c.o" \
+"CMakeFiles/glfw.dir/posix_time.c.o" \
+"CMakeFiles/glfw.dir/posix_tls.c.o" \
+"CMakeFiles/glfw.dir/glx_context.c.o" \
+"CMakeFiles/glfw.dir/egl_context.c.o"
+
+# External object files for target glfw
+glfw_EXTERNAL_OBJECTS =
+
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/context.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/init.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/input.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/window.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/build.make
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: /usr/lib64/librt.so
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: /usr/lib64/libm.so
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: /usr/lib64/libX11.so
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: /usr/lib64/libXrandr.so
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: /usr/lib64/libXinerama.so
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: /usr/lib64/libXxf86vm.so
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: /usr/lib64/libXcursor.so
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2: support/glfw/src/CMakeFiles/glfw.dir/relink.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C shared library CMakeFiles/CMakeRelink.dir/libglfw.so"
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/glfw.dir/relink.txt --verbose=$(VERBOSE)
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && $(CMAKE_COMMAND) -E cmake_symlink_library CMakeFiles/CMakeRelink.dir/libglfw.so.3.2 CMakeFiles/CMakeRelink.dir/libglfw.so.3 CMakeFiles/CMakeRelink.dir/libglfw.so
+
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3: support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2
+
+support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so: support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2
+
+# Rule to relink during preinstall.
+support/glfw/src/CMakeFiles/glfw.dir/preinstall: support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so
+.PHONY : support/glfw/src/CMakeFiles/glfw.dir/preinstall
 
 support/glfw/src/CMakeFiles/glfw.dir/requires: support/glfw/src/CMakeFiles/glfw.dir/context.c.o.requires
 support/glfw/src/CMakeFiles/glfw.dir/requires: support/glfw/src/CMakeFiles/glfw.dir/init.c.o.requires
@@ -472,10 +529,10 @@ support/glfw/src/CMakeFiles/glfw.dir/requires: support/glfw/src/CMakeFiles/glfw.
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/requires
 
 support/glfw/src/CMakeFiles/glfw.dir/clean:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src && $(CMAKE_COMMAND) -P CMakeFiles/glfw.dir/cmake_clean.cmake
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src && $(CMAKE_COMMAND) -P CMakeFiles/glfw.dir/cmake_clean.cmake
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/clean
 
 support/glfw/src/CMakeFiles/glfw.dir/depend:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : support/glfw/src/CMakeFiles/glfw.dir/depend
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/support/imgui
+# Install script for directory: /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/imgui
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

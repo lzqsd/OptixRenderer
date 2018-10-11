@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src
+CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src
+CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -82,16 +82,6 @@ install/local: preinstall
 install/local/fast: install/local
 .PHONY : install/local/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
-
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -113,14 +103,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixHello/CMakeFiles/progress.marks
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/CMakeFiles 0
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/optixHello/CMakeFiles/progress.marks
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/clean
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/clean
 .PHONY : clean
 
 # The main clean target
@@ -129,22 +119,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/preinstall
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/preinstall
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 optixHello/CMakeFiles/optixHello.dir/rule:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/CMakeFiles/optixHello.dir/rule
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixHello/CMakeFiles/optixHello.dir/rule
 .PHONY : optixHello/CMakeFiles/optixHello.dir/rule
 
 # Convenience name for target.
@@ -153,7 +143,7 @@ optixHello: optixHello/CMakeFiles/optixHello.dir/rule
 
 # fast build rule for target.
 optixHello/fast:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f optixHello/CMakeFiles/optixHello.dir/build.make optixHello/CMakeFiles/optixHello.dir/build
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixHello/CMakeFiles/optixHello.dir/build.make optixHello/CMakeFiles/optixHello.dir/build
 .PHONY : optixHello/fast
 
 optixHello.o: optixHello.cpp.o
@@ -161,7 +151,7 @@ optixHello.o: optixHello.cpp.o
 
 # target to build an object file
 optixHello.cpp.o:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f optixHello/CMakeFiles/optixHello.dir/build.make optixHello/CMakeFiles/optixHello.dir/optixHello.cpp.o
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixHello/CMakeFiles/optixHello.dir/build.make optixHello/CMakeFiles/optixHello.dir/optixHello.cpp.o
 .PHONY : optixHello.cpp.o
 
 optixHello.i: optixHello.cpp.i
@@ -169,7 +159,7 @@ optixHello.i: optixHello.cpp.i
 
 # target to preprocess a source file
 optixHello.cpp.i:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f optixHello/CMakeFiles/optixHello.dir/build.make optixHello/CMakeFiles/optixHello.dir/optixHello.cpp.i
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixHello/CMakeFiles/optixHello.dir/build.make optixHello/CMakeFiles/optixHello.dir/optixHello.cpp.i
 .PHONY : optixHello.cpp.i
 
 optixHello.s: optixHello.cpp.s
@@ -177,7 +167,7 @@ optixHello.s: optixHello.cpp.s
 
 # target to generate assembly for a file
 optixHello.cpp.s:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(MAKE) -f optixHello/CMakeFiles/optixHello.dir/build.make optixHello/CMakeFiles/optixHello.dir/optixHello.cpp.s
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixHello/CMakeFiles/optixHello.dir/build.make optixHello/CMakeFiles/optixHello.dir/optixHello.cpp.s
 .PHONY : optixHello.cpp.s
 
 # Help Target
@@ -189,7 +179,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
-	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... optixHello"
 	@echo "... rebuild_cache"
@@ -207,6 +196,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
