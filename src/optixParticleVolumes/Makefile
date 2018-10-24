@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_SOURCE_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_BINARY_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -103,14 +103,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/optixParticleVolumes/CMakeFiles/progress.marks
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles /diskc/SceneAR/Code/optixRendererForSUNCG/src/optixParticleVolumes/CMakeFiles/progress.marks
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/clean
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/clean
 .PHONY : clean
 
 # The main clean target
@@ -119,22 +119,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/rule:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/rule
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/rule
 .PHONY : optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/rule
 
 # Convenience name for target.
@@ -143,7 +143,7 @@ optixParticleVolumes: optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/r
 
 # fast build rule for target.
 optixParticleVolumes/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build.make optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build.make optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build
 .PHONY : optixParticleVolumes/fast
 
 optixParticleVolumes.o: optixParticleVolumes.cpp.o
@@ -151,7 +151,7 @@ optixParticleVolumes.o: optixParticleVolumes.cpp.o
 
 # target to build an object file
 optixParticleVolumes.cpp.o:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build.make optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/optixParticleVolumes.cpp.o
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build.make optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/optixParticleVolumes.cpp.o
 .PHONY : optixParticleVolumes.cpp.o
 
 optixParticleVolumes.i: optixParticleVolumes.cpp.i
@@ -159,7 +159,7 @@ optixParticleVolumes.i: optixParticleVolumes.cpp.i
 
 # target to preprocess a source file
 optixParticleVolumes.cpp.i:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build.make optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/optixParticleVolumes.cpp.i
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build.make optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/optixParticleVolumes.cpp.i
 .PHONY : optixParticleVolumes.cpp.i
 
 optixParticleVolumes.s: optixParticleVolumes.cpp.s
@@ -167,7 +167,7 @@ optixParticleVolumes.s: optixParticleVolumes.cpp.s
 
 # target to generate assembly for a file
 optixParticleVolumes.cpp.s:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build.make optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/optixParticleVolumes.cpp.s
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/build.make optixParticleVolumes/CMakeFiles/optixParticleVolumes.dir/optixParticleVolumes.cpp.s
 .PHONY : optixParticleVolumes.cpp.s
 
 # Help Target
@@ -196,6 +196,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

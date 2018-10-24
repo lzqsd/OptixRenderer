@@ -26,5 +26,5 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define SAMPLES_DIR "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src"
-#define SAMPLES_PTX_DIR "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/lib/ptx"
+#define SAMPLES_DIR "/diskc/SceneAR/Code/optixRendererForSUNCG/src"
+#define SAMPLES_PTX_DIR "/diskc/SceneAR/Code/optixRendererForSUNCG/src/lib/ptx"

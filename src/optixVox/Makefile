@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_SOURCE_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_BINARY_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -103,14 +103,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/optixVox/CMakeFiles/progress.marks
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles /diskc/SceneAR/Code/optixRendererForSUNCG/src/optixVox/CMakeFiles/progress.marks
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/clean
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/clean
 .PHONY : clean
 
 # The main clean target
@@ -119,22 +119,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 optixVox/CMakeFiles/optixVox.dir/rule:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/CMakeFiles/optixVox.dir/rule
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixVox/CMakeFiles/optixVox.dir/rule
 .PHONY : optixVox/CMakeFiles/optixVox.dir/rule
 
 # Convenience name for target.
@@ -143,7 +143,7 @@ optixVox: optixVox/CMakeFiles/optixVox.dir/rule
 
 # fast build rule for target.
 optixVox/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/build
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/build
 .PHONY : optixVox/fast
 
 optixVox.o: optixVox.cpp.o
@@ -151,7 +151,7 @@ optixVox.o: optixVox.cpp.o
 
 # target to build an object file
 optixVox.cpp.o:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/optixVox.cpp.o
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/optixVox.cpp.o
 .PHONY : optixVox.cpp.o
 
 optixVox.i: optixVox.cpp.i
@@ -159,7 +159,7 @@ optixVox.i: optixVox.cpp.i
 
 # target to preprocess a source file
 optixVox.cpp.i:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/optixVox.cpp.i
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/optixVox.cpp.i
 .PHONY : optixVox.cpp.i
 
 optixVox.s: optixVox.cpp.s
@@ -167,7 +167,7 @@ optixVox.s: optixVox.cpp.s
 
 # target to generate assembly for a file
 optixVox.cpp.s:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/optixVox.cpp.s
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/optixVox.cpp.s
 .PHONY : optixVox.cpp.s
 
 read_vox.o: read_vox.cpp.o
@@ -175,7 +175,7 @@ read_vox.o: read_vox.cpp.o
 
 # target to build an object file
 read_vox.cpp.o:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/read_vox.cpp.o
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/read_vox.cpp.o
 .PHONY : read_vox.cpp.o
 
 read_vox.i: read_vox.cpp.i
@@ -183,7 +183,7 @@ read_vox.i: read_vox.cpp.i
 
 # target to preprocess a source file
 read_vox.cpp.i:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/read_vox.cpp.i
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/read_vox.cpp.i
 .PHONY : read_vox.cpp.i
 
 read_vox.s: read_vox.cpp.s
@@ -191,7 +191,7 @@ read_vox.s: read_vox.cpp.s
 
 # target to generate assembly for a file
 read_vox.cpp.s:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/read_vox.cpp.s
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixVox/CMakeFiles/optixVox.dir/build.make optixVox/CMakeFiles/optixVox.dir/read_vox.cpp.s
 .PHONY : read_vox.cpp.s
 
 # Help Target
@@ -223,6 +223,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
