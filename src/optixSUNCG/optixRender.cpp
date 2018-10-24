@@ -1314,7 +1314,6 @@ void independentSampling(
     context["sqrt_num_samples"] -> setUint(sqrt_num_samples );
 
     context -> launch(0, width, height);
-    std::cout<<"hehe"<<std::endl;
     Buffer imgBuffer = getOutputBuffer(context ); 
     float* imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
     for(int i = 0; i < width * height * 3; i++){

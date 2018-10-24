@@ -4,21 +4,21 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/context.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/context.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/egl_context.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/glx_context.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/init.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/init.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/input.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/input.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/linux_joystick.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/monitor.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/posix_time.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/posix_tls.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/vulkan.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/window.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/window.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_init.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_monitor.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/x11_window.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/xkb_unicode.c" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/context.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/context.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/egl_context.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/glx_context.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/init.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/init.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/input.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/input.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/linux_joystick.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/monitor.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/monitor.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/posix_time.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/posix_tls.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/vulkan.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/window.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/window.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/x11_init.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/x11_monitor.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/x11_window.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/xkb_unicode.c" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")
 
@@ -29,10 +29,10 @@ SET(CMAKE_TARGET_DEFINITIONS
 
 # Pairs of files generated by the same build rule.
 SET(CMAKE_MULTIPLE_OUTPUT_PAIRS
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/lib/libglfw.so" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/lib/libglfw.so.3.2"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/lib/libglfw.so.3" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/lib/libglfw.so.3.2"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2"
-  "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3" "/home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/lib/libglfw.so" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/lib/libglfw.so.3.2"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/lib/libglfw.so.3" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/lib/libglfw.so.3.2"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2"
+  "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3" "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2"
   )
 
 
@@ -42,11 +42,11 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
-  "/home/exx/Zhengqin/NVIDIA-OptiX-SDK-5.1.0-linux64/include"
+  "/diskc/NVIDIA-OptiX-SDK-5.1.0-linux64/include"
   "sutil"
   "."
-  "/home/exx/Zhengqin/NVIDIA-OptiX-SDK-5.1.0-linux64/include/optixu"
-  "/usr/local/cuda-9.0/include"
+  "/diskc/NVIDIA-OptiX-SDK-5.1.0-linux64/include/optixu"
+  "/usr/local/cuda/include"
   "support"
   "support/glfw/include"
   "support/glfw/src"

@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_SOURCE_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_BINARY_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -103,14 +103,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/optixOcean/CMakeFiles/progress.marks
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles /diskc/SceneAR/Code/optixRendererForSUNCG/src/optixOcean/CMakeFiles/progress.marks
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/clean
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/clean
 .PHONY : clean
 
 # The main clean target
@@ -119,22 +119,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 optixOcean/CMakeFiles/optixOcean.dir/rule:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/CMakeFiles/optixOcean.dir/rule
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixOcean/CMakeFiles/optixOcean.dir/rule
 .PHONY : optixOcean/CMakeFiles/optixOcean.dir/rule
 
 # Convenience name for target.
@@ -143,7 +143,7 @@ optixOcean: optixOcean/CMakeFiles/optixOcean.dir/rule
 
 # fast build rule for target.
 optixOcean/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixOcean/CMakeFiles/optixOcean.dir/build.make optixOcean/CMakeFiles/optixOcean.dir/build
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixOcean/CMakeFiles/optixOcean.dir/build.make optixOcean/CMakeFiles/optixOcean.dir/build
 .PHONY : optixOcean/fast
 
 optixOcean.o: optixOcean.cpp.o
@@ -151,7 +151,7 @@ optixOcean.o: optixOcean.cpp.o
 
 # target to build an object file
 optixOcean.cpp.o:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixOcean/CMakeFiles/optixOcean.dir/build.make optixOcean/CMakeFiles/optixOcean.dir/optixOcean.cpp.o
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixOcean/CMakeFiles/optixOcean.dir/build.make optixOcean/CMakeFiles/optixOcean.dir/optixOcean.cpp.o
 .PHONY : optixOcean.cpp.o
 
 optixOcean.i: optixOcean.cpp.i
@@ -159,7 +159,7 @@ optixOcean.i: optixOcean.cpp.i
 
 # target to preprocess a source file
 optixOcean.cpp.i:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixOcean/CMakeFiles/optixOcean.dir/build.make optixOcean/CMakeFiles/optixOcean.dir/optixOcean.cpp.i
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixOcean/CMakeFiles/optixOcean.dir/build.make optixOcean/CMakeFiles/optixOcean.dir/optixOcean.cpp.i
 .PHONY : optixOcean.cpp.i
 
 optixOcean.s: optixOcean.cpp.s
@@ -167,7 +167,7 @@ optixOcean.s: optixOcean.cpp.s
 
 # target to generate assembly for a file
 optixOcean.cpp.s:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixOcean/CMakeFiles/optixOcean.dir/build.make optixOcean/CMakeFiles/optixOcean.dir/optixOcean.cpp.s
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixOcean/CMakeFiles/optixOcean.dir/build.make optixOcean/CMakeFiles/optixOcean.dir/optixOcean.cpp.s
 .PHONY : optixOcean.cpp.s
 
 # Help Target
@@ -196,6 +196,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

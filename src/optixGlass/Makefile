@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_SOURCE_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_BINARY_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -103,14 +103,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/optixGlass/CMakeFiles/progress.marks
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles /diskc/SceneAR/Code/optixRendererForSUNCG/src/optixGlass/CMakeFiles/progress.marks
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/clean
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/clean
 .PHONY : clean
 
 # The main clean target
@@ -119,22 +119,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 optixGlass/CMakeFiles/optixGlass.dir/rule:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/CMakeFiles/optixGlass.dir/rule
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 optixGlass/CMakeFiles/optixGlass.dir/rule
 .PHONY : optixGlass/CMakeFiles/optixGlass.dir/rule
 
 # Convenience name for target.
@@ -143,7 +143,7 @@ optixGlass: optixGlass/CMakeFiles/optixGlass.dir/rule
 
 # fast build rule for target.
 optixGlass/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixGlass/CMakeFiles/optixGlass.dir/build.make optixGlass/CMakeFiles/optixGlass.dir/build
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixGlass/CMakeFiles/optixGlass.dir/build.make optixGlass/CMakeFiles/optixGlass.dir/build
 .PHONY : optixGlass/fast
 
 optixGlass.o: optixGlass.cpp.o
@@ -151,7 +151,7 @@ optixGlass.o: optixGlass.cpp.o
 
 # target to build an object file
 optixGlass.cpp.o:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixGlass/CMakeFiles/optixGlass.dir/build.make optixGlass/CMakeFiles/optixGlass.dir/optixGlass.cpp.o
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixGlass/CMakeFiles/optixGlass.dir/build.make optixGlass/CMakeFiles/optixGlass.dir/optixGlass.cpp.o
 .PHONY : optixGlass.cpp.o
 
 optixGlass.i: optixGlass.cpp.i
@@ -159,7 +159,7 @@ optixGlass.i: optixGlass.cpp.i
 
 # target to preprocess a source file
 optixGlass.cpp.i:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixGlass/CMakeFiles/optixGlass.dir/build.make optixGlass/CMakeFiles/optixGlass.dir/optixGlass.cpp.i
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixGlass/CMakeFiles/optixGlass.dir/build.make optixGlass/CMakeFiles/optixGlass.dir/optixGlass.cpp.i
 .PHONY : optixGlass.cpp.i
 
 optixGlass.s: optixGlass.cpp.s
@@ -167,7 +167,7 @@ optixGlass.s: optixGlass.cpp.s
 
 # target to generate assembly for a file
 optixGlass.cpp.s:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f optixGlass/CMakeFiles/optixGlass.dir/build.make optixGlass/CMakeFiles/optixGlass.dir/optixGlass.cpp.s
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f optixGlass/CMakeFiles/optixGlass.dir/build.make optixGlass/CMakeFiles/optixGlass.dir/optixGlass.cpp.s
 .PHONY : optixGlass.cpp.s
 
 # Help Target
@@ -196,6 +196,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

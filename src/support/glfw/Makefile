@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_SOURCE_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src
+CMAKE_BINARY_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -103,14 +103,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/support/glfw/CMakeFiles/progress.marks
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src/CMakeFiles 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles /diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/CMakeFiles/progress.marks
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/clean
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/clean
 .PHONY : clean
 
 # The main clean target
@@ -119,22 +119,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/preinstall
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 support/glfw/CMakeFiles/uninstall.dir/rule:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/CMakeFiles/uninstall.dir/rule
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 support/glfw/CMakeFiles/uninstall.dir/rule
 .PHONY : support/glfw/CMakeFiles/uninstall.dir/rule
 
 # Convenience name for target.
@@ -143,7 +143,7 @@ uninstall: support/glfw/CMakeFiles/uninstall.dir/rule
 
 # fast build rule for target.
 uninstall/fast:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(MAKE) -f support/glfw/CMakeFiles/uninstall.dir/build.make support/glfw/CMakeFiles/uninstall.dir/build
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f support/glfw/CMakeFiles/uninstall.dir/build.make support/glfw/CMakeFiles/uninstall.dir/build
 .PHONY : uninstall/fast
 
 # Help Target
@@ -169,6 +169,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/exx/Zhengqin/SceneAR/Code/optix_advanced_samples/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
