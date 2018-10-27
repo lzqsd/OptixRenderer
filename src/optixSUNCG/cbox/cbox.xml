@@ -10,7 +10,7 @@
 			<lookAt origin="278, 273, -800" target="278, 273, -799" up="0, 1, 0"/>
 		</transform>
 		<sampler type="independent">
-			<integer name="sampleCount" value="10000"/>
+			<integer name="sampleCount" value="1000"/>
 		</sampler>
 
 		<film type="ldrfilm">
@@ -28,11 +28,6 @@
         <rgb name="specularReflectance" value="0.5 0.0 0.0"/>
         <float name="alpha" value="30"/>
     </bsdf>
-    <!--
-	<bsdf type="diffuse" id="white">
-        <rgb name="reflectance" value="0.5 0.5 0.5"/>
-    </bsdf>
-    -->
 
 	<bsdf type="diffuse" id="red">
 		<rgb name="reflectance" value="1.0 0.0 0.0"/>
@@ -43,51 +38,49 @@
 	</bsdf>
 
 	<shape type="obj">
-        <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_luminaire.obj"/>
+        <string name="filename" value="meshes/cbox_luminaire.obj"/>
 		<emitter type="area">
 			<rgb name="radiance" value="20.0 20.0 20.0"/>
 		</emitter>
     </shape>
 
 	<shape type="obj">
-		<string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_floor.obj"/>
+        <string name="filename" value="./meshes/cbox_floor.obj"/>
         <ref id="white"/>
 	</shape>
 
 	<shape type="obj">
-		<string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_ceiling.obj"/>
+        <string name="filename" value="../meshes/cbox_ceiling.obj"/>
 		<ref id="white"/>
 	</shape>
 
 	<shape type="obj">
-		<string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_back.obj"/>
+        <string name="filename" value="../../meshes/cbox_back.obj"/>
 		<ref id="white"/>
 	</shape>
 
     <shape type="obj">
-		<string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_greenwall.obj"/>
+		<string name="filename" value="meshes/cbox_greenwall.obj"/>
 		<ref id="green"/>
 	</shape>
 
 	<shape type="obj">
-		<string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_redwall.obj"/>
+		<string name="filename" value="meshes/cbox_redwall.obj"/>
 		<ref id="red"/>
     </shape>
 
 	<shape type="obj">
-		<string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_smallbox.obj"/>
+        <string name="filename" value="/diskc/SceneAR/Code/optixRendererForSUNCG/src/optixSUNCG/cbox/meshes/cbox_smallbox.obj"/>
 		<ref id="box"/>
 	</shape>
 
 	<shape type="obj">
-		<string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/meshes/cbox_largebox.obj"/>
+        <string name="filename" value="..//cbox/meshes/cbox_largebox.obj"/>
 		<ref id="box"/>
     </shape>
 
-    <!--
     <emitter type = "envmap">
-        <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/envmap.hdr"/>
+        <string name="filename" value="envmap.hdr"/>
     </emitter>
-    -->
 
 </scene>
