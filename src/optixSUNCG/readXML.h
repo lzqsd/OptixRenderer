@@ -17,6 +17,9 @@
 #include <set>
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
+#include "relativePath.h"
+
 
 
 std::vector<float> parseFloatStr(const std::string& str){
@@ -84,7 +87,7 @@ bool doObjTransform(objLoader::shape_t& shape, std::vector<objTransform>& TArr)
 }
 
 
-bool loadBsdf(std::vector<objLoader::material_t>& materials, TiXmlNode* module, int offset = 0)
+bool loadBsdf(std::vector<objLoader::material_t>& materials, TiXmlNode* module, std::string fileName, int offset = 0)
 {
     // Load materials
     objLoader::material_t mat;
@@ -146,9 +149,9 @@ bool loadBsdf(std::vector<objLoader::material_t>& materials, TiXmlNode* module, 
                             
                             if(strAttri -> Name() == std::string("value") ){
                                 if(texName == std::string("reflectance") )
-                                    mat.albedo_texname = std::string(strAttri -> Value());
+                                    mat.albedo_texname = relativePath(fileName, std::string(strAttri -> Value()) );
                                 else if(texName == std::string("normal") ){
-                                    mat.normal_texname = std::string(strAttri -> Value() );
+                                    mat.normal_texname = relativePath(fileName, std::string(strAttri -> Value() ) );
                                 }
                             }
                             else if(strAttri -> Name() == std::string("name") ){
@@ -237,16 +240,16 @@ bool loadBsdf(std::vector<objLoader::material_t>& materials, TiXmlNode* module, 
                             
                             if(strAttri -> Name() == std::string("value") ){
                                 if(texName == std::string("diffuseReflectance") ){
-                                    mat.albedo_texname = std::string(strAttri -> Value());
+                                    mat.albedo_texname = relativePath(fileName, std::string(strAttri -> Value()) );
                                 }
                                 else if(texName == std::string("specularReflectance") ){
-                                    mat.specular_texname = std::string(strAttri -> Value());
+                                    mat.specular_texname = relativePath(fileName, std::string(strAttri -> Value()) );
                                 }
                                 else if(texName == std::string("alpha") ){
-                                    mat.glossiness_texname = std::string(strAttri -> Value() );
+                                    mat.glossiness_texname = relativePath(fileName, std::string(strAttri -> Value() ) );
                                 }
                                 else if(texName == std::string("normal") ){
-                                    mat.normal_texname = std::string(strAttri -> Value() );
+                                    mat.normal_texname = relativePath(fileName, std::string(strAttri -> Value() ) );
                                 }
                             }
                             else if(strAttri -> Name() == std::string("name") ){
@@ -337,16 +340,16 @@ bool loadBsdf(std::vector<objLoader::material_t>& materials, TiXmlNode* module, 
 
                             if(strAttri -> Name() == std::string("value") ){
                                 if(texName == std::string("albedo") ){
-                                    mat.albedo_texname = std::string(strAttri -> Value());
+                                    mat.albedo_texname = relativePath(fileName, std::string(strAttri -> Value()) );
                                 }
                                 else if(texName == std::string("normal") ){
-                                    mat.normal_texname = std::string(strAttri -> Value() );
+                                    mat.normal_texname = relativePath(fileName, std::string(strAttri -> Value() ) );
                                 }
                                 else if(texName == std::string("roughness") ){
-                                    mat.roughness_texname = std::string(strAttri -> Value() );
+                                    mat.roughness_texname = relativePath(fileName, std::string(strAttri -> Value() ) );
                                 }
                                 else if(texName == std::string("metallic") ){
-                                    mat.metallic_texname = std::string(strAttri -> Value() );
+                                    mat.metallic_texname = relativePath(fileName, std::string(strAttri -> Value() ) );
                                 }
                             }
                             else if(strAttri -> Name() == std::string("name") ){
@@ -431,6 +434,7 @@ bool readXML(std::string fileName,
     materials.erase(materials.begin(), materials.end() );
 
     std::vector<objLoader::shape_t> shapesAll;
+
 
     // Load the xml file
     TiXmlDocument doc(fileName.c_str() );
@@ -661,7 +665,7 @@ bool readXML(std::string fileName,
                     }
                 }
                 else if(module -> Value() == std::string("bsdf") ){
-                    bool isLoadBsdf = loadBsdf(materials, module);
+                    bool isLoadBsdf = loadBsdf(materials, module, fileName );
                     if(!isLoadBsdf) return false;
                 }
                 else if(module -> Value() == std::string("shape") ){
@@ -695,7 +699,7 @@ bool readXML(std::string fileName,
                             for(TiXmlAttribute* shSubAttri = shSubEle -> FirstAttribute(); shSubAttri != 0; shSubAttri = shSubAttri -> Next() ){
 
                                 if(shSubAttri -> Name() == std::string("value") ){
-                                    bool isLoad = objLoader::LoadObj(shape, shSubAttri -> Value() );
+                                    bool isLoad = objLoader::LoadObj(shape, relativePath(fileName, shSubAttri -> Value() ) );
                                     if(isLoad == false){
                                         std::cout<<"Wrong: fail to load obj file!"<<std::endl;
                                         return false;
@@ -737,7 +741,7 @@ bool readXML(std::string fileName,
                             }   
                         }
                         else if(shSubModule -> Value() == std::string("bsdf") ){
-                            bool isLoadBsdf = loadBsdf(materialsShape, shSubModule, materials.size() );
+                            bool isLoadBsdf = loadBsdf(materialsShape, shSubModule, fileName, materials.size() );
                             if(!isLoadBsdf ) return false;
                         }
                         else if(shSubModule -> Value() == std::string("emitter") ){
@@ -942,8 +946,8 @@ bool readXML(std::string fileName,
                                         }
                                     }
                                     else if(emSubAttri -> Name() == std::string("value") ){
-                                        std::string fileName = emSubAttri->Value();
-                                        env.fileName = fileName;
+                                        std::string envName = relativePath(fileName, emSubAttri->Value() );
+                                        env.fileName = envName;
                                     }
                                     else{
                                         std::cout<<"Wrong: unrecognizable attribute of string of emitter!"<<std::endl;

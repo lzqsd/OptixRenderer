@@ -38,6 +38,7 @@
 #include <optixu/optixu_math_stream_namespace.h>
 #include <time.h>
 #include "sutil/HDRLoader.h"
+#include <limits.h>
 
 #include <sutil.h>
 #include "commonStructs.h"
@@ -61,6 +62,7 @@
 #include "areaLight.h"
 #include "envmap.h"
 #include "rgbe.h"
+#include "relativePath.h"
 #include <cmath>
 
 using namespace optix;
@@ -1473,6 +1475,16 @@ int main( int argc, char** argv )
     std::vector<Envmap> envmaps;
     std::vector<Point> points;
 
+    char fileNameNew[PATH_MAX+1 ];
+    char* isRealPath = realpath(fileName.c_str(), fileNameNew );
+    if(isRealPath == NULL){
+        std::cout<<"Wrong: Fail to transform the realpath of XML to true path."<<std::endl;
+        return false;
+    }
+    fileName = std::string(fileNameNew );
+    
+    outputFileName = relativePath(fileName, outputFileName );
+
     std::cout<<"Input file name: "<<fileName<<std::endl;
     std::cout<<"Output file name: "<<outputFileName<<std::endl;
 
@@ -1522,6 +1534,7 @@ int main( int argc, char** argv )
     std::vector<float> targetArr;
     std::vector<float> upArr;
     if(cameraFile != std::string("") ){
+        cameraFile = relativePath(fileName, cameraFile );
         bool isLoad = loadCamFile(cameraFile, camNum, originArr, targetArr, upArr);
         if (!isLoad ) return false;
     }
