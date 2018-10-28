@@ -28,7 +28,6 @@ void splitPath(std::vector<std::string>& strs, std::string inputPath ){
 std::string relativePath(std::string root, std::string inputPath){
 
     if(inputPath[0] == '/'){
-        std::cout<<inputPath<<std::endl;
         return inputPath;
     }
     else{
