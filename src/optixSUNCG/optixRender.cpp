@@ -70,7 +70,7 @@ using namespace optix;
 
 const char* const SAMPLE_NAME = "optixSUNCG";
 const float PI = 3.1415926f;
-const int faceLimit = 100000;
+const int faceLimit = 10000;
 
 //------------------------------------------------------------------------------
 //
