@@ -37,6 +37,7 @@
 #include <optixu/optixu_aabb_namespace.h>
 #include <optixu/optixu_math_stream_namespace.h>
 #include <time.h>
+#include <unistd.h>
 #include "sutil/HDRLoader.h"
 #include <limits.h>
 
@@ -1683,6 +1684,17 @@ int main( int argc, char** argv )
     
     float* imgData = new float[cameraInput.width * cameraInput.height * 3];
     for(int i = 0; i < camNum; i++){ 
+        std::string outputFileNameNew = generateOutputFilename(outputFileName, mode,
+                cameraInput.isHdr, i, camNum);
+
+        if(access(outputFileNameNew.c_str(), F_OK ) ){
+            std::cout<<"Warning: "<<outputFileNameNew<<" already exists. Will be skipped."<<std::endl;
+            continue;
+        }
+        else{
+            std::cout<<"Output Image: "<<outputFileNameNew<<std::endl;
+        }
+
         for(int j = 0; j < 3; j++){
             cameraInput.origin[j] = originArr[i * 3 + j];
             cameraInput.target[j] = targetArr[i * 3 + j];
@@ -1722,9 +1734,6 @@ int main( int argc, char** argv )
         t = clock() - t;
         std::cout<<"Time: "<<float(t) / CLOCKS_PER_SEC<<'s'<<std::endl;
 
-        std::string outputFileNameNew = generateOutputFilename(outputFileName, mode,
-                cameraInput.isHdr, i, camNum);
-        std::cout<<"Output Image: "<<outputFileNameNew<<std::endl;
          
         bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
                 imgData,
