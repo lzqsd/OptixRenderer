@@ -24,7 +24,9 @@
 	</bsdf>
 
 	<bsdf type="phong" id="white">
-        <rgb name="diffuseReflectance" value="0.5 0.5 0.5"/>
+        <texture name="diffuseReflectance">
+            <string name = "filename" value = "meshes/Id_2.png"/>
+        </texture>
         <rgb name="specularReflectance" value="0.5 0.0 0.0"/>
         <float name="alpha" value="30"/>
     </bsdf>
@@ -47,15 +49,16 @@
 	<shape type="obj">
         <string name="filename" value="./meshes/cbox_floor.obj"/>
         <ref id="white"/>
-	</shape>
+    </shape>
 
+    <!--
 	<shape type="obj">
-        <string name="filename" value="../meshes/cbox_ceiling.obj"/>
+        <string name="filename" value="meshes/cbox_ceiling.obj"/>
 		<ref id="white"/>
 	</shape>
 
 	<shape type="obj">
-        <string name="filename" value="../../meshes/cbox_back.obj"/>
+        <string name="filename" value="meshes/cbox_back.obj"/>
 		<ref id="white"/>
 	</shape>
 
@@ -72,12 +75,13 @@
 	<shape type="obj">
         <string name="filename" value="/diskc/SceneAR/Code/optixRendererForSUNCG/src/optixSUNCG/cbox/meshes/cbox_smallbox.obj"/>
 		<ref id="box"/>
-	</shape>
+    </shape>
 
 	<shape type="obj">
-        <string name="filename" value="..//cbox/meshes/cbox_largebox.obj"/>
+        <string name="filename" value="../cbox/meshes/cbox_largebox.obj"/>
 		<ref id="box"/>
     </shape>
+    -->
 
     <emitter type = "envmap">
         <string name="filename" value="envmap.hdr"/>
