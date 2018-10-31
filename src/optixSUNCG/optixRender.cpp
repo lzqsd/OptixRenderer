@@ -37,7 +37,6 @@
 #include <optixu/optixu_aabb_namespace.h>
 #include <optixu/optixu_math_stream_namespace.h>
 #include <time.h>
-#include <unistd.h>
 #include "sutil/HDRLoader.h"
 #include <limits.h>
 
@@ -1687,7 +1686,8 @@ int main( int argc, char** argv )
         std::string outputFileNameNew = generateOutputFilename(outputFileName, mode,
                 cameraInput.isHdr, i, camNum);
 
-        if(access(outputFileNameNew.c_str(), F_OK ) ){
+        std::ifstream f(outputFileNameNew.c_str() );
+        if(f.good() ){
             std::cout<<"Warning: "<<outputFileNameNew<<" already exists. Will be skipped."<<std::endl;
             continue;
         }

@@ -10,7 +10,7 @@
 			<lookAt origin="278, 273, -800" target="278, 273, -799" up="0, 1, 0"/>
 		</transform>
 		<sampler type="independent">
-			<integer name="sampleCount" value="1000"/>
+			<integer name="sampleCount" value="10000"/>
 		</sampler>
 
 		<film type="ldrfilm">
@@ -23,12 +23,11 @@
         <rgb name="reflectance" value="0.5 0.5 0.5"/>
 	</bsdf>
 
-	<bsdf type="phong" id="white">
-        <texture name="diffuseReflectance">
+	<bsdf type="microfacet" id="white">
+        <texture name="albedo">
             <string name = "filename" value = "meshes/Id_2.png"/>
         </texture>
-        <rgb name="specularReflectance" value="0.5 0.0 0.0"/>
-        <float name="alpha" value="30"/>
+        <float name = "roughness" value = "0.01"/>
     </bsdf>
 
 	<bsdf type="diffuse" id="red">

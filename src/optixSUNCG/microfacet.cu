@@ -218,8 +218,8 @@ RT_CALLABLE_PROGRAM float SpecularPdf(const float3& L, const float3& V, const fl
     float3 H = normalize( (L+V) / 2.0 );
     float NoH = dot(N, H);
     float VoH = dot(V, H);
-    float pdf = (a2 * NoH) / (4 * M_PIf * (1 + (a2-1) * NoH)
-            *(1 + (a2-1) * NoH) * VoH );
+    float pdf = (a2 * NoH) / fmaxf( (4 * M_PIf * (1 + (a2-1) * NoH)
+            *(1 + (a2-1) * NoH) * VoH ), 1e-6);
     return fmaxf(pdf, 1e-6f);
 }
 RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& V, const float3& N, float R)
