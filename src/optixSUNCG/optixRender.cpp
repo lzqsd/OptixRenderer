@@ -70,7 +70,7 @@ using namespace optix;
 
 const char* const SAMPLE_NAME = "optixSUNCG";
 const float PI = 3.1415926f;
-const int faceLimit = 10000;
+const int faceLimit = 40000;
 
 //------------------------------------------------------------------------------
 //
@@ -206,9 +206,6 @@ cv::Mat loadEnvmap(std::string fileName, unsigned width = 1024, unsigned height 
         }
         cv::Mat envMatNew(height, width, CV_32FC3);
         cv::resize(envMat, envMatNew, cv::Size(width, height), cv::INTER_AREA); 
-
-        std::cout<<"Env Width: "<<envWidth << std::endl;
-        std::cout<<"Env Height :"<<envHeight << std::endl;
         return envMatNew;
     }
 }
@@ -1106,10 +1103,6 @@ void createGeometry(
                 materialPt[i] = shape.mesh.materialIds[i];
             }
          
-            std::cout<<"Vertex Num: "<<vertexNum<<std::endl; 
-            std::cout<<"Texcoord Num: "<<texNum<<std::endl;
-            std::cout<<"Normal Num: "<<normalNum<<std::endl;
-         
             vertexBuffer -> unmap();
             faceBuffer -> unmap();
             faceVnBuffer -> unmap();
@@ -1136,7 +1129,6 @@ void createGeometry(
          
             // Currently only support diffuse material and area light 
             std::vector<Material> optix_materials;
-            std::cout<<"Mode: "<<mode<<std::endl;
             if(!shape.isLight ){
                 if(mode == 0){
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
@@ -1223,9 +1215,6 @@ void createGeometry(
                     optix_materials.push_back(mat);
                 }
             }
-         
-            std::cout<<"Material Num: "<<optix_materials.size()<<std::endl;
-            std::cout<<std::endl;
          
             GeometryInstance geom_instance = context->createGeometryInstance(
                     geometry,
