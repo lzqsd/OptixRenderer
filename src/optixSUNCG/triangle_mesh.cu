@@ -113,9 +113,10 @@ void meshIntersect( int primIdx )
           tangent_direction = normalize(p1 - p0);
           bitangent_direction = cross(shading_normal, tangent_direction);
       } else {
-          float2 t0 = texcoord_buffer[ v_idx.x];
-          float2 t1 = texcoord_buffer[ v_idx.y];
-          float2 t2 = texcoord_buffer[ v_idx.z];
+          const int3 vt_idx = index_tex_buffer[primIdx ];
+          float2 t0 = texcoord_buffer[ vt_idx.x];
+          float2 t1 = texcoord_buffer[ vt_idx.y];
+          float2 t2 = texcoord_buffer[ vt_idx.z];
           float2 duv1 = t1 - t0;
           float2 duv2 = t2 - t0;
           float3 dp1 = p1 - p0;
