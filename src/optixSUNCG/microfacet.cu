@@ -224,6 +224,7 @@ RT_CALLABLE_PROGRAM float SpecularPdf(const float3& L, const float3& V, const fl
 }
 RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& V, const float3& N, float R)
 {
+    float sR = fmin(fmaxf(R, 0.1), 0.9);
     float pdfLambertian = LambertianPdf(L, N);
     float pdfSpecular = SpecularPdf(L, V, N, R);
     return pdfLambertian * 0.5 + pdfSpecular * 0.5;
@@ -263,7 +264,7 @@ RT_CALLABLE_PROGRAM void sample(unsigned& seed,
     const float z1 = rnd( seed );
     const float z2 = rnd( seed );
     const float z = rnd( seed );
-
+    
     float alpha = rough * rough;
     float k = (alpha + 2 * rough + 1) / 8.0;
     float alpha2 = alpha * alpha;
