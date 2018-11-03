@@ -1448,7 +1448,7 @@ bool adaptiveSampling(
         Context& context,
         int width, int height, int& sampleNum, 
         float* imgData, 
-        int maxExpo = 4)
+        int maxExpo = 6)
 {
     unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) ) + 1.0);
     if(sqrt_num_samples == 0)
