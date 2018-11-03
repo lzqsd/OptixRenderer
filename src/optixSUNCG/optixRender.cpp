@@ -142,7 +142,6 @@ void createContext( bool use_pbo,
     context["max_depth"]->setInt(maxDepth);
     context["sqrt_num_samples"] -> setUint(sqrt_num_samples);
     context["rr_begin_depth"] -> setUint(rr_begin_depth);
-    context["initSeed"] -> setUint(0);
     
     Buffer outputBuffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, width, height);
     context["output_buffer"]->set( outputBuffer );
@@ -1424,6 +1423,9 @@ void independentSampling(
     if(sqrt_num_samples == 0)
         sqrt_num_samples = 1;
     context["sqrt_num_samples"] -> setUint(sqrt_num_samples );
+    
+    srand(time(NULL) );
+    context["initSeed"] -> setUint( rand() );
 
     context -> launch(0, width, height);
     Buffer imgBuffer = getOutputBuffer(context ); 
@@ -1457,7 +1459,8 @@ bool adaptiveSampling(
     float* tempBuffer = new float[pixelNum ];
     
     // Render the first image 
-    context["initSeed"] -> setUint(0);
+    srand(time(NULL) );
+    context["initSeed"] -> setUint( unsigned(0.5 * rand() ) );
     context -> launch(0, width, height);
     Buffer imgBuffer = getOutputBuffer(context );
     float* imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
