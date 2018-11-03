@@ -441,7 +441,7 @@ RT_PROGRAM void closest_hit_radiance()
 
     // Sammple the new ray 
     sample(prd_radiance.seed, 
-        albedoValue, N, roughValue, fresnel, V, 
+        albedoValue, N, fmaxf(roughValue, 0.02), fresnel, V, 
         onb, 
         prd_radiance.attenuation, prd_radiance.direction, prd_radiance.pdf);
 }
