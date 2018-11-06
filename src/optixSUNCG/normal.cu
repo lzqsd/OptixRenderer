@@ -58,9 +58,12 @@ RT_PROGRAM void closest_hit_radiance()
 {
     const float3 world_shading_normal   = normalize( rtTransformNormal( RT_OBJECT_TO_WORLD, shading_normal ) );
     const float3 world_geometric_normal = normalize( rtTransformNormal( RT_OBJECT_TO_WORLD, geometric_normal ) );
-    const float3 ffnormal = faceforward( world_shading_normal, -ray.direction, world_geometric_normal );
+    float3 ffnormal = faceforward( world_shading_normal, -ray.direction, world_geometric_normal );
     
     float3 V = normalize(-ray.direction );    
+    
+    if(dot(ffnormal, V) < 0)
+        ffnormal = -ffnormal;
 
     float3 N;
     if( isNormalTexture == 0){
@@ -75,8 +78,6 @@ RT_PROGRAM void closest_hit_radiance()
     }
     N = normalize(N );
 
-    if(dot(N, V) < 0)
-        N = -N;
 
     float3 Z = normalize(-cameraW);
     float3 X = normalize(cameraU);

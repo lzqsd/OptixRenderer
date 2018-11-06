@@ -197,8 +197,7 @@ RT_CALLABLE_PROGRAM void sampleEnvironmapLight(unsigned int& seed, float3& radia
 // Computing the pdfSolidAngle of BRDF giving a direction 
 RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& V, const float3& N)
 {
-    float NoL = dot(N, L);
-    if(NoL < 0) NoL = -NoL;
+    float NoL = fmaxf(dot(N, L), 1e-12);
     float pdf = NoL / M_PIf; 
     return fmaxf(pdf, 1e-6);
 }
@@ -206,9 +205,7 @@ RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& V, const float3& N)
 RT_CALLABLE_PROGRAM float3 evaluate(const float3& albedoValue, const float3& N, const float3& V, const float3& L, const float3& radiance)
 {
     
-    float NoL = dot(N, L);
-    if(NoL < 0) NoL = -NoL;
-    NoL = fmaxf(NoL, 1e-6);
+    float NoL = fmaxf(dot(N, L), 1e-12);
     float3 intensity = albedoValue / M_PIf * NoL * radiance; 
     return intensity;
 }
@@ -234,7 +231,7 @@ RT_PROGRAM void closest_hit_radiance()
 {
     const float3 world_shading_normal   = normalize( rtTransformNormal( RT_OBJECT_TO_WORLD, shading_normal ) );
     const float3 world_geometric_normal = normalize( rtTransformNormal( RT_OBJECT_TO_WORLD, geometric_normal ) );
-    const float3 ffnormal = faceforward( world_shading_normal, -ray.direction, world_geometric_normal );
+    float3 ffnormal = faceforward( world_shading_normal, -ray.direction, world_geometric_normal );
 
     
     float3 albedoValue;
@@ -249,6 +246,8 @@ RT_PROGRAM void closest_hit_radiance()
     }
    
     float3 V = normalize(-ray.direction );
+    if(dot(ffnormal, V) < 0)
+        ffnormal = -ffnormal;
     
     float3 N;
     if( isNormalTexture == 0){
@@ -262,8 +261,6 @@ RT_PROGRAM void closest_hit_radiance()
             + N.z * ffnormal;
     }
     N = normalize(N );
-    if(dot(N, V) < -0.1)
-        N = -N;
     optix::Onb onb(N );
 
     
@@ -280,7 +277,7 @@ RT_PROGRAM void closest_hit_radiance()
             float Dist = length(position - hitPoint);
             float3 L = normalize(position - hitPoint);
 
-            if(dot(N, L) * dot(V, N) > 0 ){
+            if(fmaxf(dot(N, L), 0.0) * fmaxf(dot(V, N), 0.0) > 0 ){
                 float cosPhi = dot(L, normal);
                 cosPhi = (cosPhi < 0) ? -cosPhi : cosPhi;
 
@@ -313,7 +310,7 @@ RT_PROGRAM void closest_hit_radiance()
                 float3 L = normalize(position - hitPoint);
                 float Dist = length(position - hitPoint);
                 
-                if(dot(N, L) * dot(N, V) > 0 ){
+                if(fmaxf(dot(N, L), 0.0) * fmaxf(dot(N, V), 0.0) > 0 ){
                     Ray shadowRay = make_Ray(hitPoint + 0.1 * L * scene_epsilon, L, 1, scene_epsilon, Dist - scene_epsilon);
                     PerRayData_shadow prd_shadow; 
                     prd_shadow.inShadow = false;
@@ -334,7 +331,7 @@ RT_PROGRAM void closest_hit_radiance()
             float pdfSolidEnv;
             sampleEnvironmapLight(prd_radiance.seed, radiance, L, pdfSolidEnv);
 
-            if( dot(L, N) * dot(V, N)  > 0 ){
+            if( fmaxf(dot(L, N), 0.0) * fmaxf(dot(V, N), 0.0)  > 0 ){
                 Ray shadowRay = make_Ray(hitPoint + 0.1*scene_epsilon, L, 1, scene_epsilon, infiniteFar);
                 PerRayData_shadow prd_shadow;
                 prd_shadow.inShadow = false;
