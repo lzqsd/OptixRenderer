@@ -359,8 +359,7 @@ void createEnvmap(
                 envpdf_p[envId] = envWeight[envId];
             }
         }
-
-        
+ 
         envpdf -> unmap();
         envcdfV -> unmap();
         envcdfH -> unmap();
@@ -1226,6 +1225,17 @@ void createGeometry(
     context["top_object"] -> set( geometry_group);
 }
 
+long unsigned vertexCount(const std::vector<objLoader::shape_t>& shapes)
+{
+    long unsigned vertexSum = 0;
+    for(int i = 0; i < shapes.size(); i++){
+        objLoader::shape_t shape = shapes[i];
+        int vertexNum = shape.mesh.positions.size() / 3;
+        vertexSum += vertexNum;
+    }
+    return vertexSum;
+}
+
 void boundingBox(
         Context& context,
         const std::vector<objLoader::shape_t>& shapes
@@ -1448,7 +1458,9 @@ bool adaptiveSampling(
         Context& context,
         int width, int height, int& sampleNum, 
         float* imgData, 
-        int maxExpo = 7)
+        float noiseLimit = 0.11,
+        bool noiseLimitEnabled = false,
+        int maxExpo = 5)
 {
     unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) ) + 1.0);
     if(sqrt_num_samples == 0)
@@ -1496,6 +1508,11 @@ bool adaptiveSampling(
             std::cout<<"Samle Num: "<<sampleNum * 2<<std::endl;
             std::cout<<"Error: "<<error<<std::endl;
             imgBuffer -> unmap();
+
+            if(expo == 1 && noiseLimitEnabled == true && error > noiseLimit ){
+                std::cout<<"Warning: the rendered image is too noisy, will stop!"<<std::endl;
+                return true;
+            }
  
             if(error < threshold || expo >= maxExpo){
                 break;
@@ -1534,6 +1551,10 @@ int main( int argc, char** argv )
     std::string cameraFile("");
     int mode = 0;
     std::vector<int> gpuIds;
+    float noiseLimit = 0.11;
+    int vertexLimit = 150000;
+    bool noiseLimitEnabled = false;
+    bool vertexLimitEnabled = false;
 
     for(int i = 0; i < argc; i++){
         if(i == 0){
@@ -1576,6 +1597,25 @@ int main( int argc, char** argv )
                 gpuIds.push_back(atoi(argv[++i] ) );
             }
         }
+        else if(std::string(argv[i] ) == std::string("--noiseLimit") ){
+            if(i == argc - 1){
+                std::cout<<"Missing  input variable"<<std::endl;
+                exit(1);
+            }
+            std::vector<float> flArr = parseFloatStr(std::string(argv[++i] ) );
+            noiseLimit = flArr[0];
+            noiseLimitEnabled = true;
+            std::cout<<"Warning: noiseLimit "<<noiseLimit<<"is enabled!"<<std::endl;
+        }
+        else if(std::string(argv[i] ) == std::string("--vertexLimit") ){
+            if(i == argc - 1){
+                std::cout<<"Missing input variable"<<std::endl;
+                exit(1);
+            }
+            vertexLimit = atoi(argv[++i] );
+            vertexLimitEnabled = true; 
+            std::cout<<"Warning: vertexLimit "<<vertexLimit<<"is enabled!"<<std::endl;
+        }
         else{
             std::cout<<"Unrecognizable input command"<<std::endl;
             exit(1);
@@ -1604,8 +1644,16 @@ int main( int argc, char** argv )
     bool isXml = readXML(fileName, shapes, materials, cameraInput, envmaps, points);
     if(!isXml ) return false;
 
+    long unsigned vertexNum = vertexCount(shapes );
+
     std::cout<<"Material num: "<<materials.size() << std::endl;
     std::cout<<"Shape num: "<<shapes.size() <<std::endl;
+    std::cout<<"Vertex num: "<<vertexNum <<std::endl;
+    if(vertexLimitEnabled && vertexNum > vertexLimit){
+        std::cout<<"Warning: the model is too huge, will be skipped!"<<std::endl;
+        return 0;
+    }
+
     std::cout<<"Camera Parameters: "<<std::endl;
     std::cout<<"Camera Field of View: "<<cameraInput.fov<<std::endl;
     std::cout<<"Width: "<<cameraInput.width<<std::endl;
@@ -1716,9 +1764,10 @@ int main( int argc, char** argv )
         }
         else if(cameraInput.sampleType == std::string("adaptive") ) {
             int sampleNum = cameraInput.sampleNum;
-            bool isTooDark = adaptiveSampling(context, cameraInput.width, cameraInput.height, sampleNum, imgData);
+            bool isTooDarkOrTooNoisy = adaptiveSampling(context, cameraInput.width, cameraInput.height, sampleNum, imgData, 
+                    noiseLimit, noiseLimitEnabled);
             std::cout<<"Sample Num: "<<sampleNum<<std::endl;
-            if(isTooDark){
+            if(isTooDarkOrTooNoisy){
                 std::cout<<"This image will not be output!"<<std::endl;
                 continue;
             }
