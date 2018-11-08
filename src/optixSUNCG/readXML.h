@@ -9,7 +9,7 @@
 #include "sutil.h"
 #include "tinyxml.h"
 #include "sutil/tinyobjloader/objLoader.h"
-#include "CameraInput.h"
+#include "cameraInput.h"
 #include "areaLight.h"
 #include "envmap.h"
 #include "point.h"

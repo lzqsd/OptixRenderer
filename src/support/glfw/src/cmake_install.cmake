@@ -1,4 +1,4 @@
-# Install script for directory: /diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src
+# Install script for directory: /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/src
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,10 +33,34 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FOREACH(file
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglfw.so.3.2"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglfw.so.3"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglfw.so"
+      )
+    IF(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      FILE(RPATH_CHECK
+           FILE "${file}"
+           RPATH "")
+    ENDIF()
+  ENDFOREACH()
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
-    "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3.2"
-    "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so.3"
-    "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/CMakeFiles/CMakeRelink.dir/libglfw.so"
+    "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/lib/libglfw.so.3.2"
+    "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/lib/libglfw.so.3"
+    "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/lib/libglfw.so"
     )
+  FOREACH(file
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglfw.so.3.2"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglfw.so.3"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglfw.so"
+      )
+    IF(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      IF(CMAKE_INSTALL_DO_STRIP)
+        EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "${file}")
+      ENDIF(CMAKE_INSTALL_DO_STRIP)
+    ENDIF()
+  ENDFOREACH()
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

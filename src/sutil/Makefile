@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
+CMAKE_SOURCE_DIR = /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /diskc/SceneAR/Code/optixRendererForSUNCG/src
+CMAKE_BINARY_DIR = /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -82,6 +82,16 @@ install/local: preinstall
 install/local/fast: install/local
 .PHONY : install/local/fast
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+.PHONY : install/strip/fast
+
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -103,14 +113,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles /diskc/SceneAR/Code/optixRendererForSUNCG/src/sutil/CMakeFiles/progress.marks
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/optixRendererForSUNCG/src/CMakeFiles 0
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/CMakeFiles /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/sutil/CMakeFiles/progress.marks
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/clean
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/clean
 .PHONY : clean
 
 # The main clean target
@@ -119,22 +129,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/preinstall
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/preinstall
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 sutil/CMakeFiles/sutil_sdk.dir/rule:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/CMakeFiles/sutil_sdk.dir/rule
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f CMakeFiles/Makefile2 sutil/CMakeFiles/sutil_sdk.dir/rule
 .PHONY : sutil/CMakeFiles/sutil_sdk.dir/rule
 
 # Convenience name for target.
@@ -143,7 +153,7 @@ sutil_sdk: sutil/CMakeFiles/sutil_sdk.dir/rule
 
 # fast build rule for target.
 sutil_sdk/fast:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/build
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/build
 .PHONY : sutil_sdk/fast
 
 Arcball.o: Arcball.cpp.o
@@ -151,7 +161,7 @@ Arcball.o: Arcball.cpp.o
 
 # target to build an object file
 Arcball.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Arcball.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Arcball.cpp.o
 .PHONY : Arcball.cpp.o
 
 Arcball.i: Arcball.cpp.i
@@ -159,7 +169,7 @@ Arcball.i: Arcball.cpp.i
 
 # target to preprocess a source file
 Arcball.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Arcball.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Arcball.cpp.i
 .PHONY : Arcball.cpp.i
 
 Arcball.s: Arcball.cpp.s
@@ -167,7 +177,7 @@ Arcball.s: Arcball.cpp.s
 
 # target to generate assembly for a file
 Arcball.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Arcball.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Arcball.cpp.s
 .PHONY : Arcball.cpp.s
 
 Camera.o: Camera.cpp.o
@@ -175,7 +185,7 @@ Camera.o: Camera.cpp.o
 
 # target to build an object file
 Camera.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Camera.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Camera.cpp.o
 .PHONY : Camera.cpp.o
 
 Camera.i: Camera.cpp.i
@@ -183,7 +193,7 @@ Camera.i: Camera.cpp.i
 
 # target to preprocess a source file
 Camera.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Camera.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Camera.cpp.i
 .PHONY : Camera.cpp.i
 
 Camera.s: Camera.cpp.s
@@ -191,7 +201,7 @@ Camera.s: Camera.cpp.s
 
 # target to generate assembly for a file
 Camera.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Camera.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Camera.cpp.s
 .PHONY : Camera.cpp.s
 
 HDRLoader.o: HDRLoader.cpp.o
@@ -199,7 +209,7 @@ HDRLoader.o: HDRLoader.cpp.o
 
 # target to build an object file
 HDRLoader.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/HDRLoader.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/HDRLoader.cpp.o
 .PHONY : HDRLoader.cpp.o
 
 HDRLoader.i: HDRLoader.cpp.i
@@ -207,7 +217,7 @@ HDRLoader.i: HDRLoader.cpp.i
 
 # target to preprocess a source file
 HDRLoader.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/HDRLoader.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/HDRLoader.cpp.i
 .PHONY : HDRLoader.cpp.i
 
 HDRLoader.s: HDRLoader.cpp.s
@@ -215,7 +225,7 @@ HDRLoader.s: HDRLoader.cpp.s
 
 # target to generate assembly for a file
 HDRLoader.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/HDRLoader.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/HDRLoader.cpp.s
 .PHONY : HDRLoader.cpp.s
 
 Mesh.o: Mesh.cpp.o
@@ -223,7 +233,7 @@ Mesh.o: Mesh.cpp.o
 
 # target to build an object file
 Mesh.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Mesh.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Mesh.cpp.o
 .PHONY : Mesh.cpp.o
 
 Mesh.i: Mesh.cpp.i
@@ -231,7 +241,7 @@ Mesh.i: Mesh.cpp.i
 
 # target to preprocess a source file
 Mesh.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Mesh.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Mesh.cpp.i
 .PHONY : Mesh.cpp.i
 
 Mesh.s: Mesh.cpp.s
@@ -239,7 +249,7 @@ Mesh.s: Mesh.cpp.s
 
 # target to generate assembly for a file
 Mesh.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Mesh.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/Mesh.cpp.s
 .PHONY : Mesh.cpp.s
 
 OptiXMesh.o: OptiXMesh.cpp.o
@@ -247,7 +257,7 @@ OptiXMesh.o: OptiXMesh.cpp.o
 
 # target to build an object file
 OptiXMesh.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/OptiXMesh.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/OptiXMesh.cpp.o
 .PHONY : OptiXMesh.cpp.o
 
 OptiXMesh.i: OptiXMesh.cpp.i
@@ -255,7 +265,7 @@ OptiXMesh.i: OptiXMesh.cpp.i
 
 # target to preprocess a source file
 OptiXMesh.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/OptiXMesh.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/OptiXMesh.cpp.i
 .PHONY : OptiXMesh.cpp.i
 
 OptiXMesh.s: OptiXMesh.cpp.s
@@ -263,7 +273,7 @@ OptiXMesh.s: OptiXMesh.cpp.s
 
 # target to generate assembly for a file
 OptiXMesh.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/OptiXMesh.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/OptiXMesh.cpp.s
 .PHONY : OptiXMesh.cpp.s
 
 PPMLoader.o: PPMLoader.cpp.o
@@ -271,7 +281,7 @@ PPMLoader.o: PPMLoader.cpp.o
 
 # target to build an object file
 PPMLoader.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/PPMLoader.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/PPMLoader.cpp.o
 .PHONY : PPMLoader.cpp.o
 
 PPMLoader.i: PPMLoader.cpp.i
@@ -279,7 +289,7 @@ PPMLoader.i: PPMLoader.cpp.i
 
 # target to preprocess a source file
 PPMLoader.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/PPMLoader.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/PPMLoader.cpp.i
 .PHONY : PPMLoader.cpp.i
 
 PPMLoader.s: PPMLoader.cpp.s
@@ -287,7 +297,7 @@ PPMLoader.s: PPMLoader.cpp.s
 
 # target to generate assembly for a file
 PPMLoader.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/PPMLoader.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/PPMLoader.cpp.s
 .PHONY : PPMLoader.cpp.s
 
 SunSky.o: SunSky.cpp.o
@@ -295,7 +305,7 @@ SunSky.o: SunSky.cpp.o
 
 # target to build an object file
 SunSky.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/SunSky.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/SunSky.cpp.o
 .PHONY : SunSky.cpp.o
 
 SunSky.i: SunSky.cpp.i
@@ -303,7 +313,7 @@ SunSky.i: SunSky.cpp.i
 
 # target to preprocess a source file
 SunSky.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/SunSky.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/SunSky.cpp.i
 .PHONY : SunSky.cpp.i
 
 SunSky.s: SunSky.cpp.s
@@ -311,7 +321,7 @@ SunSky.s: SunSky.cpp.s
 
 # target to generate assembly for a file
 SunSky.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/SunSky.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/SunSky.cpp.s
 .PHONY : SunSky.cpp.s
 
 glew.o: glew.c.o
@@ -319,7 +329,7 @@ glew.o: glew.c.o
 
 # target to build an object file
 glew.c.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.o
 .PHONY : glew.c.o
 
 glew.i: glew.c.i
@@ -327,7 +337,7 @@ glew.i: glew.c.i
 
 # target to preprocess a source file
 glew.c.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.i
 .PHONY : glew.c.i
 
 glew.s: glew.c.s
@@ -335,7 +345,7 @@ glew.s: glew.c.s
 
 # target to generate assembly for a file
 glew.c.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.s
 .PHONY : glew.c.s
 
 rply-1.01/rply.o: rply-1.01/rply.c.o
@@ -343,7 +353,7 @@ rply-1.01/rply.o: rply-1.01/rply.c.o
 
 # target to build an object file
 rply-1.01/rply.c.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/rply-1.01/rply.c.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/rply-1.01/rply.c.o
 .PHONY : rply-1.01/rply.c.o
 
 rply-1.01/rply.i: rply-1.01/rply.c.i
@@ -351,7 +361,7 @@ rply-1.01/rply.i: rply-1.01/rply.c.i
 
 # target to preprocess a source file
 rply-1.01/rply.c.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/rply-1.01/rply.c.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/rply-1.01/rply.c.i
 .PHONY : rply-1.01/rply.c.i
 
 rply-1.01/rply.s: rply-1.01/rply.c.s
@@ -359,7 +369,7 @@ rply-1.01/rply.s: rply-1.01/rply.c.s
 
 # target to generate assembly for a file
 rply-1.01/rply.c.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/rply-1.01/rply.c.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/rply-1.01/rply.c.s
 .PHONY : rply-1.01/rply.c.s
 
 stb/stb_image_write.o: stb/stb_image_write.cpp.o
@@ -367,7 +377,7 @@ stb/stb_image_write.o: stb/stb_image_write.cpp.o
 
 # target to build an object file
 stb/stb_image_write.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/stb/stb_image_write.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/stb/stb_image_write.cpp.o
 .PHONY : stb/stb_image_write.cpp.o
 
 stb/stb_image_write.i: stb/stb_image_write.cpp.i
@@ -375,7 +385,7 @@ stb/stb_image_write.i: stb/stb_image_write.cpp.i
 
 # target to preprocess a source file
 stb/stb_image_write.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/stb/stb_image_write.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/stb/stb_image_write.cpp.i
 .PHONY : stb/stb_image_write.cpp.i
 
 stb/stb_image_write.s: stb/stb_image_write.cpp.s
@@ -383,7 +393,7 @@ stb/stb_image_write.s: stb/stb_image_write.cpp.s
 
 # target to generate assembly for a file
 stb/stb_image_write.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/stb/stb_image_write.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/stb/stb_image_write.cpp.s
 .PHONY : stb/stb_image_write.cpp.s
 
 sutil.o: sutil.cpp.o
@@ -391,7 +401,7 @@ sutil.o: sutil.cpp.o
 
 # target to build an object file
 sutil.cpp.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/sutil.cpp.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/sutil.cpp.o
 .PHONY : sutil.cpp.o
 
 sutil.i: sutil.cpp.i
@@ -399,7 +409,7 @@ sutil.i: sutil.cpp.i
 
 # target to preprocess a source file
 sutil.cpp.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/sutil.cpp.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/sutil.cpp.i
 .PHONY : sutil.cpp.i
 
 sutil.s: sutil.cpp.s
@@ -407,7 +417,7 @@ sutil.s: sutil.cpp.s
 
 # target to generate assembly for a file
 sutil.cpp.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/sutil.cpp.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/sutil.cpp.s
 .PHONY : sutil.cpp.s
 
 tinyobjloader/tiny_obj_loader.o: tinyobjloader/tiny_obj_loader.cc.o
@@ -415,7 +425,7 @@ tinyobjloader/tiny_obj_loader.o: tinyobjloader/tiny_obj_loader.cc.o
 
 # target to build an object file
 tinyobjloader/tiny_obj_loader.cc.o:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/tinyobjloader/tiny_obj_loader.cc.o
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/tinyobjloader/tiny_obj_loader.cc.o
 .PHONY : tinyobjloader/tiny_obj_loader.cc.o
 
 tinyobjloader/tiny_obj_loader.i: tinyobjloader/tiny_obj_loader.cc.i
@@ -423,7 +433,7 @@ tinyobjloader/tiny_obj_loader.i: tinyobjloader/tiny_obj_loader.cc.i
 
 # target to preprocess a source file
 tinyobjloader/tiny_obj_loader.cc.i:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/tinyobjloader/tiny_obj_loader.cc.i
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/tinyobjloader/tiny_obj_loader.cc.i
 .PHONY : tinyobjloader/tiny_obj_loader.cc.i
 
 tinyobjloader/tiny_obj_loader.s: tinyobjloader/tiny_obj_loader.cc.s
@@ -431,7 +441,7 @@ tinyobjloader/tiny_obj_loader.s: tinyobjloader/tiny_obj_loader.cc.s
 
 # target to generate assembly for a file
 tinyobjloader/tiny_obj_loader.cc.s:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/tinyobjloader/tiny_obj_loader.cc.s
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/tinyobjloader/tiny_obj_loader.cc.s
 .PHONY : tinyobjloader/tiny_obj_loader.cc.s
 
 # Help Target
@@ -443,6 +453,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... sutil_sdk"
@@ -493,6 +504,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /diskc/SceneAR/Code/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

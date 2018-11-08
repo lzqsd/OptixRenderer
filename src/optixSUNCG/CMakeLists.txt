@@ -37,8 +37,6 @@ OPTIX_add_sample_executable( optixSUNCG
     tinystr.cpp
     tinyxmlerror.cpp
     tinyxmlparser.cpp
-    tinyxml.h
-    tinystr.h
 
     path_trace_camera.cu
     diffuse.cu
@@ -54,7 +52,6 @@ OPTIX_add_sample_executable( optixSUNCG
     depth.cu
 
     # common headers
-    ${SAMPLES_INCLUDE_DIR}/commonStructs.h
     ${SAMPLES_INCLUDE_DIR}/helpers.h
     ${SAMPLES_INCLUDE_DIR}/intersection_refinement.h
     ${SAMPLES_INCLUDE_DIR}/random.h
