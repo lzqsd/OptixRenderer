@@ -303,12 +303,6 @@ endfunction()
 # Just make sure you rename all the occurances of the sample's name in the C code as well
 # and the CMakeLists.txt file.
 
-add_subdirectory(optixHello)
-add_subdirectory(optixGlass)
-add_subdirectory(optixOcean)
-add_subdirectory(optixProgressivePhotonMap)
-add_subdirectory(optixVox)
-add_subdirectory(optixParticleVolumes)
 add_subdirectory(optixSUNCG)
 #add_subdirectory(optixIntroduction)
 
