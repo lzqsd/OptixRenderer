@@ -324,30 +324,6 @@ SunSky.cpp.s:
 	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/SunSky.cpp.s
 .PHONY : SunSky.cpp.s
 
-glew.o: glew.c.o
-.PHONY : glew.o
-
-# target to build an object file
-glew.c.o:
-	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.o
-.PHONY : glew.c.o
-
-glew.i: glew.c.i
-.PHONY : glew.i
-
-# target to preprocess a source file
-glew.c.i:
-	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.i
-.PHONY : glew.c.i
-
-glew.s: glew.c.s
-.PHONY : glew.s
-
-# target to generate assembly for a file
-glew.c.s:
-	cd /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src && $(MAKE) -f sutil/CMakeFiles/sutil_sdk.dir/build.make sutil/CMakeFiles/sutil_sdk.dir/glew.c.s
-.PHONY : glew.c.s
-
 rply-1.01/rply.o: rply-1.01/rply.c.o
 .PHONY : rply-1.01/rply.o
 
@@ -478,9 +454,6 @@ help:
 	@echo "... SunSky.o"
 	@echo "... SunSky.i"
 	@echo "... SunSky.s"
-	@echo "... glew.o"
-	@echo "... glew.i"
-	@echo "... glew.s"
 	@echo "... rply-1.01/rply.o"
 	@echo "... rply-1.01/rply.i"
 	@echo "... rply-1.01/rply.s"
