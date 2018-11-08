@@ -39,8 +39,6 @@
 #include <time.h>
 #include <limits.h>
 
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_glfw_gl2.h>
 #include <opencv2/opencv.hpp>
 
 #include <time.h>
