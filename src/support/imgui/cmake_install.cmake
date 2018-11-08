@@ -1,4 +1,4 @@
-# Install script for directory: /diskc/SceneAR/Code/optixRendererForSUNCG/src/support/imgui
+# Install script for directory: /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/imgui
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

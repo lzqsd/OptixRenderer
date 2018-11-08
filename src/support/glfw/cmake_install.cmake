@@ -1,4 +1,4 @@
-# Install script for directory: /diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw
+# Install script for directory: /diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,13 +33,13 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/include/GLFW" FILES_MATCHING REGEX "/glfw3\\.h$" REGEX "/glfw3native\\.h$")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/include/GLFW" FILES_MATCHING REGEX "/glfw3\\.h$" REGEX "/glfw3native\\.h$")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/glfw3" TYPE FILE FILES
-    "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/glfw3Config.cmake"
-    "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/glfw3ConfigVersion.cmake"
+    "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/src/glfw3Config.cmake"
+    "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/src/glfw3ConfigVersion.cmake"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
@@ -47,7 +47,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/glfw3/glfw3Targets.cmake")
     FILE(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/glfw3/glfw3Targets.cmake"
-         "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/CMakeFiles/Export/lib/cmake/glfw3/glfw3Targets.cmake")
+         "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/CMakeFiles/Export/lib/cmake/glfw3/glfw3Targets.cmake")
     IF(EXPORT_FILE_CHANGED)
       FILE(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/glfw3/glfw3Targets-*.cmake")
       IF(OLD_CONFIG_FILES)
@@ -56,19 +56,19 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
       ENDIF(OLD_CONFIG_FILES)
     ENDIF(EXPORT_FILE_CHANGED)
   ENDIF()
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/glfw3" TYPE FILE FILES "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/CMakeFiles/Export/lib/cmake/glfw3/glfw3Targets.cmake")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/glfw3" TYPE FILE FILES "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/CMakeFiles/Export/lib/cmake/glfw3/glfw3Targets.cmake")
   IF("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/glfw3" TYPE FILE FILES "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/CMakeFiles/Export/lib/cmake/glfw3/glfw3Targets-release.cmake")
+    FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/glfw3" TYPE FILE FILES "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/CMakeFiles/Export/lib/cmake/glfw3/glfw3Targets-release.cmake")
   ENDIF("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/glfw3.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/src/glfw3.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/diskc/SceneAR/Code/optixRendererForSUNCG/src/support/glfw/src/cmake_install.cmake")
+  INCLUDE("/diskc/SceneAR/Code/newCode/optixRendererForSUNCG/src/support/glfw/src/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
