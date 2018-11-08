@@ -60,25 +60,7 @@ set(sources
   tinyobjloader/tiny_obj_loader.h
   )
 
-if(OPENGL_FOUND AND NOT APPLE)
-  list(APPEND sources "glew.c" "GL/glew.h")
-  if( WIN32 )
-    list(APPEND sources "GL/wglew.h")
-  else()
-    list(APPEND sources "GL/glxew.h")
-  endif()
 
-  if( WIN32 )
-    add_definitions(-DGLEW_BUILD)
-  endif()
-
-  if(USING_GNU_CXX OR USING_CLANG_CXX)
-    # glew.c #includes glew.h which contains "lax" function prototypes
-    set_source_files_properties("glew.c" PROPERTIES COMPILE_FLAGS  "-Wno-strict-prototypes -Wno-missing-prototypes")
-
-  endif()
-  
-endif()
 
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
@@ -102,14 +84,7 @@ if(USING_GNU_C OR USING_GNU_CXX)
   endif()
 endif()
 
-# Note that if the GLFW and OPENGL_LIBRARIES haven't been looked for, these
 # variable will be empty.
-target_link_libraries(${sutil_target}
-  optix
-  glfw 
-  imgui 
-  ${OPENGL_LIBRARIES}
-  )
 if(WIN32)
   target_link_libraries(${sutil_target} winmm.lib)
 endif()

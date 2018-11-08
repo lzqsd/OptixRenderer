@@ -54,7 +54,6 @@
   } while(0)
 
 
-struct GLFWwindow;
 
 namespace sutil
 {
@@ -109,20 +108,6 @@ optix::GeometryInstance SUTILAPI createOptiXGroundPlane( optix::Context context,
                                                          optix::Material material,
                                                          float scale );
 
-// Initialize GLFW.  Should be called before any GLFW display functions.
-// Returns the root GLFWwindow.
-SUTILAPI GLFWwindow* initGLFW();
-
-// Create GLFW window and display contents of the buffer.
-void SUTILAPI displayBufferGLFW(
-        const char* window_title,           // Window title
-        optix::Buffer buffer);              // Buffer to be displayed
-
-// Create GLFW window and display contents of the buffer (C API version).
-void SUTILAPI displayBufferGLFW(
-        const char* window_title,           // Window title
-        RTbuffer buffer);                   // Buffer to be displayed
-
 // Write the contents of the Buffer to an image file with type based on extension
 void SUTILAPI writeBufferToFile(
         const char* filename,               // Image file to be created
@@ -134,14 +119,7 @@ void SUTILAPI writeBufferToFile(
         RTbuffer buffer);                   // Buffer to be displayed
 
 
-// Display contents of buffer, where the OpenGL context is managed by caller.
-void SUTILAPI displayBufferGL(
-        optix::Buffer buffer ); // Buffer to be displayed
         
-// Display frames per second, where the OpenGL context
-// is managed by the caller.
-void SUTILAPI displayFps(
-        unsigned total_frame_count );    // total frame count
 
 // Create on OptiX TextureSampler for the given image file.  If the filename is
 // empty or if loading the file fails, return 1x1 texture with default color.
