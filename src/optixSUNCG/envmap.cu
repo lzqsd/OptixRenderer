@@ -16,6 +16,7 @@ rtDeclareVariable(PerRayData_radiance, prd_radiance, rtPayload, );
 // Environmental Lighting 
 rtDeclareVariable(int, isEnvmap, , );
 rtTextureSampler<float4, 2> envmap;
+rtTextureSampler<float4, 2> envmapDirec;
 rtBuffer<float, 2> envcdfV;
 rtBuffer<float, 2> envcdfH;
 rtBuffer<float, 2> envpdf;
@@ -55,19 +56,19 @@ RT_PROGRAM void envmap_miss(){
     }
     else if(isEnvmap == 1){    
         float2 uv = EnvDirecToUV(prd_radiance.direction);
-        float3 radiance = make_float3(tex2D(envmap, uv.x, uv.y) );
 
         if(prd_radiance.depth == 0){
-            prd_radiance.radiance = radiance; 
+            prd_radiance.radiance = make_float3(tex2D(envmapDirec, uv.x, uv.y) ); 
         }
         else{
+            float3 radiance = make_float3(tex2D(envmap, uv.x, uv.y) );
             // Multiple Importance Sampling 
             float pdfSolidEnv = EnvDirecToPdf(prd_radiance.direction);
             float pdfSolidBRDF = prd_radiance.pdf;
             float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
             float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
 
-            prd_radiance.radiance += radiance  * pdfSolidBRDF2 / (pdfSolidBRDF2 + pdfSolidEnv2)* prd_radiance.attenuation;
+            prd_radiance.radiance += radiance  * pdfSolidBRDF2 / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-3)* prd_radiance.attenuation;
         }
     }
     prd_radiance.done = true;
