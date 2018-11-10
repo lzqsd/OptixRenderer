@@ -61,10 +61,13 @@ RT_PROGRAM void pinhole_camera()
     unsigned int samples_per_pixel = sqrt_num_samples*sqrt_num_samples;
     float3 radiance = make_float3(0.0f);
 
+    unsigned int seed = tea<32>( 
+        ( (initSeed)*(screen.x*launch_index.y+launch_index.x) + initSeed ), 
+        ( (screen.y * launch_index.x + launch_index.y) * initSeed ) );
+
     do{
+
         // Sample pixel using jittering
-        unsigned int seed = tea<32>( (initSeed + 1)*(screen.x*launch_index.y+launch_index.x)*samples_per_pixel + initSeed, 
-                (screen.y * launch_index.x + launch_index.y) * samples_per_pixel + initSeed );
         float3 ray_origin = eye;
         unsigned int x = samples_per_pixel%sqrt_num_samples;
         unsigned int y = samples_per_pixel/sqrt_num_samples;

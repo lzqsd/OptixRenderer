@@ -285,8 +285,12 @@ int main( int argc, char** argv )
     std::vector<int> gpuIds;
     float noiseLimit = 0.11;
     int vertexLimit = 150000;
+    float intensityLimit = 0.05;
+    int rotateEnvmapNum = 0;
     bool noiseLimitEnabled = false;
     bool vertexLimitEnabled = false;
+    bool intensityLimitEnabled = false;
+    bool rotateEnvmapEnabled = false;
 
     Context context = 0;
 
@@ -349,6 +353,23 @@ int main( int argc, char** argv )
             vertexLimit = atoi(argv[++i] );
             vertexLimitEnabled = true; 
             std::cout<<"Warning: vertexLimit "<<vertexLimit<<"is enabled!"<<std::endl;
+        }
+        else if(std::string(argv[i] ) == std::string("--intensityLimit") ){
+            if(i == argc - 1){
+                std::cout<<"Missing input variable"<<std::endl;
+                exit(1);
+            }
+            std::vector<float> flArr = parseFloatStr(std::string(argv[++i] ) );
+            intensityLimit = flArr[0];
+            intensityLimitEnabled = true;
+        }
+        else if(std::string(argv[i]) == std::string("--rotateEnvmapNum") ){
+            if(i == argc - 1){
+                std::cout<<"Missing input variable"<<std::endl;
+                exit(1);
+            }
+            rotateEnvmapNum = atoi(argv[++i] );
+            rotateEnvmapEnabled = true; 
         }
         else{
             std::cout<<"Unrecognizable input command"<<std::endl;
@@ -491,6 +512,50 @@ int main( int argc, char** argv )
         context->validate();
         clock_t t;
         t = clock();
+        
+        if(rotateEnvmapEnabled == true && envmaps.size() > 0 ){
+            int pixelNum = cameraInput.width * cameraInput.height * 3;
+
+            std::cout<<"Rotating envmap"<<std::endl;
+            float phiGap = 2 * PI / rotateEnvmapNum;
+            float maxIntensity = 0;
+            float maxAngle = 0;
+            for(int i = 0; i < rotateEnvmapNum; i++){
+                float phiDelta = i * phiGap;
+                rotateUpdateEnvmap(context, envmaps[0], phiDelta);
+                independentSampling(context, cameraInput.width, cameraInput.height, imgData, 4);
+                float meanIntensity = 0;
+                for(int i = 0; i < pixelNum; i++){
+                    meanIntensity += imgData[i];
+                }
+                meanIntensity /= pixelNum;
+
+                if(meanIntensity > maxIntensity){
+                    maxIntensity = meanIntensity;
+                    maxAngle = phiDelta;
+                }
+                std::cout<<"Envmap Angle "<<i<<": meanIntensity "<<meanIntensity<<std::endl;
+            }
+            rotateUpdateEnvmap(context, envmaps[0], maxAngle);
+            std::cout<<"Largest intensity: "<<maxIntensity<<std::endl;
+            std::cout<<"Rotattion angle: "<<maxAngle<<std::endl;
+        }
+
+        if(intensityLimitEnabled == true){
+            independentSampling(context, cameraInput.width, cameraInput.height, imgData, 4);
+            float meanIntensity = 0;
+            int pixelNum = cameraInput.width * cameraInput.height * 3;
+            for(int i = 0; i < pixelNum; i++){
+                meanIntensity += imgData[i];
+            }
+            meanIntensity /= pixelNum;
+            std::cout<<"Mean Intensity of image: "<<meanIntensity<<std::endl;
+            if(meanIntensity < 0.05){
+                std::cout<<"Warning: the image is too dark, will be skipped"<<std::endl;
+                continue;
+            }
+        }
+
         std::cout<<"Start to render: "<<i+1<<"/"<<camNum<<std::endl;
         if(cameraInput.sampleType == std::string("independent") || mode != 0){
             int sampleNum = cameraInput.sampleNum;
@@ -498,10 +563,10 @@ int main( int argc, char** argv )
         }
         else if(cameraInput.sampleType == std::string("adaptive") ) {
             int sampleNum = cameraInput.sampleNum;
-            bool isTooDarkOrTooNoisy = adaptiveSampling(context, cameraInput.width, cameraInput.height, sampleNum, imgData, 
+            bool isTooNoisy = adaptiveSampling(context, cameraInput.width, cameraInput.height, sampleNum, imgData, 
                     noiseLimit, noiseLimitEnabled);
             std::cout<<"Sample Num: "<<sampleNum<<std::endl;
-            if(isTooDarkOrTooNoisy){
+            if(isTooNoisy){
                 std::cout<<"This image will not be output!"<<std::endl;
                 continue;
             }

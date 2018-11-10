@@ -12,32 +12,6 @@
 
 using namespace optix;
 
-void loadImageToTextureSampler(Context& context, TextureSampler& Sampler, std::string& fileName){
-    cv::Mat texMat = cv::imread(fileName, cv::IMREAD_COLOR);
-    if(texMat.empty() ){
-        std::cout<<"Wrong: unable to load the texture map: "<<fileName<<"!"<<std::endl;
-        exit(1);
-    }
-
-    int width = texMat.cols;
-    int height = texMat.rows;
-
-    // Set up the texture sampler
-    Buffer texBuffer = context -> createBuffer(RT_BUFFER_INPUT, RT_FORMAT_FLOAT4, width, height);
-    float* texPt = reinterpret_cast<float*> (texBuffer -> map() );
-    for(int r = 0; r < height; r++){
-        for(int c = 0; c < width; c++){
-            cv::Vec3b color = texMat.at<cv::Vec3b>(height - 1 - r, c);
-            int index = 4 * (r*width + c);
-            texPt[index + 0] = float(color[2] ) / 255.0;
-            texPt[index + 1] = float(color[1] ) / 255.0;
-            texPt[index + 2] = float(color[0] ) / 255.0;
-            texPt[index + 3] = 1.0;
-        }   
-    } 
-    texBuffer -> unmap();
-    Sampler -> setBuffer(0u, 0u, texBuffer);
-}
 
 void loadEmptyToTextureSampler(Context& context,  TextureSampler& Sampler){
     Buffer texBuffer = context->createBuffer( RT_BUFFER_INPUT, RT_FORMAT_FLOAT4, 1u, 1u );
@@ -89,7 +63,12 @@ Material createDiffuseMaterial(Context& context, objLoader::material_t mat)
     if(mat.albedo_texname != std::string("") ){
 
         material["isAlbedoTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, albedoSampler, mat.albedo_texname );
+        cv::Mat albedoTexture = cv::imread(mat.albedo_texname, cv::IMREAD_COLOR);
+        if(albedoTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.albedo_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, albedoSampler, albedoTexture );
         material["albedo"] -> setFloat(make_float3(1.0) );
     } 
     else{
@@ -106,7 +85,12 @@ Material createDiffuseMaterial(Context& context, objLoader::material_t mat)
     
     if(mat.normal_texname != std::string("") ){
         material["isNormalTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, normalSampler, mat.normal_texname); 
+        cv::Mat normalTexture = cv::imread(mat.normal_texname, cv::IMREAD_COLOR);
+        if(normalTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.normal_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, normalSampler, normalTexture); 
     }
     else{
         material["isNormalTexture"] -> setInt(0);
@@ -131,7 +115,12 @@ Material createPhongMaterial(Context& context, objLoader::material_t mat)
     
     if(mat.albedo_texname != std::string("") ){
         material["isAlbedoTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, albedoSampler, mat.albedo_texname);
+        cv::Mat albedoTexture = cv::imread(mat.albedo_texname, cv::IMREAD_COLOR);
+        if(albedoTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.albedo_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, albedoSampler, albedoTexture );
         material["albedo"] -> setFloat(1.0, 1.0, 1.0);
     } 
     else{
@@ -145,8 +134,13 @@ Material createPhongMaterial(Context& context, objLoader::material_t mat)
     TextureSampler specularSampler = createTextureSampler(context);
     
     if(mat.specular_texname != std::string("") ){
-        material["isSpecularTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, specularSampler, mat.specular_texname);
+        material["isSpecularTexture"] -> setInt(1); 
+        cv::Mat specularTexture = cv::imread(mat.specular_texname, cv::IMREAD_COLOR);
+        if(specularTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.specular_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, specularSampler, specularTexture );
         material["specular"] -> setFloat(1.0, 1.0, 1.0);
     } 
     else{
@@ -161,7 +155,12 @@ Material createPhongMaterial(Context& context, objLoader::material_t mat)
     
     if(mat.normal_texname != std::string("") ){
         material["isNormalTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, normalSampler, mat.normal_texname);
+        cv::Mat normalTexture = cv::imread(mat.normal_texname, cv::IMREAD_COLOR);
+        if(normalTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.normal_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, normalSampler, normalTexture); 
     }
     else{
         material["isNormalTexture"] -> setInt(0);
@@ -173,7 +172,12 @@ Material createPhongMaterial(Context& context, objLoader::material_t mat)
     
     if(mat.glossiness_texname != std::string("") ){
         material["isGlossyTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, glossySampler, mat.glossiness_texname);
+        cv::Mat glossyTexture = cv::imread(mat.glossiness_texname, cv::IMREAD_COLOR);
+        if(glossyTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.glossiness_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, glossySampler, glossyTexture); 
         material["glossy"] -> setFloat(0.0);
     }
     else{
@@ -203,7 +207,12 @@ Material createMicrofacetMaterial(Context& context, objLoader::material_t mat)
     
     if(mat.albedo_texname != std::string("") ){
         material["isAlbedoTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, albedoSampler, mat.albedo_texname);
+        cv::Mat albedoTexture = cv::imread(mat.albedo_texname, cv::IMREAD_COLOR);
+        if(albedoTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.albedo_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, albedoSampler, albedoTexture );
         material["albedo"] -> setFloat(make_float3(1.0) );
     } 
     else{
@@ -218,7 +227,12 @@ Material createMicrofacetMaterial(Context& context, objLoader::material_t mat)
     
     if(mat.normal_texname != std::string("") ){
         material["isNormalTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, normalSampler, mat.normal_texname);
+        cv::Mat normalTexture = cv::imread(mat.normal_texname, cv::IMREAD_COLOR);
+        if(normalTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.normal_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, normalSampler, normalTexture); 
     }
     else{
         material["isNormalTexture"] -> setInt(0);
@@ -230,7 +244,12 @@ Material createMicrofacetMaterial(Context& context, objLoader::material_t mat)
     
     if(mat.roughness_texname != std::string("") ){
         material["isRoughTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, roughSampler, mat.roughness_texname);
+        cv::Mat roughnessTexture = cv::imread(mat.roughness_texname, cv::IMREAD_COLOR);
+        if(roughnessTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.roughness_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, roughSampler, roughnessTexture); 
         material["rough"] -> setFloat(1.0);
     }
     else{
@@ -244,7 +263,12 @@ Material createMicrofacetMaterial(Context& context, objLoader::material_t mat)
     
     if(mat.metallic_texname != std::string("") ){
         material["isMetallicTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, metallicSampler, mat.metallic_texname);
+        cv::Mat metallicTexture = cv::imread(mat.metallic_texname, cv::IMREAD_COLOR);
+        if(metallicTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.metallic_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, metallicSampler, metallicTexture); 
         material["metallic"] -> setFloat(0.0);
     }
     else{
@@ -310,7 +334,12 @@ Material createAlbedoMaterial(Context& context, objLoader::material_t mat){
 
     if(mat.albedo_texname != std::string("") ){
         material["isAlbedoTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, albedoSampler, mat.albedo_texname );
+        cv::Mat albedoTexture = cv::imread(mat.albedo_texname, cv::IMREAD_COLOR);
+        if(albedoTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.albedo_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, albedoSampler, albedoTexture );
         material["albedo"] -> setFloat(make_float3(1.0) );
     } 
     else{
@@ -338,7 +367,12 @@ Material createNormalMaterial(Context& context, objLoader::material_t mat){
     
     if(mat.normal_texname != std::string("") ){
         material["isNormalTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, normalSampler, mat.normal_texname);
+        cv::Mat normalTexture = cv::imread(mat.normal_texname, cv::IMREAD_COLOR);
+        if(normalTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.normal_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, normalSampler, normalTexture); 
     }
     else{
         material["isNormalTexture"] -> setInt(0);
@@ -362,7 +396,12 @@ Material createRoughnessMaterial(Context& context, objLoader::material_t mat){
     
     if(mat.roughness_texname != std::string("") ){
         material["isRoughTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, roughSampler, mat.roughness_texname);
+        cv::Mat roughnessTexture = cv::imread(mat.roughness_texname, cv::IMREAD_COLOR);
+        if(roughnessTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.roughness_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, roughSampler, roughnessTexture); 
         material["rough"] -> setFloat(1.0);
     }
     else{
@@ -388,7 +427,12 @@ Material createMetallicMaterial(Context& context, objLoader::material_t mat){
     
     if(mat.metallic_texname != std::string("") ){
         material["isMetallicTexture"] -> setInt(1);
-        loadImageToTextureSampler(context, metallicSampler, mat.metallic_texname);
+        cv::Mat metallicTexture = cv::imread(mat.metallic_texname, cv::IMREAD_COLOR);
+        if(metallicTexture.empty() ){
+            std::cout<<"Wrong: unable to load the texture map: "<<mat.metallic_texname<<"!"<<std::endl;
+            exit(1);
+        }
+        loadImageToTextureSampler(context, metallicSampler, metallicTexture); 
         material["metallic"] -> setFloat(1.0);
     }
     else{
