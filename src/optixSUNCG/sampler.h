@@ -68,7 +68,7 @@ bool adaptiveSampling(
         float* imgData, 
         float noiseLimit = 0.11,
         bool noiseLimitEnabled = false,
-        int maxExpo = 3)
+        int maxExpo = 4)
 {
     unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) ) + 1.0);
     if(sqrt_num_samples == 0)
