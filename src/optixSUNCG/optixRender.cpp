@@ -442,6 +442,7 @@ int main( int argc, char** argv )
         std::cout<<points[0].position.x<<' '<<points[0].position.y<<' '<<points[0].position.z<<std::endl;
     }
 
+
     // Camera File
     // The begining of the file should be the number of camera we are going to HAVE
     // Then we just load the camera view one by one, in the order of origin, target and up

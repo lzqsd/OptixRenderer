@@ -68,7 +68,7 @@ bool adaptiveSampling(
         float* imgData, 
         float noiseLimit = 0.11,
         bool noiseLimitEnabled = false,
-        int maxExpo = 3)
+        int maxExpo = 4)
 {
     unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) ) + 1.0);
     if(sqrt_num_samples == 0)
@@ -112,7 +112,7 @@ bool adaptiveSampling(
 
     // Repeated render the image until the noise below the threshold
     int expo = 1;
-    float threshold = 0.025;
+    float threshold = 0.03;
     while(true ){
         float error = RMSEAfterScaling(tempBuffer, tempBuffer2, width, height, scale);
         for(int i = 0; i < pixelNum; i++)
