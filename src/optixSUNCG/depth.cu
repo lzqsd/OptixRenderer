@@ -52,7 +52,7 @@ rtDeclareVariable(float, scene_epsilon, , );
 RT_PROGRAM void closest_hit_radiance()
 { 
     float3 V = normalize(-ray.direction ); 
-    float Dist = t_hit * dot(V, cameraW);
+    float Dist = -t_hit * dot(V, cameraW);
     prd_radiance.radiance = make_float3(Dist );
     prd_radiance.done = true;
 }
