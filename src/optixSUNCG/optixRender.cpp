@@ -137,6 +137,7 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
                 image[i*width + j] = imgData[3 * ( (height-1-i) * width +j ) ];
             }
         }
+        depthOut.write( (char*)image, sizeof(float) * width * height);
         depthOut.close();
         delete [] image;
         return true;
