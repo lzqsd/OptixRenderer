@@ -10,7 +10,7 @@
 			<lookAt origin="278, 273, -800" target="278, 273, -799" up="0, 1, 0"/>
 		</transform>
 		<sampler type="independent">
-			<integer name="sampleCount" value="10000"/>
+			<integer name="sampleCount" value="1000"/>
 		</sampler>
 
 		<film type="ldrfilm">
@@ -24,9 +24,7 @@
 	</bsdf>
 
 	<bsdf type="microfacet" id="white">
-        <texture name="albedo">
-            <string name = "filename" value = "meshes/Id_2.png"/>
-        </texture>
+        <rgb name="albedo" value="1.0 1.0 1.0"/>
         <float name = "roughness" value = "0.01"/>
     </bsdf>
 
@@ -50,7 +48,6 @@
         <ref id="white"/>
     </shape>
 
-    <!--
 	<shape type="obj">
         <string name="filename" value="meshes/cbox_ceiling.obj"/>
 		<ref id="white"/>
@@ -80,7 +77,6 @@
         <string name="filename" value="../cbox/meshes/cbox_largebox.obj"/>
 		<ref id="box"/>
     </shape>
-    -->
 
     <emitter type = "envmap">
         <string name="filename" value="envmap.hdr"/>

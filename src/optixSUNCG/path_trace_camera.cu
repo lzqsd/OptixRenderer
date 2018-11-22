@@ -66,7 +66,6 @@ RT_PROGRAM void pinhole_camera()
         ( (screen.y * launch_index.x + launch_index.y) * initSeed ) );
 
     do{
-
         // Sample pixel using jittering
         float3 ray_origin = eye;
         unsigned int x = samples_per_pixel%sqrt_num_samples;

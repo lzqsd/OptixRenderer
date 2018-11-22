@@ -46,8 +46,8 @@ RT_CALLABLE_PROGRAM float EnvDirecToPdf(const float3& direc){
     float2 uv = EnvDirecToUV(direc);
     size_t2 pdfSize = envpdf.size();
     float u = uv.x, v = uv.y;
-    int rowId = int(v * pdfSize.y);
-    int colId = int(u * pdfSize.x);
+    int rowId = int(v * (pdfSize.y - 1) );
+    int colId = int(u * (pdfSize.x - 1) );
     return envpdf[make_uint2(colId, rowId ) ];
 }
 RT_PROGRAM void envmap_miss(){
@@ -68,7 +68,7 @@ RT_PROGRAM void envmap_miss(){
             float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
             float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
 
-            prd_radiance.radiance += radiance  * pdfSolidBRDF2 / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-3)* prd_radiance.attenuation;
+            prd_radiance.radiance += radiance  * pdfSolidBRDF2 / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-6)* prd_radiance.attenuation;
         }
     }
     prd_radiance.done = true;
