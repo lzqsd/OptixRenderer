@@ -123,7 +123,7 @@ RT_CALLABLE_PROGRAM void sampleAreaLight(unsigned int& seed, float3& radiance, f
     position = v1 + (v2 - v1) * u + (v3 - v1) * v;
 
     radiance = L.radiance;
-    pdfAreaLight = areaLightPDF[left] /  fmaxf(area, 1e-10);
+    pdfAreaLight = areaLightPDF[left] /  fmaxf(area, 1e-6);
 }
 
 // Sampling the environmnetal light
@@ -150,8 +150,8 @@ RT_CALLABLE_PROGRAM float EnvDirecToPdf(const float3& direc){
     float2 uv = EnvDirecToUV(direc);
     size_t2 pdfSize = envpdf.size();
     float u = uv.x, v = uv.y;
-    int rowId = int(v * pdfSize.y);
-    int colId = int(u * pdfSize.x);
+    int rowId = int(v * (pdfSize.y-1) );
+    int colId = int(u * (pdfSize.x-1) );
     return envpdf[make_uint2(colId, rowId ) ];
 }
 RT_CALLABLE_PROGRAM void sampleEnvironmapLight(unsigned int& seed, float3& radiance, float3& direction, float& pdfSolidEnv){
@@ -206,7 +206,7 @@ RT_CALLABLE_PROGRAM void sampleEnvironmapLight(unsigned int& seed, float3& radia
 // Computing the pdfSolidAngle of BRDF giving a direction 
 RT_CALLABLE_PROGRAM float LambertianPdf(const float3& L, const float3& N)
 {
-    float NoL = fmaxf(dot(N, L), 1e-12);
+    float NoL = fmaxf(dot(N, L), 1e-6);
     float pdf = NoL / M_PIf;
     return fmaxf(pdf, 1e-6f);
 }
@@ -231,7 +231,7 @@ RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& N, const float3& R,
 RT_CALLABLE_PROGRAM float3 evaluate(const float3& albedoValue, const float3& specularValue, const float3& N, const float glossyValue, 
         const float3& L, const float3& R, const float3& radiance)
 {
-    float NoL = fmaxf(dot(N, L), 1e-12);
+    float NoL = fmaxf(dot(N, L), 1e-6);
 
     float RoL = dot(R, L);
     if(RoL < 1e-6) RoL = 0;

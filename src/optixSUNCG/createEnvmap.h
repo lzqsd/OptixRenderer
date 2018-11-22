@@ -227,7 +227,8 @@ void rotateUpdateEnvmap(Context& context, Envmap& env, float phiDelta,
         }
     }
     
-    unsigned kernelSize = std::max(3, int(height / 100) );
+    unsigned kernelSize = std::max(3, int(height / 200) );
+    if(kernelSize % 2 == 0) kernelSize += 1;
     cv::Mat envMatNewBlured(height, width, CV_32FC3);
     cv::GaussianBlur(envMatNew, envMatNewBlured, cv::Size(kernelSize, kernelSize), 0, 0); 
 

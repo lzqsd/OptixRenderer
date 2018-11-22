@@ -543,7 +543,7 @@ int main( int argc, char** argv )
             std::cout<<"Rotattion angle: "<<maxAngle<<std::endl;
         }
 
-        if(intensityLimitEnabled == true){
+        if(intensityLimitEnabled == true && mode == 0){
             independentSampling(context, cameraInput.width, cameraInput.height, imgData, 4);
             float meanIntensity = 0;
             int pixelNum = cameraInput.width * cameraInput.height * 3;
