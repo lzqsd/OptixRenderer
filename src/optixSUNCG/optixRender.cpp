@@ -287,11 +287,14 @@ int main( int argc, char** argv )
     float noiseLimit = 0.11;
     int vertexLimit = 150000;
     float intensityLimit = 0.05;
-    int rotateEnvmapNum = 0;
+    //int rotateEnvmapNum = 0;
     bool noiseLimitEnabled = false;
     bool vertexLimitEnabled = false;
     bool intensityLimitEnabled = false;
-    bool rotateEnvmapEnabled = false;
+    //bool rotateEnvmapEnabled = false;
+
+    int camStart = 0;
+    int camEnd = -1;
 
     Context context = 0;
 
@@ -364,6 +367,7 @@ int main( int argc, char** argv )
             intensityLimit = flArr[0];
             intensityLimitEnabled = true;
         }
+        /*
         else if(std::string(argv[i]) == std::string("--rotateEnvmapNum") ){
             if(i == argc - 1){
                 std::cout<<"Missing input variable"<<std::endl;
@@ -371,6 +375,21 @@ int main( int argc, char** argv )
             }
             rotateEnvmapNum = atoi(argv[++i] );
             rotateEnvmapEnabled = true; 
+        }
+        */
+        else if(std::string(argv[i] ) == std::string("--camStart") ){
+            if(i == argc - 1){
+                std::cout<<"Missing input variable"<<std::endl;
+                exit(1);
+            }
+            camStart = atoi(argv[++i] );
+        }
+        else if(std::string(argv[i] ) == std::string("--camEnd") ){
+            if(i == argc - 1){
+                std::cout<<"Missing input variable"<<std::endl;
+                exit(1);
+            }
+            camEnd = atoi(argv[++i] );
         }
         else{
             std::cout<<"Unrecognizable input command"<<std::endl;
@@ -443,7 +462,6 @@ int main( int argc, char** argv )
         std::cout<<points[0].position.x<<' '<<points[0].position.y<<' '<<points[0].position.z<<std::endl;
     }
 
-
     // Camera File
     // The begining of the file should be the number of camera we are going to HAVE
     // Then we just load the camera view one by one, in the order of origin, target and up
@@ -479,7 +497,16 @@ int main( int argc, char** argv )
     std::cout<<std::endl;
     
     float* imgData = new float[cameraInput.width * cameraInput.height * 3];
-    for(int i = 0; i < camNum; i++){ 
+    unsigned camSp, camEp;
+    camSp = std::max(0, camStart);
+    if(camEnd == -1){
+        camEp = camNum;
+    }
+    else{
+        camEp = std::max(std::min(camEnd, camNum), 0);
+    }
+    
+    for(int i = camSp; i < camEp; i++){ 
         std::string outputFileNameNew = generateOutputFilename(outputFileName, mode,
                 cameraInput.isHdr, i, camNum);
 
@@ -515,6 +542,7 @@ int main( int argc, char** argv )
         clock_t t;
         t = clock();
         
+        /*
         if(rotateEnvmapEnabled == true && envmaps.size() > 0 ){
             int pixelNum = cameraInput.width * cameraInput.height * 3;
 
@@ -541,7 +569,7 @@ int main( int argc, char** argv )
             rotateUpdateEnvmap(context, envmaps[0], maxAngle);
             std::cout<<"Largest intensity: "<<maxIntensity<<std::endl;
             std::cout<<"Rotattion angle: "<<maxAngle<<std::endl;
-        }
+        }*/
 
         if(intensityLimitEnabled == true && mode == 0){
             independentSampling(context, cameraInput.width, cameraInput.height, imgData, 4);
@@ -558,7 +586,7 @@ int main( int argc, char** argv )
             }
         }
 
-        std::cout<<"Start to render: "<<i+1<<"/"<<camNum<<std::endl;
+        std::cout<<"Start to render: "<<i+1<<"/"<<camEp<<std::endl;
         if(cameraInput.sampleType == std::string("independent") || mode != 0){
             int sampleNum = cameraInput.sampleNum;
             independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum);

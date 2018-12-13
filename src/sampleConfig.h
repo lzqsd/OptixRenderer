@@ -26,5 +26,5 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define SAMPLES_DIR "/diskc/SceneAR/Code/optixRendererForSUNCG/src"
-#define SAMPLES_PTX_DIR "/diskc/SceneAR/Code/optixRendererForSUNCG/src/lib/ptx"
+#define SAMPLES_DIR "/home/ubuntu/SceneAR/Code/optixRendererForSUNCG/src"
+#define SAMPLES_PTX_DIR "/home/ubuntu/SceneAR/Code/optixRendererForSUNCG/src/lib/ptx"

@@ -54,6 +54,7 @@ void createContext(
     std::string ptx_path( ptxPath( "path_trace_camera.cu" ) );
     Program ray_gen_program = context->createProgramFromPTXFile( ptx_path, "pinhole_camera" );
     context->setRayGenerationProgram( 0, ray_gen_program );
+    
     if(cameraType == std::string("perspective") ){
         context["cameraMode"] -> setInt(0);
     }
