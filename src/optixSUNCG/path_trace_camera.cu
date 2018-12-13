@@ -79,9 +79,9 @@ RT_PROGRAM void pinhole_camera()
             ray_direction = normalize(d.x*cameraU + d.y*cameraV + cameraW);
         }
         else{
-            float3 axisZ = normalize(cameraV );
+            float3 axisZ = normalize(cameraW );
             float3 axisX = normalize(cameraU );
-            float3 axisY = normalize(cameraW );
+            float3 axisY = normalize(cameraV );
 
             d.x = (d.x > 1.0f) ? 1.0f : d.x;
             d.y = (d.y > 1.0f) ? 1.0f : d.y;

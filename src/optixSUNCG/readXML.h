@@ -459,7 +459,7 @@ bool readXML(std::string fileName,
                     // Load the camera parameters  
                     TiXmlElement* seEle = module -> ToElement();
                     for(TiXmlAttribute* seAttri = seEle -> FirstAttribute(); seAttri != 0; seAttri = seAttri->Next() ){
-                        if(seAttri -> Name() != std::string("type") ){
+                        if(seAttri -> Name() == std::string("type") ){
                             if(seAttri -> Value() == std::string("perspective") ){
                                 Camera.cameraType = std::string("perspective");
                             }
