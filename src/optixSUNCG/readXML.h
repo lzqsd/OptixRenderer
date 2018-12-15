@@ -470,7 +470,7 @@ bool readXML(std::string fileName,
                                 Camera.cameraType = std::string("hemisphere");
                             }
                             else{
-                                std::cout<<"Wrong: unrecognizable type of sensor!"<<std::endl;
+                                std::cout<<"Wrong: unrecognizable type of sensor "<<seAttri -> Value()<<" !"<<std::endl;
                                 return false;
                             }
                         }
@@ -643,14 +643,46 @@ bool readXML(std::string fileName,
                             for(TiXmlNode* saSubModule = seSubModule -> FirstChild(); saSubModule != 0; saSubModule = saSubModule -> NextSibling() ){
                                 if(saSubModule -> Value() == std::string("integer") ){
                                     TiXmlElement* saSubEle = saSubModule -> ToElement() ;
+                                    std::string integerName;
+                                    int integerValue;
                                     for(TiXmlAttribute* saSubAttri = saSubEle -> FirstAttribute(); saSubAttri != 0; saSubAttri = saSubAttri-> Next() ){
                                         if(saSubAttri -> Name() == std::string("value") ){
-                                            std::vector<float> sampleCount = parseFloatStr(saSubAttri -> Value() );
-                                            Camera.sampleNum = sampleCount[0];
+                                            std::vector<float> intValues = parseFloatStr(saSubAttri -> Value() );
+                                            integerValue = int(intValues[0] );
                                         }
                                         else if(saSubAttri -> Name() == std::string("name") ){
-                                            if(saSubAttri -> Value() != std::string("sampleCount") ){
-                                                std::cout<<"Wrong: unrecognizable name of sampler of sensor!"<<std::endl;
+                                            integerName = saSubAttri -> Value();
+                                        }
+                                    }
+                                    if(integerName == std::string("sampleCount") ){
+                                        Camera.sampleNum = integerValue;
+                                    }
+                                    else if(integerName == std::string("maxIteration") ){
+                                        if(Camera.sampleType == std::string("independent") ){
+                                            std::cout<<"Wrong: independent sampler does not have maxIteration variable!"<<std::endl;
+                                            return false;
+                                        }
+                                        Camera.adaptiveSampler.maxIteration = integerValue;
+                                    }
+                                    else{
+                                        std::cout<<"Wrong: unrecognizable name of integer of sensor!"<<std::endl;
+                                        return false;
+                                    }
+                                }
+                                else if(saSubModule -> Value() == std::string("float") ){
+                                    TiXmlElement* saSubEle = saSubModule -> ToElement() ;
+                                    for(TiXmlAttribute* saSubAttri = saSubEle -> FirstAttribute(); saSubAttri != 0; saSubAttri -> Next() ){
+                                        if(saSubAttri -> Name() == std::string("value") ){
+                                            std::vector<float> noiseThreshold = parseFloatStr(saSubAttri -> Value() );
+                                            Camera.adaptiveSampler.noiseThreshold = noiseThreshold[0];
+                                        }
+                                        else if(saSubAttri -> Name() == std::string("name") ){
+                                            if(saSubAttri -> Value() != std::string("noiseThreshold") ){
+                                                std::cout<<"Wrong: unrecognizable name of float of sensor "<<saSubAttri -> Value()<<" !"<<std::endl;
+                                                return false;
+                                            }
+                                            if(Camera.sampleType == std::string("independent") ){
+                                                std::cout<<"Wrong: independent sampler does not have noiseThreshold variable!"<<std::endl;
                                                 return false;
                                             }
                                         }
