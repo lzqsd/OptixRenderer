@@ -419,7 +419,9 @@ int main( int argc, char** argv )
     bool isXml = readXML(fileName, shapes, materials, cameraInput, envmaps, points);
     if(!isXml ) return false;
 
+    std::cout<<"hehe"<<std::endl;
     long unsigned vertexNum = vertexCount(shapes );
+    std::cout<<"hoho"<<std::endl;
 
     std::cout<<"Material num: "<<materials.size() << std::endl;
     std::cout<<"Shape num: "<<shapes.size() <<std::endl;
