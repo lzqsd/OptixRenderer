@@ -671,7 +671,8 @@ bool readXML(std::string fileName,
                                 }
                                 else if(saSubModule -> Value() == std::string("float") ){
                                     TiXmlElement* saSubEle = saSubModule -> ToElement() ;
-                                    for(TiXmlAttribute* saSubAttri = saSubEle -> FirstAttribute(); saSubAttri != 0; saSubAttri -> Next() ){
+                                    for(TiXmlAttribute* saSubAttri = saSubEle -> FirstAttribute(); saSubAttri != 0; saSubAttri = saSubAttri -> Next() ){
+
                                         if(saSubAttri -> Name() == std::string("value") ){
                                             std::vector<float> noiseThreshold = parseFloatStr(saSubAttri -> Value() );
                                             Camera.adaptiveSampler.noiseThreshold = noiseThreshold[0];
