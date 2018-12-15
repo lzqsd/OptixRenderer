@@ -3,6 +3,16 @@
 
 #include <string>
 
+class AdaptiveSampler{
+public:
+    int maxIteration;
+    float noiseThreshold;
+    AdaptiveSampler(){
+        noiseThreshold = 0.025;
+        maxIteration = 6;
+    }
+};
+
 class CameraInput{
 public:
     std::string cameraType;
@@ -16,6 +26,8 @@ public:
     int sampleNum; 
     std::string sampleType;
     bool isHdr;
+    AdaptiveSampler adaptiveSampler;   
+
     CameraInput(){
         cameraType = "perspective";
 

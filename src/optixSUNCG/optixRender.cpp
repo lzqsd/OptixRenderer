@@ -442,6 +442,9 @@ int main( int argc, char** argv )
     std::cout<<"Origin: "<<cameraInput.origin[0]<<' '<<cameraInput.origin[1]<<' '<<cameraInput.origin[2]<<std::endl;
     std::cout<<"Up: "<<cameraInput.up[0]<<' '<<cameraInput.up[1]<<' '<<cameraInput.up[2]<<std::endl; 
     std::cout<<"Sample Count: "<<cameraInput.sampleNum<<std::endl;
+    
+    std::cout<<"Sampler: "<<cameraInput.sampleType<<std::endl;
+    std::cout<<"Sampler Count: "<<cameraInput.sampleNum <<std::endl;
 
     if(envmaps.size() == 0){
         std::cout<<"No Environmental maps."<<std::endl;
@@ -594,7 +597,9 @@ int main( int argc, char** argv )
         else if(cameraInput.sampleType == std::string("adaptive") ) {
             int sampleNum = cameraInput.sampleNum;
             bool isTooNoisy = adaptiveSampling(context, cameraInput.width, cameraInput.height, sampleNum, imgData, 
-                    noiseLimit, noiseLimitEnabled);
+                    noiseLimit, noiseLimitEnabled, 
+                    cameraInput.adaptiveSampler.maxIteration, 
+                    cameraInput.adaptiveSampler.noiseThreshold );
             std::cout<<"Sample Num: "<<sampleNum<<std::endl;
             if(isTooNoisy){
                 std::cout<<"This image will not be output!"<<std::endl;
