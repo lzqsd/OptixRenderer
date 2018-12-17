@@ -26,5 +26,5 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define SAMPLES_DIR "/diskc/SceneAR/Code/optixRendererForSUNCG/src"
-#define SAMPLES_PTX_DIR "/diskc/SceneAR/Code/optixRendererForSUNCG/src/lib/ptx"
+#define SAMPLES_DIR "/media/mohammad/D43ADD7F3ADD5ED4/Mohammad/Drive/UCSD/SIGGRAPH2019/optixRendererForSUNCG/src"
+#define SAMPLES_PTX_DIR "/media/mohammad/D43ADD7F3ADD5ED4/Mohammad/Drive/UCSD/SIGGRAPH2019/optixRendererForSUNCG/src/lib/ptx"
