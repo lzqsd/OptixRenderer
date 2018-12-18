@@ -611,12 +611,11 @@ int main( int argc, char** argv )
         std::cout<<"Time: "<<float(t) / CLOCKS_PER_SEC<<'s'<<std::endl;
 
          
-        /*bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
+        bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
                 imgData,
                 cameraInput.width, cameraInput.height, 
                 cameraInput.isHdr,
                 mode);
-        */
     }
     destroyContext(context );
     delete [] imgData;
