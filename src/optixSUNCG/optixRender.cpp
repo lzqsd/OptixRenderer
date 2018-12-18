@@ -419,9 +419,7 @@ int main( int argc, char** argv )
     bool isXml = readXML(fileName, shapes, materials, cameraInput, envmaps, points);
     if(!isXml ) return false;
 
-    std::cout<<"hehe"<<std::endl;
     long unsigned vertexNum = vertexCount(shapes );
-    std::cout<<"hoho"<<std::endl;
 
     std::cout<<"Material num: "<<materials.size() << std::endl;
     std::cout<<"Shape num: "<<shapes.size() <<std::endl;
@@ -488,7 +486,7 @@ int main( int argc, char** argv )
         }
     }
 
-    createContext(context, use_pbo, cameraInput.cameraType, cameraInput.width, cameraInput.height, mode, cameraInput.sampleNum);
+    unsigned scale = createContext(context, use_pbo, cameraInput.cameraType, cameraInput.width, cameraInput.height, mode, cameraInput.sampleNum);
     if(gpuIds.size() != 0){
         std::cout<<"GPU Num: "<<gpuIds.size()<<std::endl;
         context -> setDevices(gpuIds.begin(), gpuIds.end() );
@@ -594,14 +592,15 @@ int main( int argc, char** argv )
         std::cout<<"Start to render: "<<i+1<<"/"<<camEp<<std::endl;
         if(cameraInput.sampleType == std::string("independent") || mode != 0){
             int sampleNum = cameraInput.sampleNum;
-            independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum);
+            independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum, scale);
         }
         else if(cameraInput.sampleType == std::string("adaptive") ) {
             int sampleNum = cameraInput.sampleNum;
             bool isTooNoisy = adaptiveSampling(context, cameraInput.width, cameraInput.height, sampleNum, imgData, 
                     noiseLimit, noiseLimitEnabled, 
                     cameraInput.adaptiveSampler.maxIteration, 
-                    cameraInput.adaptiveSampler.noiseThreshold );
+                    cameraInput.adaptiveSampler.noiseThreshold, 
+                    scale);
             std::cout<<"Sample Num: "<<sampleNum<<std::endl;
             if(isTooNoisy){
                 std::cout<<"This image will not be output!"<<std::endl;
@@ -612,11 +611,12 @@ int main( int argc, char** argv )
         std::cout<<"Time: "<<float(t) / CLOCKS_PER_SEC<<'s'<<std::endl;
 
          
-        bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
+        /*bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
                 imgData,
                 cameraInput.width, cameraInput.height, 
                 cameraInput.isHdr,
                 mode);
+        */
     }
     destroyContext(context );
     delete [] imgData;

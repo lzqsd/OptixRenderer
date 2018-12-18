@@ -9,8 +9,8 @@
 		<transform name="toWorld">
 			<lookAt origin="278, 273, -800" target="278, 273, -799" up="0, 1, 0"/>
 		</transform>
-		<sampler type="independent">
-			<integer name="sampleCount" value="1000"/>
+		<sampler type="adaptive">
+			<integer name="sampleCount" value="32"/>
 		</sampler>
 
 		<film type="ldrfilm">

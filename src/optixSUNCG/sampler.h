@@ -8,33 +8,46 @@
 
 using namespace optix;
 
-static Buffer getOutputBuffer(Context& context)
+static void getOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1)
 {
-    return context[ "output_buffer" ]->getBuffer();
+    Buffer imgBuffer = context[ "output_buffer" ]->getBuffer();
+    float* imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
+    for(int r = 0; r < height; r++){
+        for(int c = 0; c < width; c++){
+            int N = sizeScale * sizeScale;
+            for(int ch = 0; ch < 3; ch++){
+                
+                float sum = 0;
+                for(int sr = 0; sr < sizeScale; sr++){
+                    for(int sc = 0; sc < sizeScale; sc++){
+                        int C = c * sizeScale + sc;
+                        int R = r * sizeScale + sr;
+                        int Index = 3 * (R * width * sizeScale + C) + ch;
+                        sum += imgDataBuffer[Index];
+                    }
+                }
+                imgData[3*(r*width + c) + ch] = sum / N;
+            }
+        }
+    }
+    imgBuffer -> unmap();
 }
 
 void independentSampling(
         Context& context, 
         int width, int height, 
         float* imgData, 
-        int sampleNum )
+        int sampleNum, 
+        unsigned sizeScale = 1)
 {
-    unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) ) + 1.0);
-    if(sqrt_num_samples == 0)
-        sqrt_num_samples = 1;
-    context["sqrt_num_samples"] -> setUint(sqrt_num_samples );
-    
+    unsigned bWidth = sizeScale * width;
+    unsigned bHeight = sizeScale * height;
+
     srand(time(NULL) );
     context["initSeed"] -> setUint( rand() );
 
-    context -> launch(0, width, height);
-    Buffer imgBuffer = getOutputBuffer(context ); 
-    float* imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
-    for(int i = 0; i < width * height * 3; i++){
-        imgData[i] = imgDataBuffer[i];
-    }
-    imgBuffer -> unmap(); 
-    //medianFilter(imgData, width, height, 1); 
+    context -> launch(0, bWidth, bHeight);
+    getOutputBuffer(context, imgData, width, height, sizeScale ); 
 }
 
 float RMSEAfterScaling(const float* im1, const float* im2, int width, int height, float scale){
@@ -46,10 +59,6 @@ float RMSEAfterScaling(const float* im1, const float* im2, int width, int height
         temp1[i] = im1[i];
         temp2[i] = im2[i];
     }
-    /*
-    medianFilter(temp1, width, height, 1);
-    medianFilter(temp2, width, height, 1);
-    */
 
     float errorSum = 0;
     for(int i = 0; i < length; i++){
@@ -69,10 +78,14 @@ bool adaptiveSampling(
         float noiseLimit = 0.11,
         bool noiseLimitEnabled = false,
         int maxIteration = 4, 
-        float noiseThreshold = 0.03
+        float noiseThreshold = 0.03,
+        unsigned sizeScale = 1
         )
 {
-    unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) ) + 1.0);
+    unsigned bWidth = sizeScale * width;
+    unsigned bHeight = sizeScale * height;
+
+    unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) / float(sizeScale * sizeScale) ) + 1.0);
     if(sqrt_num_samples == 0)
         sqrt_num_samples = 1;
     context["sqrt_num_samples"] -> setUint(sqrt_num_samples );
@@ -81,36 +94,27 @@ bool adaptiveSampling(
 
     float* tempBuffer = new float[pixelNum ];
     float* tempBuffer2 = new float[pixelNum ];
-    float* imgDataBuffer = NULL;
     
     // Render the first image 
     srand(time(NULL) );
     context["initSeed"] -> setUint( unsigned(0.5 * rand() ) );
-    context -> launch(0, width, height);
-    Buffer imgBuffer = getOutputBuffer(context );
-    imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
+    context -> launch(0, bWidth, bHeight );
+    getOutputBuffer(context, tempBuffer, width, height, sizeScale );
 
     // Compute the scale so that the mean of image will be 0.5
     float sum = 0;
     for(int i = 0; i < pixelNum; i++){
-        tempBuffer[i] = imgDataBuffer[i];
         sum += tempBuffer[i];
     }
 
     float scale = 0.5 * pixelNum / fmaxf(sum, 1e-6); 
     std::cout<<"Scale: "<<scale<<std::endl;
-    imgBuffer -> unmap();
 
     // Render the second image
     srand(time(NULL) );
     context["initSeed"] -> setUint(rand() );
-    context -> launch(0, width, height);
-    imgBuffer = getOutputBuffer(context );
-    imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
-    for(int i = 0; i < pixelNum; i++){
-        tempBuffer2[i] = imgDataBuffer[i];
-    }
-    imgBuffer -> unmap();
+    context -> launch(0, bWidth, bHeight );
+    getOutputBuffer(context, tempBuffer2, width, height, sizeScale );
 
     // Repeated render the image until the noise below the threshold
     int expo = 1;
@@ -133,23 +137,17 @@ bool adaptiveSampling(
  
         // Update sampling parameters
         sampleNum = sampleNum * 2;
-        sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) ) + 1.0);
+        sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) / float(sizeScale * sizeScale) ) + 1.0);
         srand(time(NULL) * expo );
         context["initSeed"] -> setUint(rand() );
         context["sqrt_num_samples"] -> setUint(sqrt_num_samples );
  
         // Rendering
-        context -> launch(0, width, height);
-        imgBuffer = getOutputBuffer(context );
-        imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
-        for(int i = 0; i < pixelNum; i++){
-            tempBuffer2[i] = imgDataBuffer[i];
-        }
-        imgBuffer -> unmap();
+        context -> launch(0, bWidth, bHeight);
+        getOutputBuffer(context, tempBuffer2, width, height, sizeScale );
     }
     for(int i = 0; i < pixelNum; i++)
         imgData[i] = tempBuffer[i];
-    //medianFilter(imgData, width, height, 1); 
 
     delete [] tempBuffer;
     delete [] tempBuffer2;

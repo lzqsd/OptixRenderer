@@ -18,7 +18,7 @@ void destroyContext(Context& context )
     }
 }
 
-void createContext( 
+unsigned createContext( 
         Context& context, 
         bool use_pbo, 
         std::string cameraType,
@@ -28,9 +28,7 @@ void createContext(
         unsigned maxDepth = 5, 
         unsigned rr_begin_depth = 3)
 {
-    unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) ) + 1.0);
-    if(sqrt_num_samples == 0)
-        sqrt_num_samples = 1;
+    unsigned scale = 1;
 
     // Set up context
     context = Context::create();
@@ -38,6 +36,20 @@ void createContext(
     context->setEntryPointCount( 1 );
     context->setStackSize( 600 );
 
+    context["rr_begin_depth"] -> setUint(rr_begin_depth);
+    
+    if(width * height < 2700){
+        scale = (unsigned )(sqrt(2700.0 / float(width * height) ) + 1.0);
+    }
+    unsigned bWidth = width * scale;
+    unsigned bHeight = height * scale;
+    Buffer outputBuffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+    context["output_buffer"]->set( outputBuffer );
+    
+    unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) / float(scale * scale) ) + 1.0);
+    if(sqrt_num_samples == 0){
+        sqrt_num_samples = 1;
+    }
     if(mode > 0){
         maxDepth = 1;
         sqrt_num_samples = 4;
@@ -45,10 +57,6 @@ void createContext(
 
     context["max_depth"]->setInt(maxDepth);
     context["sqrt_num_samples"] -> setUint(sqrt_num_samples);
-    context["rr_begin_depth"] -> setUint(rr_begin_depth);
-    
-    Buffer outputBuffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, width, height);
-    context["output_buffer"]->set( outputBuffer );
 
     // Ray generation program 
     std::string ptx_path( ptxPath( "path_trace_camera.cu" ) );
@@ -69,7 +77,6 @@ void createContext(
         exit(1);
     }
 
-
     // Exception program
     Program exception_program = context->createProgramFromPTXFile( ptx_path, "exception" );
     context->setExceptionProgram( 0, exception_program );
@@ -85,6 +92,8 @@ void createContext(
         Program miss_program = context->createProgramFromPTXFile(miss_path, "miss");
         context->setMissProgram(0, miss_program);
     }
+
+    return scale;
 }
 
 #endif
