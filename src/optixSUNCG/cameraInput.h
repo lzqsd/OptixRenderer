@@ -9,7 +9,7 @@ public:
     float noiseThreshold;
     AdaptiveSampler(){
         noiseThreshold = 0.025;
-        maxIteration = 6;
+        maxIteration = 4;
     }
 };
 
