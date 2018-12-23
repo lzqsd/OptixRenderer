@@ -9,13 +9,13 @@
 		<transform name="toWorld">
 			<lookAt origin="278, 273, -800" target="278, 273, -799" up="0, 1, 0"/>
 		</transform>
-		<sampler type="adaptive">
-			<integer name="sampleCount" value="32"/>
+		<sampler type="independent">
+			<integer name="sampleCount" value="512"/>
 		</sampler>
 
 		<film type="ldrfilm">
-			<integer name="width" value="512"/>
-			<integer name="height" value="512"/>
+			<integer name="width" value="12"/>
+			<integer name="height" value="12"/>
 		</film>
 	</sensor>
 
@@ -69,12 +69,12 @@
     </shape>
 
 	<shape type="obj">
-        <string name="filename" value="/diskc/SceneAR/Code/optixRendererForSUNCG/src/optixSUNCG/cbox/meshes/cbox_smallbox.obj"/>
+        <string name="filename" value="meshes/cbox_smallbox.obj"/>
 		<ref id="box"/>
     </shape>
 
 	<shape type="obj">
-        <string name="filename" value="../cbox/meshes/cbox_largebox.obj"/>
+        <string name="filename" value="meshes/cbox_largebox.obj"/>
 		<ref id="box"/>
     </shape>
 
