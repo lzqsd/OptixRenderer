@@ -131,6 +131,7 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         std::ofstream depthOut(fileName, std::ios::out|std::ios::binary);
         depthOut.write((char*)&height, sizeof(int) );
         depthOut.write((char*)&width, sizeof(int) );
+
         float* image = new float[width * height];
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
@@ -140,6 +141,21 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         depthOut.write( (char*)image, sizeof(float) * width * height);
         depthOut.close();
         delete [] image;
+
+        /*
+        float* image = new float[3 * width * height];
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                for(int ch = 0; ch < 3; ch++){
+                    image[3*(i*width + j) + ch] = imgData[3 * ( (height-1-i) * width + j) + ch];
+                }
+            }
+        }
+        depthOut.write( (char*)image, sizeof(float) * 3 * width * height );
+        depthOut.close();
+        delete [] image;
+        */
+        
         return true;
     }
 
@@ -251,8 +267,8 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
 bool loadCamFile(std::string fileName, int& camNum, std::vector<float>& originArr, std::vector<float>& targetArr, std::vector<float>& upArr)
 {    
     std::ifstream camIn(fileName.c_str(), std::ios::in);
-    if(!camIn){
-        std::cout<<"Wrong: can not load the camera file!"<<std::endl;
+    if(!camIn ){
+        std::cout<<"Wrong: can not load the camera file "<<fileName<<" !"<<std::endl;
         return false;
     }
     camIn >> camNum; 
