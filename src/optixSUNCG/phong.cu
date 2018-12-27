@@ -123,7 +123,7 @@ RT_CALLABLE_PROGRAM void sampleAreaLight(unsigned int& seed, float3& radiance, f
     position = v1 + (v2 - v1) * u + (v3 - v1) * v;
 
     radiance = L.radiance;
-    pdfAreaLight = areaLightPDF[left] /  fmaxf(area, 1e-6);
+    pdfAreaLight = areaLightPDF[left] /  fmaxf(area, 1e-14);
 }
 
 // Sampling the environmnetal light
@@ -206,17 +206,17 @@ RT_CALLABLE_PROGRAM void sampleEnvironmapLight(unsigned int& seed, float3& radia
 // Computing the pdfSolidAngle of BRDF giving a direction 
 RT_CALLABLE_PROGRAM float LambertianPdf(const float3& L, const float3& N)
 {
-    float NoL = fmaxf(dot(N, L), 1e-6);
+    float NoL = fmaxf(dot(N, L), 1e-14);
     float pdf = NoL / M_PIf;
-    return fmaxf(pdf, 1e-6f);
+    return fmaxf(pdf, 1e-14f);
 }
 RT_CALLABLE_PROGRAM float SpecularPdf(const float3& L, const float3& N, const float3& R, 
         float glossyValue)
 { 
     float RoL = dot(R, L);
-    if(RoL < 1e-6) RoL = 0;
-    float pdf = (glossyValue + 2) / (2*M_PIf) * pow(RoL, fmaxf(glossyValue, 1e-6) );
-    return fmaxf(pdf, 1e-6);
+    if(RoL < 1e-14) RoL = 0;
+    float pdf = (glossyValue + 2) / (2*M_PIf) * pow(RoL, fmaxf(glossyValue, 1e-14) );
+    return fmaxf(pdf, 1e-14);
 }
 RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& N, const float3& R, const float3& albedoValue, const float3& specularValue, float glossyValue)
 {
@@ -224,20 +224,20 @@ RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& N, const float3& R,
     float pdfSpecular = SpecularPdf(L, N, R, glossyValue);
     float albedoStr = length(albedoValue );
     float specularStr = length(specularValue );
-    float pdf = (albedoStr * pdfLambertian + specularStr * pdfLambertian) / fmaxf(albedoStr + specularStr, 1e-6);
-    return fmaxf(pdf, 1e-6);
+    float pdf = (albedoStr * pdfLambertian + specularStr * pdfLambertian) / fmaxf(albedoStr + specularStr, 1e-14);
+    return fmaxf(pdf, 1e-14);
 }
 
 RT_CALLABLE_PROGRAM float3 evaluate(const float3& albedoValue, const float3& specularValue, const float3& N, const float glossyValue, 
         const float3& L, const float3& R, const float3& radiance)
 {
-    float NoL = fmaxf(dot(N, L), 1e-6);
+    float NoL = fmaxf(dot(N, L), 1e-14);
 
     float RoL = dot(R, L);
-    if(RoL < 1e-6) RoL = 0;
+    if(RoL < 1e-14) RoL = 0;
 
     float3 lambertianTerm = albedoValue / M_PIf;
-    float3 specularTerm = specularValue / (2*M_PIf) * (glossyValue + 2) * pow(RoL, fmaxf(glossyValue, 1e-6) );
+    float3 specularTerm = specularValue / (2*M_PIf) * (glossyValue + 2) * pow(RoL, fmaxf(glossyValue, 1e-14) );
     return (lambertianTerm + specularTerm) * radiance * NoL;
 }
 
@@ -254,10 +254,10 @@ RT_CALLABLE_PROGRAM void sample(unsigned& seed,
     float specularStr = length(specularValue );
 
     float3 L;
-    if(z <= albedoStr / fmaxf(albedoStr + specularStr, 1e-6) || (albedoStr + specularStr) < 1e-6 ){
+    if(z <= albedoStr / fmaxf(albedoStr + specularStr, 1e-14) || (albedoStr + specularStr) < 1e-14 ){
         cosine_sample_hemisphere(z1, z2, L);
         onb.inverse_transform(L);
-        attenuation = attenuation * albedoValue * (albedoStr + specularStr) / fmaxf(albedoStr, 1e-6);
+        attenuation = attenuation * albedoValue * (albedoStr + specularStr) / fmaxf(albedoStr, 1e-14);
     }
     else{
         float z1_1_nP1 = pow(z1, 1 / (glossyValue +1) );
@@ -269,8 +269,8 @@ RT_CALLABLE_PROGRAM void sample(unsigned& seed,
                 );
         optix::Onb ronb(R);
         ronb.inverse_transform(L);
-        float NoL = fmaxf(dot(N, L), 1e-12);
-        attenuation = attenuation * specularValue * NoL * (albedoStr + specularStr) / fmaxf(specularStr, 1e-6); 
+        float NoL = fmaxf(dot(N, L), 1e-14);
+        attenuation = attenuation * specularValue * NoL * (albedoStr + specularStr) / fmaxf(specularStr, 1e-14); 
     }
     direction = L;
     pdfSolid = pdf(L, N, R, albedoValue, specularValue, glossyValue);
@@ -308,11 +308,11 @@ RT_PROGRAM void closest_hit_radiance()
 
 
 
-    float3 colorSum = fmaxf(albedoValue + specularValue, make_float3(1e-6f) );
+    float3 colorSum = fmaxf(albedoValue + specularValue, make_float3(1e-14f) );
     float colorMax= colorSum.x;
     if(colorMax < colorSum.y) colorMax = colorSum.y;
     if(colorMax < colorSum.z) colorMax = colorSum.z;
-    colorMax = fmaxf(colorMax, 1e-6);
+    colorMax = fmaxf(colorMax, 1e-14);
 
     if(colorMax > 1){
         specularValue = specularValue / colorMax;

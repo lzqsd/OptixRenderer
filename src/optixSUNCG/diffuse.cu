@@ -115,7 +115,7 @@ RT_CALLABLE_PROGRAM void sampleAreaLight(unsigned int& seed, float3& radiance, f
     position = v1 + (v2 - v1) * u + (v3 - v1) * v;
 
     radiance = L.radiance;
-    pdfAreaLight = areaLightPDF[left] /  fmaxf(area, 1e-6);
+    pdfAreaLight = areaLightPDF[left] /  fmaxf(area, 1e-14);
 }
 
 // Sampling the environmnetal light
@@ -167,7 +167,7 @@ RT_CALLABLE_PROGRAM void sampleEnvironmapLight(unsigned int& seed, float3& radia
         }
         float up = envcdfV[make_uint2(0, left) ];
         float down = (left == 0) ? 0 : envcdfV[make_uint2(0, left-1) ];
-        v = ( (z1 - down) / fmaxf( (up - down), 1e-6) + left) / float(nrows);
+        v = ( (z1 - down) / fmaxf( (up - down), 1e-14) + left) / float(nrows);
         rowId = left;
     }
 
@@ -184,7 +184,7 @@ RT_CALLABLE_PROGRAM void sampleEnvironmapLight(unsigned int& seed, float3& radia
         }
         float up = envcdfH[make_uint2(left, rowId) ];
         float down = (left == 0) ? 0 : envcdfH[make_uint2(left-1, rowId) ];
-        u = ((z2 - down) / fmaxf((up - down), 1e-6) + left) / float(ncols);
+        u = ((z2 - down) / fmaxf((up - down), 1e-14) + left) / float(ncols);
         colId = left;
     }
     
@@ -199,12 +199,12 @@ RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& V, const float3& N)
 {
     float NoL = fmaxf(dot(N, L), 0);
     float pdf = NoL / M_PIf; 
-    return fmaxf(pdf, 1e-6);
+    return fmaxf(pdf, 1e-14);
 }
 
 RT_CALLABLE_PROGRAM float3 evaluate(const float3& albedoValue, const float3& N, const float3& V, const float3& L, const float3& radiance)
 {   
-    float NoL = fmaxf(dot(N, L), 1e-6);
+    float NoL = fmaxf(dot(N, L), 1e-14);
     float3 intensity = albedoValue / M_PIf * NoL * radiance; 
     return intensity;
 }
@@ -293,7 +293,7 @@ RT_PROGRAM void closest_hit_radiance()
                     float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
                     float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
 
-                    prd_radiance.radiance += intensity * pdfAreaLight / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-6) * prd_radiance.attenuation;
+                    prd_radiance.radiance += intensity * pdfAreaLight / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
                 }
             }
         }
@@ -342,7 +342,7 @@ RT_PROGRAM void closest_hit_radiance()
                     float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
                     float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
                     prd_radiance.radiance += intensity * pdfSolidEnv /
-                        fmaxf( (pdfSolidEnv2 + pdfSolidBRDF2), 1e-6) * prd_radiance.attenuation; 
+                        fmaxf( (pdfSolidEnv2 + pdfSolidBRDF2), 1e-14) * prd_radiance.attenuation; 
                 }
             }
         }
