@@ -10,12 +10,12 @@
 			<lookAt origin="278, 273, -800" target="278, 273, -799" up="0, 1, 0"/>
 		</transform>
 		<sampler type="independent">
-			<integer name="sampleCount" value="512"/>
+			<integer name="sampleCount" value="1024"/>
 		</sampler>
 
 		<film type="ldrfilm">
-			<integer name="width" value="12"/>
-			<integer name="height" value="12"/>
+			<integer name="width" value="512"/>
+			<integer name="height" value="512"/>
 		</film>
 	</sensor>
 
@@ -23,9 +23,8 @@
         <rgb name="reflectance" value="0.5 0.5 0.5"/>
 	</bsdf>
 
-	<bsdf type="microfacet" id="white">
-        <rgb name="albedo" value="1.0 1.0 1.0"/>
-        <float name = "roughness" value = "0.01"/>
+	<bsdf type="diffuse" id="white">
+        <rgb name="reflectance" value="1.0 1.0 1.0"/>
     </bsdf>
 
 	<bsdf type="diffuse" id="red">
@@ -34,8 +33,8 @@
 
 	<bsdf type="diffuse" id="green">
 		<rgb name="reflectance" value="0.0 1.0 0.0"/>
-	</bsdf>
-
+    </bsdf>
+    
 	<shape type="obj">
         <string name="filename" value="meshes/cbox_luminaire.obj"/>
 		<emitter type="area">
@@ -44,7 +43,7 @@
     </shape>
 
 	<shape type="obj">
-        <string name="filename" value="./meshes/cbox_floor.obj"/>
+        <string name="filename" value="meshes/cbox_floor.obj"/>
         <ref id="white"/>
     </shape>
 
@@ -77,9 +76,10 @@
         <string name="filename" value="meshes/cbox_largebox.obj"/>
 		<ref id="box"/>
     </shape>
-
+ 
+<!--
     <emitter type = "envmap">
         <string name="filename" value="envmap.hdr"/>
     </emitter>
-
+-->
 </scene>

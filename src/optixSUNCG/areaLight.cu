@@ -37,15 +37,15 @@ RT_PROGRAM void closest_hit_radiance()
         float3 L = normalize(hitPoint - prd_radiance.origin);
         float cosPhi = dot(L, ffnormal);
         if (cosPhi < 0) cosPhi = -cosPhi;
-        if (cosPhi < 1e-6) cosPhi = 0;
+        if (cosPhi < 1e-14) cosPhi = 0;
         
         float pdfAreaBRDF = prd_radiance.pdf * cosPhi / Dist / Dist;
-        float pdfAreaLight = 1 / areaSum;
+        float pdfAreaLight = length(radiance) / areaSum;
 
         float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
         float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
        
-        prd_radiance.radiance += radiance * pdfAreaBRDF2 / (pdfAreaBRDF2 + pdfAreaLight2) * prd_radiance.attenuation;
+        prd_radiance.radiance += radiance * pdfAreaBRDF2 / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
     }
     prd_radiance.done = true;
 }

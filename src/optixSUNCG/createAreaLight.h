@@ -27,6 +27,7 @@ int createAreaLightsBuffer(
             objLoader::shape_t shape = shapes[i];
             int faceNum = shape.mesh.indicesP.size() /3;
             float3 radiance = make_float3(shape.radiance[0], shape.radiance[1], shape.radiance[2]);
+
             std::vector<int>& faces = shape.mesh.indicesP;
             std::vector<float>& vertices = shape.mesh.positions;
 
@@ -59,6 +60,7 @@ int createAreaLightsBuffer(
         pdfArr[i] = pdfArr[i] / sum;
     }
 
+    context["areaSum"] -> setFloat(sum );
     Buffer lightBuffer = context->createBuffer( RT_BUFFER_INPUT, RT_FORMAT_USER, lights.size() );
     lightBuffer->setElementSize( sizeof( areaLight) );
     memcpy( lightBuffer->map(), (char*)&lights[0], sizeof(areaLight) * lights.size() );
