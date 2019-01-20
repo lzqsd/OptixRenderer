@@ -40,6 +40,7 @@ OPTIX_add_sample_executable( optixSUNCG
 
     path_trace_camera.cu
     diffuse.cu
+    mask.cu
     areaLight.cu
     triangle_mesh.cu
     envmap.cu
