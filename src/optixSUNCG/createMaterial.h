@@ -16,9 +16,9 @@ using namespace optix;
 void loadEmptyToTextureSampler(Context& context,  TextureSampler& Sampler){
     Buffer texBuffer = context->createBuffer( RT_BUFFER_INPUT, RT_FORMAT_FLOAT4, 1u, 1u );
     float* texPt = static_cast<float*>( texBuffer->map() );
-    texPt[0] = 1.0;
-    texPt[1] = 1.0;
-    texPt[2] = 1.0;
+    texPt[0] = 1.0f;
+    texPt[1] = 1.0f;
+    texPt[2] = 1.0f;
     texPt[3] = 1.0f;
     texBuffer->unmap(); 
     Sampler->setBuffer( 0u, 0u, texBuffer );
@@ -300,6 +300,25 @@ Material createWhiteMaterial(Context& context ){
    
     return material;
 }
+
+Material createMaskMaterial(Context& context, bool isAreaLight ){
+    const std::string ptx_path = ptxPath( "mask.cu" );
+    Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
+    Program ah_program = context->createProgramFromPTXFile( ptx_path, "any_hit_shadow" );
+
+    Material material = context->createMaterial();
+    material->setClosestHitProgram(0, ch_program );
+    material->setAnyHitProgram(1, ah_program );
+    
+    if ( isAreaLight == true ) {
+        material["isAreaLight"] -> setInt(1); 
+    }
+    else{
+        material["isAreaLight"] -> setInt(0);
+    }
+    return material;
+}
+
 
 Material createBlackMaterial(Context& context ){
     const std::string ptx_path = ptxPath( "albedo.cu" );

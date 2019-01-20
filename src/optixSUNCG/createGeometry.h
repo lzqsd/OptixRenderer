@@ -269,7 +269,7 @@ void createGeometry(
                 else if(mode == 4){
                     // Output the mask
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
-                        Material mat = createWhiteMaterial(context );
+                        Material mat = createMaskMaterial(context, false );
                         optix_materials.push_back(mat );
                     }
                     optix_materials.push_back(createDefaultMaterial(context ) );
@@ -299,8 +299,25 @@ void createGeometry(
             else{
                 context["isAreaLight"] -> setInt(1);
                 if(mode == 0){
+                    // Render image 
                     Material mat = createAreaLight(context, shape );
                     optix_materials.push_back(mat);
+                }
+                else if(mode == 2){
+                    // Render normal 
+                    objLoader::material_t emptyMat;
+                    Material mat = createNormalMaterial(context, emptyMat);
+                    optix_materials.push_back(mat );
+                }
+                else if(mode == 4){
+                    // Render Mask 
+                    Material mat = createMaskMaterial(context, true);
+                    optix_materials.push_back(mat );
+                }
+                else if(mode == 5){
+                    // Render Depth
+                    Material mat = createDepthMaterial(context);
+                    optix_materials.push_back(mat );
                 }
                 else{
                     Material mat = createBlackMaterial(context );
