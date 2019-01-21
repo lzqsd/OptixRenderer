@@ -114,32 +114,34 @@ void meshIntersect( int primIdx )
           bitangent_direction = cross(shading_normal, tangent_direction);
       } else {
           const int3 vt_idx = index_tex_buffer[primIdx ];
-          float2 t0 = texcoord_buffer[ vt_idx.x];
-          float2 t1 = texcoord_buffer[ vt_idx.y];
-          float2 t2 = texcoord_buffer[ vt_idx.z];
-          float2 duv1 = t1 - t0;
-          float2 duv2 = t2 - t0;
-          float3 dp1 = p1 - p0;
-          float3 dp2 = p2 - p0;
-          float3 td = duv2.y * dp1 - duv1.y * dp2;
-          float3 btd = -duv2.x * dp1 + duv1.x * dp2;
-          if (length(td) >= length(btd) ){
-              if(length(td) > 0){
-                tangent_direction = normalize(td );
-              }
-              else{
-                tangent_direction = make_float3(0.0) ;
-              }
-              bitangent_direction = cross(shading_normal, tangent_direction);
-          }
-          else if(length(td ) < length(btd) ){
-              if(length(btd ) > 0){
-                bitangent_direction = normalize(btd );
-              }
-              else{
-                  bitangent_direction = make_float3(0.0);
-              }
-              tangent_direction = cross(bitangent_direction, shading_normal);
+          if(vt_idx.x >= 0 && vt_idx.y >= 0 && vt_idx.z >= 0){
+            float2 t0 = texcoord_buffer[ vt_idx.x];
+            float2 t1 = texcoord_buffer[ vt_idx.y];
+            float2 t2 = texcoord_buffer[ vt_idx.z];
+            float2 duv1 = t1 - t0;
+            float2 duv2 = t2 - t0;
+            float3 dp1 = p1 - p0;
+            float3 dp2 = p2 - p0;
+            float3 td = duv2.y * dp1 - duv1.y * dp2;
+            float3 btd = -duv2.x * dp1 + duv1.x * dp2;
+            if (length(td) >= length(btd) ){
+                if(length(td) > 0){
+                    tangent_direction = normalize(td );
+                }
+                else{
+                    tangent_direction = make_float3(0.0) ;
+                }
+                bitangent_direction = cross(shading_normal, tangent_direction);
+            }
+            else if(length(td ) < length(btd) ){
+                if(length(btd ) > 0){
+                    bitangent_direction = normalize(btd );
+                }
+                else{
+                    bitangent_direction = make_float3(0.0);
+                }
+                tangent_direction = cross(bitangent_direction, shading_normal);
+            }
           }
       }
 
@@ -160,9 +162,7 @@ void meshIntersect( int primIdx )
 
 RT_PROGRAM void mesh_intersect( int primIdx )
 {
-    rtPrintf("wtf\n");
     meshIntersect<false>( primIdx );
-    rtPrintf("wtf!\n");
 }
 
 
