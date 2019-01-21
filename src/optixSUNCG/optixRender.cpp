@@ -253,7 +253,7 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
         case 6: modeString = "metallic"; break;
     }
 
-    if(camNum > 1){
+    if(camNum > 0){
         char camId[10];
         std::sprintf(camId, "%d", i+1 );
         outputFileName = root + modeString + "_" + camId + "." + suffix;
