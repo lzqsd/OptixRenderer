@@ -20,6 +20,8 @@
 #include <assert.h>
 #include "relativePath.h"
 #include "constant.h"
+#include <cmath>
+#include <algorithm>
 
 
 std::vector<float> parseFloatStr(const std::string& str){
@@ -80,8 +82,71 @@ bool doObjTransform(objLoader::shape_t& shape, std::vector<objTransform>& TArr)
         }
         else if(T.name == std::string("rotate") ){
             // When looking at the axis, it will rotate the object counter clockwise 
-            float theta =  T.value[3] / 180.0 * PI;
+            double theta =  T.value[3] / 180.0 * PI;
+            float x = T.value[0];
+            float y = T.value[1];
+            float z = T.value[2];
+            double axis[3];
+            axis[0] = x; axis[1] = y; axis[2] = z;
+            double axisNorm = 0;
+            for(int i = 0; i < 3; i++){
+                axisNorm += axis[i] * axis[i];
+            }
+            axisNorm = sqrt(axisNorm );
+            for(int i = 0; i < 3; i++){
+                axis[i] /= std::max(axisNorm, 1e-6);
+            }
+                
+            double rotMat[3][3];
+            double rotMat_0[3][3], rotMat_1[3][3];
+            for(int r = 0; r < 3; r++){
+                for(int c = 0; c < 3; c++){
+                    rotMat[r][c] = 0.0;
+                    rotMat_0[r][c] = 0.0;
+                    rotMat_1[r][c] = 0.0;
+                }
+            }
 
+            rotMat_0[0][0] = rotMat_0[1][1] = rotMat_0[2][2] = 1.0;
+            rotMat_1[0][1] = -z; rotMat_1[0][2] = y;
+            rotMat_1[1][0] = z; rotMat_1[1][2] = -x;
+            rotMat_1[2][0] = -y; rotMat_1[2][1] = x;
+            for(int r = 0; r < 3; r++){
+                for(int c = 0; c < 3; c++){
+                    rotMat[r][c] = cos(theta) * rotMat_0[r][c] + 
+                        sin(theta) * rotMat_1[r][c] + (1 - cos(theta) ) * axis[r] * axis[c];
+                }
+            }
+            
+            // Rotate 3D points 
+            int vertexNum = shape.mesh.positions.size() / 3;
+            for(int i = 0; i < vertexNum; i++ ){
+                float newPosition[3];
+                for(int r = 0; r < 3; r++){
+                    newPosition[r] = 0;
+                    for(int c = 0; c < 3; c++){
+                        newPosition[r] += rotMat[r][c] * shape.mesh.positions[3*i + c];
+                    }
+                }
+                for(int r = 0; r < 3; r++){
+                    shape.mesh.positions[3*i + r] = newPosition[r];
+                }
+            }
+            
+            // Rotate Normals 
+            int normalNum = shape.mesh.normals.size() / 3;
+            for(int i = 0; i < normalNum; i++ ){
+                float newNormal[3];
+                for(int r = 0; r < 3; r++){
+                    newNormal[r] = 0;
+                    for(int c = 0; c < 3; c++){
+                        newNormal[r] += rotMat[r][c] * shape.mesh.normals[3*i + c];
+                    }
+                }
+                for(int r=0; r < 3; r++){
+                    shape.mesh.normals[3*i + r] = newNormal[r];
+                }
+            }
         }
         else{
             std::cout<<"Wrong: unrecognizable transform operatioin!"<<std::endl;
