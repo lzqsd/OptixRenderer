@@ -10,10 +10,10 @@
 #include <algorithm>
 #include "envmap.h"
 #include "createTextureSampler.h"
+#include "constant.h"
 
 using namespace optix;
 
-const float PI = 3.1415926f;
 
 cv::Mat loadEnvmap(Envmap env, unsigned width = 1024, unsigned height = 512){
 

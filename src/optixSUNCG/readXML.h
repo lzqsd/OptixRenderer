@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "relativePath.h"
-
+#include "constant.h"
 
 
 std::vector<float> parseFloatStr(const std::string& str){
@@ -58,7 +58,7 @@ std::vector<float> parseFloatStr(const std::string& str){
 
 struct objTransform{
     std::string name;
-    float value[3];
+    float value[4];
 };
 
 bool doObjTransform(objLoader::shape_t& shape, std::vector<objTransform>& TArr)
@@ -77,6 +77,11 @@ bool doObjTransform(objLoader::shape_t& shape, std::vector<objTransform>& TArr)
             for(int i = 0; i < shape.mesh.positions.size(); i++){
                 shape.mesh.positions[i] *= T.value[0];
             }
+        }
+        else if(T.name == std::string("rotate") ){
+            // When looking at the axis, it will rotate the object counter clockwise 
+            float theta =  T.value[3] / 180.0 * PI;
+
         }
         else{
             std::cout<<"Wrong: unrecognizable transform operatioin!"<<std::endl;
@@ -857,11 +862,44 @@ bool readXML(std::string fileName,
                                             T.value[2] = translateArr[0];  
                                         }
                                         else{
-                                            std::cout<<"Wrong: unrecognizable attribute of translation of transform of shape!"<<std::endl;
+                                            std::cout<<"Wrong: unrecognizable attribute of translation of transformation of shape!"<<std::endl;
                                             return false;
                                         }
                                     }
                                     TArr.push_back(T);
+                                }
+                                else if(trSubModule -> Value() == std::string("rotate") ){
+                                    TiXmlElement* trSubEle = trSubModule -> ToElement();
+                                    objTransform T;
+                                    T.value[0] = T.value[1] = T.value[2] = T.value[3] = 0.0;
+                                    T.name = std::string("rotate");
+                                    for(TiXmlAttribute* trSubAttri = trSubEle -> FirstAttribute(); trSubAttri != 0; trSubAttri = trSubAttri -> Next() ){
+                                        if(trSubAttri -> Name() == std::string("x") ){
+                                            std::vector<float> rotateArr = parseFloatStr(trSubAttri -> Value() );
+                                            T.value[0] = rotateArr[0];
+                                        }
+                                        else if(trSubAttri -> Name() == std::string("y") ){
+                                            std::vector<float> rotateArr = parseFloatStr(trSubAttri -> Value() );
+                                            T.value[1] = rotateArr[0]; 
+                                        }
+                                        else if(trSubAttri -> Name() == std::string("z") ){
+                                            std::vector<float> rotateArr = parseFloatStr(trSubAttri -> Value() );
+                                            T.value[2] = rotateArr[0];  
+                                        }
+                                        else if(trSubAttri -> Name() == std::string("angle") ){
+                                            std::vector<float> rotateArr = parseFloatStr(trSubAttri -> Value() );
+                                            T.value[3] = rotateArr[0];
+                                        }
+                                        else{
+                                            std::cout<<"Wrong: unrecognizable attribute of translation of transformation of shape!"<<std::endl;
+                                            return false;
+                                        }
+                                    }
+                                    TArr.push_back(T); 
+                                }
+                                else{
+                                    std::cout<<"Wrong: unrecognizable module of transformation of shape!"<<std::endl;
+                                    return false;
                                 }
                             }
                         }
