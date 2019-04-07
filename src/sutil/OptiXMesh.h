@@ -67,10 +67,3 @@ struct OptiXMesh
 
   int                          num_triangles;
 };
-
-
-SUTILAPI void loadMesh(
-    const std::string&        filename,
-    OptiXMesh&                mesh, 
-    const optix::Matrix4x4&   load_xform = optix::Matrix4x4::identity()
-    );

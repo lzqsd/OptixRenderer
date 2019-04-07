@@ -52,16 +52,14 @@
 #include <map>
 
 
-#include "tinyxml.h"
 #include "readXML.h"
 #include "cameraInput.h"
-#include "areaLight.h"
-#include "envmap.h"
+#include "sutil/lightStructs.h"
 #include "rgbe.h"
 #include "relativePath.h"
 #include "sutil/Camera.h"
-#include "sutil/HDRLoader.h"
 #include "sutil/sutil.h"
+#include "sutil/shapeStructs.h"
 
 #include "createAreaLight.h"
 #include "createCamera.h"
@@ -71,14 +69,15 @@
 #include "createMaterial.h"
 #include "createPointFlashLight.h"
 #include "sampler.h"
+#include "stdio.h"
 
 using namespace optix;
 
-long unsigned vertexCount(const std::vector<objLoader::shape_t>& shapes)
+long unsigned vertexCount(const std::vector<shape_t>& shapes)
 {
     long unsigned vertexSum = 0;
     for(int i = 0; i < shapes.size(); i++){
-        objLoader::shape_t shape = shapes[i];
+        shape_t shape = shapes[i];
         int vertexNum = shape.mesh.positions.size() / 3;
         vertexSum += vertexNum;
     }
@@ -87,12 +86,12 @@ long unsigned vertexCount(const std::vector<objLoader::shape_t>& shapes)
 
 void boundingBox(
         Context& context,
-        const std::vector<objLoader::shape_t>& shapes
+        const std::vector<shape_t>& shapes
         )
 {
     float3 vmin, vmax;
     for(int i = 0; i < shapes.size(); i++){
-        objLoader::shape_t shape = shapes[i];
+        shape_t shape = shapes[i];
         int vertexNum = shape.mesh.positions.size() / 3;
         for(int j = 0; j < vertexNum; j++){
             float vx = shape.mesh.positions[3*j];
@@ -111,6 +110,8 @@ void boundingBox(
     }
     float infiniteFar = length(vmax - vmin) * 10;
     std::cout<<"The length of diagonal of bouncding box: "<<(infiniteFar / 10) <<std::endl;
+    printf("Max X: %.3f Max Y: %.3f Max Z: %.3f", vmax.x, vmax.y, vmax.z);
+    printf("Min X: %.3f Min Y: %.3f Min Z: %.3f", vmin.x, vmin.y, vmin.z);
     context["infiniteFar"] -> setFloat(infiniteFar);
     context["scene_epsilon"]->setFloat(infiniteFar / 1e6);
 }
@@ -383,16 +384,6 @@ int main( int argc, char** argv )
             intensityLimit = flArr[0];
             intensityLimitEnabled = true;
         }
-        /*
-        else if(std::string(argv[i]) == std::string("--rotateEnvmapNum") ){
-            if(i == argc - 1){
-                std::cout<<"Missing input variable"<<std::endl;
-                exit(1);
-            }
-            rotateEnvmapNum = atoi(argv[++i] );
-            rotateEnvmapEnabled = true; 
-        }
-        */
         else if(std::string(argv[i] ) == std::string("--camStart") ){
             if(i == argc - 1){
                 std::cout<<"Missing input variable"<<std::endl;
@@ -413,8 +404,8 @@ int main( int argc, char** argv )
         }
     }
     
-    std::vector<objLoader::shape_t> shapes;
-    std::vector<objLoader::material_t> materials;
+    std::vector<shape_t> shapes;
+    std::vector<material_t> materials;
     CameraInput cameraInput;
     std::vector<Envmap> envmaps;
     std::vector<Point> points;
@@ -561,35 +552,6 @@ int main( int argc, char** argv )
         clock_t t;
         t = clock();
         
-        /*
-        if(rotateEnvmapEnabled == true && envmaps.size() > 0 ){
-            int pixelNum = cameraInput.width * cameraInput.height * 3;
-
-            std::cout<<"Rotating envmap"<<std::endl;
-            float phiGap = 2 * PI / rotateEnvmapNum;
-            float maxIntensity = 0;
-            float maxAngle = 0;
-            for(int i = 0; i < rotateEnvmapNum; i++){
-                float phiDelta = i * phiGap;
-                rotateUpdateEnvmap(context, envmaps[0], phiDelta);
-                independentSampling(context, cameraInput.width, cameraInput.height, imgData, 4);
-                float meanIntensity = 0;
-                for(int i = 0; i < pixelNum; i++){
-                    meanIntensity += imgData[i];
-                }
-                meanIntensity /= pixelNum;
-
-                if(meanIntensity > maxIntensity){
-                    maxIntensity = meanIntensity;
-                    maxAngle = phiDelta;
-                }
-                std::cout<<"Envmap Angle "<<i<<": meanIntensity "<<meanIntensity<<std::endl;
-            }
-            rotateUpdateEnvmap(context, envmaps[0], maxAngle);
-            std::cout<<"Largest intensity: "<<maxIntensity<<std::endl;
-            std::cout<<"Rotattion angle: "<<maxAngle<<std::endl;
-        }*/
-
         if(intensityLimitEnabled == true && mode == 0){
             independentSampling(context, cameraInput.width, cameraInput.height, imgData, 4);
             float meanIntensity = 0;

@@ -26,7 +26,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef COMMONSTRUCTS_HEADER
+#define COMMONSTRUCTS_HEADER
 
 #include <optixu/optixu_vector_types.h>
 
@@ -53,4 +54,6 @@ struct DirectionalLight
   int casts_shadow;
 };
 
+    
 
+#endif

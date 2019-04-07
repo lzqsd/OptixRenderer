@@ -9,11 +9,11 @@
 #include <map>
 #include <stdio.h>
 #include "createMaterial.h"
-#include "sutil/tinyobjloader/objLoader.h"
+#include "sutil/shapeStructs.h"
 
 const int faceLimit = 100000;
 
-void splitShapes(objLoader::shape_t& shapeLarge, std::vector<objLoader::shape_t >& shapeArr)
+void splitShapes(shape_t& shapeLarge, std::vector<shape_t >& shapeArr)
 {
     int faceNum = shapeLarge.mesh.indicesP.size() / 3;
     if(faceNum <= faceLimit ){
@@ -25,7 +25,7 @@ void splitShapes(objLoader::shape_t& shapeLarge, std::vector<objLoader::shape_t 
             int fs = i * faceLimit, fe = (i+1) * faceLimit;
             fe = (fe > faceNum ) ? faceNum : fe;
 
-            objLoader::shape_t shape; 
+            shape_t shape; 
             shape.isLight = shapeLarge.isLight;
             for(int j = 0; j < 3; j++){
                 shape.radiance[j] = shapeLarge.radiance[j];
@@ -124,8 +124,8 @@ void splitShapes(objLoader::shape_t& shapeLarge, std::vector<objLoader::shape_t 
 
 void createGeometry(
         Context& context,
-        const std::vector<objLoader::shape_t>& shapes,
-        const std::vector<objLoader::material_t>& materials,
+        const std::vector<shape_t>& shapes,
+        const std::vector<material_t>& materials,
         int mode
         )
 {
@@ -143,8 +143,8 @@ void createGeometry(
         optix::Program bounds_program = context->createProgramFromPTXFile( path, "mesh_bounds" );
         optix::Program intersection_program = context->createProgramFromPTXFile( path, "mesh_intersect" );
         
-        objLoader::shape_t  shapeLarge = shapes[i];
-        std::vector<objLoader::shape_t > shapeArr;
+        shape_t  shapeLarge = shapes[i];
+        std::vector<shape_t > shapeArr;
         splitShapes(shapeLarge, shapeArr );
 
         if(shapeArr.size() != 1){
@@ -152,7 +152,7 @@ void createGeometry(
         }
 
         for(int j = 0; j < shapeArr.size(); j++){
-            objLoader::shape_t shape = shapeArr[j];
+            shape_t shape = shapeArr[j];
             int vertexNum = shape.mesh.positions.size() / 3;
             int normalNum = shape.mesh.normals.size() / 3;
             int texNum = shape.mesh.texcoords.size() / 2;
@@ -225,7 +225,7 @@ void createGeometry(
                 if(mode == 0){
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
                         Material mat;
-                        objLoader::material_t matInput = materials[shape.mesh.materialNameIds[i] ];
+                        material_t matInput = materials[shape.mesh.materialNameIds[i] ];
                         if(matInput.cls == std::string("diffuse") ){
                             mat = createDiffuseMaterial(context, matInput );
                         }
@@ -242,7 +242,7 @@ void createGeometry(
                 else if(mode == 1){
                     // Output the albedo value 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
-                        objLoader::material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
+                        material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
                         Material mat = createAlbedoMaterial(context, matInput);
                         optix_materials.push_back(mat);
                     }
@@ -251,7 +251,7 @@ void createGeometry(
                 else if(mode == 2){
                     // Output the normal value 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
-                        objLoader::material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
+                        material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
                         Material mat = createNormalMaterial(context, matInput);
                         optix_materials.push_back(mat);
                     }
@@ -260,7 +260,7 @@ void createGeometry(
                 else if(mode == 3){
                     // Output the roughness value 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
-                        objLoader::material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
+                        material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
                         Material mat = createRoughnessMaterial(context, matInput);
                         optix_materials.push_back(mat);
                     }
@@ -285,7 +285,7 @@ void createGeometry(
                 else if(mode == 6){
                     // Output the metallic 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
-                        objLoader::material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
+                        material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
                         Material mat = createMetallicMaterial(context, matInput);
                         optix_materials.push_back(mat );
                     }
@@ -305,7 +305,7 @@ void createGeometry(
                 }
                 else if(mode == 2){
                     // Render normal 
-                    objLoader::material_t emptyMat;
+                    material_t emptyMat;
                     Material mat = createNormalMaterial(context, emptyMat);
                     optix_materials.push_back(mat );
                 }

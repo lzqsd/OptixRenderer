@@ -2,6 +2,7 @@
 
 <scene version="0.5.0">
 	<integrator type="path"/>
+    
 
 	<sensor type="perspective">
 		<string name="fovAxis" value="x"/>
@@ -22,7 +23,7 @@
 	<bsdf type="diffuse" id="box">
         <rgb name="reflectance" value="0.5 0.5 0.5"/>
 	</bsdf>
-
+    
 	<bsdf type="diffuse" id="white">
         <rgb name="reflectance" value="1.0 1.0 1.0"/>
     </bsdf>
@@ -71,15 +72,23 @@
         <string name="filename" value="meshes/cbox_smallbox.obj"/>
 		<ref id="box"/>
     </shape>
-
-	<shape type="obj">
+    
+    <shape type="obj">
         <string name="filename" value="meshes/cbox_largebox.obj"/>
 		<ref id="box"/>
     </shape>
- 
-<!--
+
+    <!--
+	<shape type="obj">
+        <string name="filename" value="meshes/sphere.obj"/>
+		<ref id="box"/>
+        <transform name="toWorld">
+            <rotate x="0.0" y="1.0" z="0.0" angle="0.0"/>
+            <scale value="10"/>
+        </transform>
+    </shape>
+    -->
     <emitter type = "envmap">
         <string name="filename" value="envmap.hdr"/>
     </emitter>
--->
 </scene>

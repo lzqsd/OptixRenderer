@@ -33,11 +33,6 @@ find_package(OpenCV REQUIRED)
 # See top level CMakeLists.txt file for documentation of OPTIX_add_sample_executable.
 OPTIX_add_sample_executable( optixSUNCG
     optixRender.cpp
-    tinyxml.cpp
-    tinystr.cpp
-    tinyxmlerror.cpp
-    tinyxmlparser.cpp
-
     path_trace_camera.cu
     diffuse.cu
     mask.cu

@@ -67,9 +67,6 @@ class Camera
 
     SUTILAPI void reset_lookat();
 
-    SUTILAPI bool process_mouse( float x, float y, bool left_button_down, bool right_button_down, bool middle_button_down );
-
-    SUTILAPI bool rotate( float dx, float dy );
 
     SUTILAPI bool resize( unsigned int w, unsigned int h) {
         if ( w == m_width && h == m_height) return false;

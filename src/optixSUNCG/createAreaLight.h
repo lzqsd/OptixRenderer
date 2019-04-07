@@ -4,7 +4,7 @@
 #include <optixu/optixpp_namespace.h>
 #include <optixu/optixu_aabb_namespace.h>
 #include <optixu/optixu_math_stream_namespace.h>
-#include "sutil/tinyobjloader/objLoader.h"
+#include "shapeStructs.h"
 #include "ptxPath.h"
 
 using namespace optix;
@@ -12,7 +12,7 @@ using namespace optix;
 
 int createAreaLightsBuffer(
         Context& context, 
-        const std::vector<objLoader::shape_t> shapes
+        const std::vector<shape_t> shapes
     )
 {
     std::vector<float> cdfArr;
@@ -24,7 +24,7 @@ int createAreaLightsBuffer(
     for(int i = 0; i < shapes.size(); i++){
         if(shapes[i].isLight ){
             
-            objLoader::shape_t shape = shapes[i];
+            shape_t shape = shapes[i];
             int faceNum = shape.mesh.indicesP.size() /3;
             float3 radiance = make_float3(shape.radiance[0], shape.radiance[1], shape.radiance[2]);
 
@@ -81,7 +81,7 @@ int createAreaLightsBuffer(
     context["areaLightPDF"] -> set(pdfBuffer );
 }
 
-Material createAreaLight(Context& context, objLoader::shape_t shape){
+Material createAreaLight(Context& context, shape_t shape){
     const std::string ptx_path = ptxPath( "areaLight.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
     Program ah_program = context->createProgramFromPTXFile( ptx_path, "any_hit_shadow" );

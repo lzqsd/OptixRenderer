@@ -8,7 +8,7 @@
 #include <opencv2/opencv.hpp>
 #include "createTextureSampler.h"
 #include "ptxPath.h"
-#include "sutil/tinyobjloader/objLoader.h"
+#include "sutil/shapeStructs.h"
 
 using namespace optix;
 
@@ -47,7 +47,7 @@ Material createDefaultMaterial(Context& context ){
     return material;
 }
 
-Material createDiffuseMaterial(Context& context, objLoader::material_t mat)
+Material createDiffuseMaterial(Context& context, material_t mat)
 {
     const std::string ptx_path = ptxPath( "diffuse.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
@@ -100,7 +100,7 @@ Material createDiffuseMaterial(Context& context, objLoader::material_t mat)
     return material;
 }
 
-Material createPhongMaterial(Context& context, objLoader::material_t mat)
+Material createPhongMaterial(Context& context, material_t mat)
 {
     const std::string ptx_path = ptxPath( "phong.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
@@ -192,7 +192,7 @@ Material createPhongMaterial(Context& context, objLoader::material_t mat)
     return material;
 }
 
-Material createMicrofacetMaterial(Context& context, objLoader::material_t mat)
+Material createMicrofacetMaterial(Context& context, material_t mat)
 {
     const std::string ptx_path = ptxPath( "microfacet.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
@@ -339,7 +339,7 @@ Material createBlackMaterial(Context& context ){
     return material;
 }
 
-Material createAlbedoMaterial(Context& context, objLoader::material_t mat){
+Material createAlbedoMaterial(Context& context, material_t mat){
     const std::string ptx_path = ptxPath( "albedo.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
     Program ah_program = context->createProgramFromPTXFile( ptx_path, "any_hit_shadow" );
@@ -373,7 +373,7 @@ Material createAlbedoMaterial(Context& context, objLoader::material_t mat){
     return material;
 }
 
-Material createNormalMaterial(Context& context, objLoader::material_t mat){
+Material createNormalMaterial(Context& context, material_t mat){
     const std::string ptx_path = ptxPath( "normal.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
     Program ah_program = context->createProgramFromPTXFile( ptx_path, "any_hit_shadow" );
@@ -402,7 +402,7 @@ Material createNormalMaterial(Context& context, objLoader::material_t mat){
     return material;
 }
 
-Material createRoughnessMaterial(Context& context, objLoader::material_t mat){
+Material createRoughnessMaterial(Context& context, material_t mat){
     const std::string ptx_path = ptxPath( "roughness.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
     Program ah_program = context->createProgramFromPTXFile( ptx_path, "any_hit_shadow" );
@@ -433,7 +433,7 @@ Material createRoughnessMaterial(Context& context, objLoader::material_t mat){
     return material; 
 }
 
-Material createMetallicMaterial(Context& context, objLoader::material_t mat){
+Material createMetallicMaterial(Context& context, material_t mat){
     const std::string ptx_path = ptxPath( "metallic.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
     Program ah_program = context->createProgramFromPTXFile( ptx_path, "any_hit_shadow" );
