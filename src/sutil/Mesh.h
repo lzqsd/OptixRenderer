@@ -42,6 +42,7 @@
 // Struct for describing material parameters
 //
 //------------------------------------------------------------------------------
+/*
 struct MaterialParams
 {
   std::string         name;
@@ -54,6 +55,7 @@ struct MaterialParams
   float               exp;
 
 };
+*/
 
 
 //------------------------------------------------------------------------------
@@ -81,7 +83,6 @@ struct Mesh
   float               bbox_max[3];    //
 
   int32_t             num_materials;
-  MaterialParams*     mat_params;     // Material params
 };
 
 //------------------------------------------------------------------------------
@@ -90,6 +91,7 @@ struct Mesh
 //
 //------------------------------------------------------------------------------
 
+/*
 // Allocates memory for mesh using std lib new.
 // Assumes num_vertices, has_normals, has_texcoords, num_triangles initialized.
 SUTILAPI void allocMesh( Mesh& mesh );
@@ -150,4 +152,4 @@ public:
   {
     freeMesh( *this );
   }
-};
+};*/

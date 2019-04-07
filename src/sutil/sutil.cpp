@@ -30,10 +30,8 @@
 // Note: wglew.h has to be included before sutil.h on Windows
 
 #include <sutil/sutil.h>
-#include <sutil/HDRLoader.h>
-#include <sutil/PPMLoader.h>
+//#include <sutil/PPMLoader.h>
 #include <sampleConfig.h>
-#include <sutil/stb/stb_image_write.h>
 
 #include <optixu/optixu_math_namespace.h>
 
@@ -84,29 +82,6 @@ void checkBuffer( RTbuffer buffer )
             RT_FORMAT_FLOAT3 != format &&
             RT_FORMAT_UNSIGNED_BYTE4 != format )
         throw Exception( "Attempting to diaplay buffer with format not float, float3, float4, or uchar4");
-}
-
-
-void SavePPM(const unsigned char *Pix, const char *fname, int wid, int hgt, int chan)
-{
-    if( Pix==NULL || wid < 1 || hgt < 1 )
-        throw Exception( "Image is ill-formed. Not saving" );
-
-    if( chan != 1 && chan != 3 && chan != 4 )
-        throw Exception( "Attempting to save image with channel count != 1, 3, or 4.");
-
-    std::ofstream OutFile(fname, std::ios::out | std::ios::binary);
-    if(!OutFile.is_open())
-        throw Exception( "Could not open file for SavePPM" );
-
-    bool is_float = false;
-    OutFile << 'P';
-    OutFile << ((chan==1 ? (is_float?'Z':'5') : (chan==3 ? (is_float?'7':'6') : '8'))) << std::endl;
-    OutFile << wid << " " << hgt << std::endl << 255 << std::endl;
-
-    OutFile.write(reinterpret_cast<char*>(const_cast<unsigned char*>( Pix )), wid * hgt * chan * (is_float ? 4 : 1));
-
-    OutFile.close();
 }
 
 
@@ -236,29 +211,6 @@ optix::GeometryInstance sutil::createOptiXGroundPlane( optix::Context context,
     return instance;
 }
 
-optix::TextureSampler sutil::loadTexture( optix::Context context,
-        const std::string& filename, optix::float3 default_color )
-{
-    bool isHDR = false;
-    size_t len = filename.length();
-    if(len >= 3) {
-      isHDR = (filename[len-3] == 'H' || filename[len-3] == 'h') &&
-              (filename[len-2] == 'D' || filename[len-2] == 'd') &&
-              (filename[len-1] == 'R' || filename[len-1] == 'r');
-    }
-    if ( isHDR ) {
-        return loadHDRTexture(context, filename, default_color);
-    } else {
-        return loadPPMTexture(context, filename, default_color);
-    }
-}
-
-
-optix::Buffer sutil::loadCubeBuffer( optix::Context context,
-        const std::vector<std::string>& filenames )
-{
-    return loadPPMCubeBuffer( context, filenames );
-}
 
 
 void sutil::calculateCameraVariables( float3 eye, float3 lookat, float3 up,

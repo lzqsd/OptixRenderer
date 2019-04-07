@@ -27,7 +27,6 @@
  */
 
 #include "Camera.h"
-#include "Arcball.h"
 #include "sutil.h"
 #include <iostream>
 
@@ -77,77 +76,3 @@ void sutil::Camera::reset_lookat()
     m_camera_lookat = m_save_camera_lookat;
     apply();
 }
-
-bool sutil::Camera::process_mouse( float x, float y, bool left_button_down, bool right_button_down, bool middle_button_down )
-{
-    static sutil::Arcball arcball;
-    static float2 mouse_prev_pos = make_float2( 0.0f, 0.0f );
-    static bool   have_mouse_prev_pos = false;
-
-    // No action if mouse did not move
-    if (( mouse_prev_pos.x == x && mouse_prev_pos.y == y) ) return false;
-
-    bool dirty = false;
-
-    if ( left_button_down || right_button_down || middle_button_down ) {
-        if ( have_mouse_prev_pos) {
-            if ( left_button_down ) {
-
-                const float2 from = { mouse_prev_pos.x, mouse_prev_pos.y };
-                const float2 to   = { x, y };
-
-                const float2 a = { from.x / m_width, from.y / m_height };
-                const float2 b = { to.x   / m_width, to.y   / m_height };
-
-                m_camera_rotate = arcball.rotate( b, a );
-
-            } else if ( right_button_down ) {
-                const float dx = ( x - mouse_prev_pos.x ) / m_width;
-                const float dy = ( y - mouse_prev_pos.y ) / m_height;
-                const float dmax = fabsf( dx ) > fabs( dy ) ? dx : dy;
-                const float scale = fminf( dmax, 0.9f );
-
-                m_camera_eye = m_camera_eye + (m_camera_lookat - m_camera_eye)*scale;
-
-            } else if ( middle_button_down ) {
-                const float dx = ( x - mouse_prev_pos.x ) / m_width;
-                const float dy = ( y - mouse_prev_pos.y ) / m_height;
-
-                float3 translation = -dx*m_camera_u + dy*m_camera_v;
-                m_camera_eye    = m_camera_eye + translation;
-                m_camera_lookat = m_camera_lookat + translation;
-            }
-
-            apply();
-            dirty = true;
-
-        }
-
-        have_mouse_prev_pos = true;
-        mouse_prev_pos.x = x;
-        mouse_prev_pos.y = y;
-
-    } else {
-        have_mouse_prev_pos = false;
-    }
-
-    return dirty;
-}
-
-bool sutil::Camera::rotate( float dx, float dy )
-{
-    static sutil::Arcball arcball;
-
-    const float2 from = make_float2(m_width * .5f, m_height * .5f);
-    const float2 to   = make_float2(from.x + dx, from.y + dy);
-
-    const float2 a = { from.x / m_width, from.y / m_height };
-    const float2 b = { to.x   / m_width, to.y   / m_height };
-
-    m_camera_rotate = arcball.rotate( b, a );
-    apply();
-
-    return true;
-}
-
-

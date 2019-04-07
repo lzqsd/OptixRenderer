@@ -8,7 +8,8 @@
 #include <string>
 #include <opencv2/opencv.hpp>
 #include <algorithm>
-#include "envmap.h"
+#include "sutil/lightStructs.h"
+#include "rgbe.h"
 #include "createTextureSampler.h"
 #include "constant.h"
 
@@ -16,29 +17,38 @@ using namespace optix;
 
 
 cv::Mat loadEnvmap(Envmap env, unsigned width = 1024, unsigned height = 512){
+    
+    int envWidth, envHeight;
+    FILE* hdrRead = fopen(env.fileName.c_str(), "r");
+    int rgbeInd = RGBE_ReadHeader( hdrRead, &envWidth, &envHeight, NULL);
 
-    HDRLoader hdr(env.fileName);
-    if( hdr.failed() ){
+    if( rgbeInd == -1 ){
         std::cout<<"Wrong: fail to load hdr image."<<std::endl;
         exit(0);
     }
     else{
-        int envWidth = hdr.width();
-        int envHeight = hdr.height();
+        float* hdr = new float [envHeight * envWidth * 3];
+        for(int n = 0; n < envHeight * envWidth * 3; n++)
+            hdr[n] = 0;
+        RGBE_ReadPixels_RLE(hdrRead, hdr, envWidth, envHeight );
+        fclose(hdrRead );
 
         // Resize the  image
         cv::Mat envMat(envHeight, envWidth, CV_32FC3);
-        for(int r = 0; r < envHeight; r++){
-            for(int c = 0; c < envWidth; c++){
-                int hdrInd = 4 *( r*envWidth + c );
-                for(int ch = 0; ch < 3; ch++){
-                    float color = hdr.raster()[hdrInd + ch];
+        for(int r = 0; r < envHeight; r++) {
+            for(int c = 0; c < envWidth; c++) {
+                int hdrInd = 3 *(r*envWidth + c );
+                for(int ch = 0; ch < 3; ch++) {
+                    float color = hdr[hdrInd + ch];
                     envMat.at<cv::Vec3f>(r, envWidth -1 - c)[2 - ch] = color * env.scale;
                 } 
             }
         }
         cv::Mat envMatNew(height, width, CV_32FC3);
         cv::resize(envMat, envMatNew, cv::Size(width, height), cv::INTER_AREA); 
+        
+        delete [] hdr;
+
         return envMatNew;
     }
 }

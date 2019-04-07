@@ -5,7 +5,7 @@
 #include <optixu/optixu_aabb_namespace.h>
 #include <optixu/optixu_math_stream_namespace.h>
 #include <vector>
-#include "point.h"
+#include "sutil/lightStructs.h"
 
 using namespace optix;
 

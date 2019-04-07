@@ -31,33 +31,19 @@ set(sources
   ${SAMPLES_INCLUDE_DIR}/helpers.h
   ${SAMPLES_INCLUDE_DIR}/intersection_refinement.h
   ${SAMPLES_INCLUDE_DIR}/random.h
-  phong.h
-  phong.cu
-  triangle_mesh.cu
-  rply-1.01/rply.c
-  rply-1.01/rply.h
-  Arcball.cpp
-  Arcball.h
+  tinyplyloader/tinyply.cpp
+  tinyxml/tinystr.cpp
+  tinyxml/tinyxml.cpp
+  tinyxml/tinyxmlerror.cpp
+  tinyxml/tinyxmlparser.cpp
   Camera.cpp
   Camera.h
-  HDRLoader.cpp
-  HDRLoader.h
-  Mesh.cpp
-  Mesh.h
   OptiXMesh.cpp
   OptiXMesh.h
-  PPMLoader.cpp
-  PPMLoader.h
   ${CMAKE_CURRENT_BINARY_DIR}/../sampleConfig.h
-  stb/stb_image_write.cpp
-  stb/stb_image_write.h
-  SunSky.cpp
-  SunSky.h
   sutil.cpp
   sutil.h
   sutilapi.h
-  tinyobjloader/tiny_obj_loader.cc
-  tinyobjloader/tiny_obj_loader.h
   )
 
 

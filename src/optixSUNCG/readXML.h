@@ -7,12 +7,11 @@
 #include <vector>
 #include <string>
 #include "sutil.h"
-#include "tinyxml.h"
+#include "sutil/tinyxml/tinyxml.h"
 #include "sutil/tinyobjloader/objLoader.h"
+#include "sutil/tinyplyloader/plyLoader.h"
 #include "cameraInput.h"
-#include "areaLight.h"
-#include "envmap.h"
-#include "point.h"
+#include "sutil/lightStructs.h"
 #include <iostream>
 #include <set>
 #include <stdio.h>
@@ -63,7 +62,7 @@ struct objTransform{
     float value[4];
 };
 
-bool doObjTransform(objLoader::shape_t& shape, std::vector<objTransform>& TArr)
+bool doObjTransform(shape_t& shape, std::vector<objTransform>& TArr)
 {
     for(int i = 0; i < TArr.size(); i++){
         objTransform T = TArr[i];
@@ -157,10 +156,10 @@ bool doObjTransform(objLoader::shape_t& shape, std::vector<objTransform>& TArr)
 }
 
 
-bool loadBsdf(std::vector<objLoader::material_t>& materials, TiXmlNode* module, std::string fileName, int offset = 0)
+bool loadBsdf(std::vector<material_t>& materials, TiXmlNode* module, std::string fileName, int offset = 0)
 {
     // Load materials
-    objLoader::material_t mat;
+    material_t mat;
 
     TiXmlElement* matEle = module -> ToElement();
     for(TiXmlAttribute* matAttri = matEle -> FirstAttribute();  matAttri != 0; matAttri = matAttri -> Next() ){
@@ -494,8 +493,8 @@ bool loadBsdf(std::vector<objLoader::material_t>& materials, TiXmlNode* module, 
 
 
 bool readXML(std::string fileName, 
-        std::vector<objLoader::shape_t>& shapes, 
-        std::vector<objLoader::material_t>& materials, 
+        std::vector<shape_t>& shapes, 
+        std::vector<material_t>& materials, 
         CameraInput& Camera, 
         std::vector<Envmap>& envmaps, 
         std::vector<Point>& points)
@@ -503,8 +502,7 @@ bool readXML(std::string fileName,
     shapes.erase(shapes.begin(), shapes.end() );
     materials.erase(materials.begin(), materials.end() );
 
-    std::vector<objLoader::shape_t> shapesAll;
-
+    std::vector<shape_t> shapesAll;
 
     // Load the xml file
     TiXmlDocument doc(fileName.c_str() );
@@ -772,17 +770,22 @@ bool readXML(std::string fileName,
                     if(!isLoadBsdf) return false;
                 }
                 else if(module -> Value() == std::string("shape") ){
-                    objLoader::shape_t  shape;
+                    shape_t  shape;
                     std::vector<std::string> matRefNames;
                     std::vector<int> matRefIds;
-                    std::vector<objLoader::material_t> materialsShape;
+                    std::vector<material_t> materialsShape;
                     std::vector<objTransform> TArr;
 
                     //Read the shape, currently only support obj files
                     TiXmlElement* shEle = module -> ToElement();
+                    std::string shapeType;
                     for(TiXmlAttribute* shAttri = shEle -> FirstAttribute(); shAttri != 0; shAttri = shAttri -> Next() ){
                         if(shAttri -> Name() == std::string("type") ){
                             if(shAttri -> Value() == std::string("obj") ){
+                                shapeType = "obj";
+                            }
+                            else if(shAttri -> Value() == std::string("ply") ){
+                                shapeType = "ply";
                             }
                             else{
                                 std::cout<<"Wrong: unrecognizable type of shape!"<<std::endl;
@@ -802,7 +805,11 @@ bool readXML(std::string fileName,
                             for(TiXmlAttribute* shSubAttri = shSubEle -> FirstAttribute(); shSubAttri != 0; shSubAttri = shSubAttri -> Next() ){
 
                                 if(shSubAttri -> Name() == std::string("value") ){
-                                    bool isLoad = objLoader::LoadObj(shape, relativePath(fileName, shSubAttri -> Value() ) );
+                                    bool isLoad = false;
+                                    if(shapeType == "obj")
+                                        isLoad = objLoader::LoadObj(shape, relativePath(fileName, shSubAttri -> Value() ) );
+                                    else if(shapeType == "ply")
+                                        isLoad = plyLoader::LoadPly(shape, relativePath(fileName, shSubAttri -> Value() ) );
                                     if(isLoad == false){
                                         std::cout<<"Wrong: fail to load obj file!"<<std::endl;
                                         return false;

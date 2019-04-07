@@ -4,7 +4,7 @@
 #include "prd.h"
 #include "random.h"
 #include "commonStructs.h"
-#include "areaLight.h"
+#include "sutil/lightStructs.h"
 #include <vector>
 
 using namespace optix;
