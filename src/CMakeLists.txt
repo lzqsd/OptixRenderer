@@ -104,6 +104,8 @@ IF(NOT CMAKE_BUILD_TYPE)
       FORCE)
 ENDIF(NOT CMAKE_BUILD_TYPE)
 
+set(CMAKE_CXX_STANDARD 11)
+
 # Tells CMake to build all the libraries as shared libraries by default.  This can be
 # overrided by individual libraries later.
 set(BUILD_SHARED_LIBS ON)

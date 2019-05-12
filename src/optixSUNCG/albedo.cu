@@ -55,9 +55,9 @@ RT_PROGRAM void closest_hit_radiance()
     }
     else{
         albedoValue = make_float3(tex2D(albedoMap, texcoord.x, texcoord.y) );
-        albedoValue.x = pow(albedoValue.x, 2.2);
-        albedoValue.y = pow(albedoValue.y, 2.2);
-        albedoValue.z = pow(albedoValue.z, 2.2);
+        albedoValue.x = powf(albedoValue.x, 2.2);
+        albedoValue.y = powf(albedoValue.y, 2.2);
+        albedoValue.z = powf(albedoValue.z, 2.2);
     }
     prd_radiance.radiance = albedoValue;
     prd_radiance.done = true;

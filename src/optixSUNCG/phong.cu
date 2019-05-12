@@ -289,9 +289,9 @@ RT_PROGRAM void closest_hit_radiance()
     }
     else{
         albedoValue = make_float3(tex2D(albedoMap, texcoord.x, texcoord.y) );
-        albedoValue.x = pow(albedoValue.x, 2.2);
-        albedoValue.y = pow(albedoValue.y, 2.2);
-        albedoValue.z = pow(albedoValue.z, 2.2);
+        albedoValue.x = powf(albedoValue.x, 2.2);
+        albedoValue.y = powf(albedoValue.y, 2.2);
+        albedoValue.z = powf(albedoValue.z, 2.2);
     }
 
     float3 specularValue;
@@ -300,9 +300,9 @@ RT_PROGRAM void closest_hit_radiance()
     }
     else{
         specularValue = make_float3(tex2D(specularMap, texcoord.x, texcoord.y) );
-        specularValue.x = pow(specularValue.x, 2.2);
-        specularValue.y = pow(specularValue.y, 2.2);
-        specularValue.z = pow(specularValue.z, 2.2);
+        specularValue.x = powf(specularValue.x, 2.2);
+        specularValue.y = powf(specularValue.y, 2.2);
+        specularValue.z = powf(specularValue.z, 2.2);
     }
 
 
