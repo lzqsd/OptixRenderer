@@ -60,6 +60,85 @@ rtDeclareVariable(int3, vertex_id, attribute vertex_id, );
 rtDeclareVariable(optix::Ray, ray, rtCurrentRay, );
 
 
+static __device__
+void meshAttribute( int primIdx, float beta, float gamma )
+{
+  const int3 v_idx = index_buffer[primIdx];
+
+  const float3 p0 = vertex_buffer[ v_idx.x ];
+  const float3 p1 = vertex_buffer[ v_idx.y ];
+  const float3 p2 = vertex_buffer[ v_idx.z ];
+  const float3 dp1 = p1 - p0;
+  const float3 dp2 = p2 - p0;
+
+  vertex_weight = make_float3(1 - beta - gamma, beta, gamma);
+  vertex_id = make_int3(v_idx.x, v_idx.y, v_idx.z);
+
+  geometric_normal = normalize( cross( dp1, dp2 ) );
+  if( normal_buffer.size() == 0 ) {
+      shading_normal = geometric_normal;
+  } else {
+      shading_normal = geometric_normal;
+      const int3 vn_idx = index_normal_buffer[primIdx ];
+      if(vn_idx.x >= 0 && vn_idx.y >= 0 && vn_idx.z >=0 ){
+        float3 n0 = normal_buffer[vn_idx.x ];
+        float3 n1 = normal_buffer[vn_idx.y ];
+        float3 n2 = normal_buffer[vn_idx.z ];
+        if(dot(n0, n1) < 0) n1 = -n1;
+        if(dot(n0, n2) < 0) n2 = -n2;
+        shading_normal = normalize( n1*beta + n2*gamma + n0*(1.0f-beta-gamma) );
+      }
+  }
+
+  if( texcoord_buffer.size() == 0 ) {
+    texcoord = make_float3( 0.0f, 0.0f, 0.0f );
+  } else {
+    texcoord = make_float3(0.0f, 0.0f, 0.0f );
+    const int3 vt_idx = index_tex_buffer[primIdx ];
+    if(vt_idx.x >= 0 && vt_idx.y >= 0 && vt_idx.z >= 0){
+      float2 t0 = texcoord_buffer[ vt_idx.x ];
+      float2 t1 = texcoord_buffer[ vt_idx.y ];
+      float2 t2 = texcoord_buffer[ vt_idx.z ];
+      texcoord = make_float3( t1*beta + t2*gamma + t0*(1.0f-beta-gamma) );
+    }
+  }
+
+  if( texcoord_buffer.size() == 0){
+      tangent_direction = normalize(p1 - p0);
+      bitangent_direction = cross(shading_normal, tangent_direction);
+  } else {
+      const int3 vt_idx = index_tex_buffer[primIdx ];
+      if(vt_idx.x >= 0 && vt_idx.y >= 0 && vt_idx.z >= 0){
+        float2 t0 = texcoord_buffer[ vt_idx.x];
+        float2 t1 = texcoord_buffer[ vt_idx.y];
+        float2 t2 = texcoord_buffer[ vt_idx.z];
+        float2 duv1 = t1 - t0;
+        float2 duv2 = t2 - t0;
+        float3 td = duv2.y * dp1 - duv1.y * dp2;
+        float3 btd = -duv2.x * dp1 + duv1.x * dp2;
+        if (length(td) >= length(btd) ){
+            if(length(td) > 0){
+                tangent_direction = normalize(td );
+            }
+            else{
+                tangent_direction = make_float3(0.0) ;
+            }
+            bitangent_direction = cross(shading_normal, tangent_direction);
+        }
+        else if(length(td ) < length(btd) ){
+            if(length(btd ) > 0){
+                bitangent_direction = normalize(btd );
+            }
+            else{
+                bitangent_direction = make_float3(0.0);
+            }
+            tangent_direction = cross(bitangent_direction, shading_normal);
+        }
+      }
+  }
+}
+
+
 template<bool DO_REFINE>
 static __device__
 void meshIntersect( int primIdx )
@@ -75,88 +154,18 @@ void meshIntersect( int primIdx )
   float  t, beta, gamma;
   if( intersect_triangle( ray, p0, p1, p2, n, t, beta, gamma ) ) {
         
-    
-    if(  rtPotentialIntersection( t ) ) {
-      vertex_weight = make_float3(1 - beta - gamma, beta, gamma);
-      vertex_id = make_int3(v_idx.x, v_idx.y, v_idx.z);
-
-      geometric_normal = normalize( n );
-      if( normal_buffer.size() == 0 ) {
-          shading_normal = geometric_normal; 
-      } else {
-          shading_normal = geometric_normal;
-          const int3 vn_idx = index_normal_buffer[primIdx ];
-          if(vn_idx.x >= 0 && vn_idx.y >= 0 && vn_idx.z >=0 ){
-            float3 n0 = normal_buffer[vn_idx.x ];
-            float3 n1 = normal_buffer[vn_idx.y ];
-            float3 n2 = normal_buffer[vn_idx.z ];
-            if(dot(n0, n1) < 0) n1 = -n1;
-            if(dot(n0, n2) < 0) n2 = -n2;
-            shading_normal = normalize( n1*beta + n2*gamma + n0*(1.0f-beta-gamma) );
-          }
-      }
-
-      if( texcoord_buffer.size() == 0 ) {
-        texcoord = make_float3( 0.0f, 0.0f, 0.0f );
-      } else {
-        texcoord = make_float3(0.0f, 0.0f, 0.0f );
-        const int3 vt_idx = index_tex_buffer[primIdx ];
-        if(vt_idx.x >= 0 && vt_idx.y >= 0 && vt_idx.z >= 0){
-          float2 t0 = texcoord_buffer[ vt_idx.x ];
-          float2 t1 = texcoord_buffer[ vt_idx.y ];
-          float2 t2 = texcoord_buffer[ vt_idx.z ];
-          texcoord = make_float3( t1*beta + t2*gamma + t0*(1.0f-beta-gamma) );
-        }
-      }
-
-      if( texcoord_buffer.size() == 0){
-          tangent_direction = normalize(p1 - p0);
-          bitangent_direction = cross(shading_normal, tangent_direction);
-      } else {
-          const int3 vt_idx = index_tex_buffer[primIdx ];
-          if(vt_idx.x >= 0 && vt_idx.y >= 0 && vt_idx.z >= 0){
-            float2 t0 = texcoord_buffer[ vt_idx.x];
-            float2 t1 = texcoord_buffer[ vt_idx.y];
-            float2 t2 = texcoord_buffer[ vt_idx.z];
-            float2 duv1 = t1 - t0;
-            float2 duv2 = t2 - t0;
-            float3 dp1 = p1 - p0;
-            float3 dp2 = p2 - p0;
-            float3 td = duv2.y * dp1 - duv1.y * dp2;
-            float3 btd = -duv2.x * dp1 + duv1.x * dp2;
-            if (length(td) >= length(btd) ){
-                if(length(td) > 0){
-                    tangent_direction = normalize(td );
-                }
-                else{
-                    tangent_direction = make_float3(0.0) ;
-                }
-                bitangent_direction = cross(shading_normal, tangent_direction);
-            }
-            else if(length(td ) < length(btd) ){
-                if(length(btd ) > 0){
-                    bitangent_direction = normalize(btd );
-                }
-                else{
-                    bitangent_direction = make_float3(0.0);
-                }
-                tangent_direction = cross(bitangent_direction, shading_normal);
-            }
-          }
-      }
-
-      if( DO_REFINE ) {
-          refine_and_offset_hitpoint(
-                  ray.origin + t*ray.direction,
-                  ray.direction,
-                  geometric_normal,
-                  p0,
-                  back_hit_point,
-                  front_hit_point );
-      }
+    if( rtPotentialIntersection( t ) ) {
+      meshAttribute(primIdx, beta, gamma);
       rtReportIntersection(material_buffer[primIdx]);
     }
   }
+}
+
+
+RT_PROGRAM void mesh_attribute()
+{
+  float2 barycentrics = rtGetTriangleBarycentrics();
+  meshAttribute(rtGetPrimitiveIndex(), barycentrics.x, barycentrics.y);
 }
 
 

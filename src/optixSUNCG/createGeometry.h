@@ -126,7 +126,8 @@ void createGeometry(
         Context& context,
         const std::vector<shape_t>& shapes,
         const std::vector<material_t>& materials,
-        int mode
+        int mode,
+        bool rtxMode
         )
 {
     // Create geometry group;
@@ -142,6 +143,7 @@ void createGeometry(
         const std::string path = ptxPath( "triangle_mesh.cu" );
         optix::Program bounds_program = context->createProgramFromPTXFile( path, "mesh_bounds" );
         optix::Program intersection_program = context->createProgramFromPTXFile( path, "mesh_intersect" );
+        optix::Program attribute_program = context->createProgramFromPTXFile( path, "mesh_attribute" );
         
         shape_t  shapeLarge = shapes[i];
         std::vector<shape_t > shapeArr;
@@ -206,18 +208,6 @@ void createGeometry(
                 texBuffer -> unmap();
             }
             materialBuffer -> unmap();
-         
-            Geometry geometry = context -> createGeometry();
-            geometry[ "vertex_buffer" ] -> setBuffer(vertexBuffer );
-            geometry[ "normal_buffer" ] -> setBuffer(normalBuffer );
-            geometry[ "texcoord_buffer" ] -> setBuffer(texBuffer );
-            geometry[ "index_buffer" ] -> setBuffer(faceBuffer );
-            geometry[ "index_normal_buffer" ] -> setBuffer(faceVnBuffer );
-            geometry[ "index_tex_buffer" ] -> setBuffer(faceVtBuffer );
-            geometry[ "material_buffer"] -> setBuffer(materialBuffer );
-            geometry -> setPrimitiveCount( faceNum );
-            geometry->setBoundingBoxProgram ( bounds_program );
-            geometry->setIntersectionProgram( intersection_program );
          
             // Currently only support diffuse material and area light 
             std::vector<Material> optix_materials;
@@ -324,12 +314,55 @@ void createGeometry(
                     optix_materials.push_back(mat);
                 }
             }
-         
-            GeometryInstance geom_instance = context->createGeometryInstance(
+
+            GeometryInstance geom_instance;
+
+            if (rtxMode) {
+
+                GeometryTriangles geometry_triangles = context -> createGeometryTriangles();
+                geometry_triangles[ "vertex_buffer" ] -> setBuffer(vertexBuffer);
+                geometry_triangles[ "normal_buffer" ] -> setBuffer(normalBuffer);
+                geometry_triangles[ "texcoord_buffer" ] -> setBuffer(texBuffer);
+                geometry_triangles[ "index_buffer" ] -> setBuffer(faceBuffer);
+                geometry_triangles[ "index_normal_buffer" ] -> setBuffer(faceVnBuffer);
+                geometry_triangles[ "index_tex_buffer" ] -> setBuffer(faceVtBuffer);
+                geometry_triangles[ "material_buffer"] -> setBuffer(materialBuffer);
+                geometry_triangles->setVertices(vertexNum, vertexBuffer, RT_FORMAT_FLOAT3);
+                // WARNING: setTriangleIndices requires unsigned integers, but faceBuffer is signed.
+                geometry_triangles->setTriangleIndices(faceBuffer, RT_FORMAT_UNSIGNED_INT3);
+                geometry_triangles->setPrimitiveCount(faceNum);
+                geometry_triangles->setBuildFlags(RTgeometrybuildflags(0));
+                geometry_triangles->setAttributeProgram(attribute_program);
+                geometry_triangles->setMaterialCount(optix_materials.size());
+                geometry_triangles->setMaterialIndices(materialBuffer, 0, 4, RT_FORMAT_UNSIGNED_INT);
+
+                geom_instance = context->createGeometryInstance();
+                geom_instance->setGeometryTriangles(geometry_triangles);
+                for (Material& mat : optix_materials) {
+                    geom_instance->addMaterial(mat);
+                }
+
+            } else {
+
+                Geometry geometry = context -> createGeometry();
+                geometry[ "vertex_buffer" ] -> setBuffer(vertexBuffer );
+                geometry[ "normal_buffer" ] -> setBuffer(normalBuffer );
+                geometry[ "texcoord_buffer" ] -> setBuffer(texBuffer );
+                geometry[ "index_buffer" ] -> setBuffer(faceBuffer );
+                geometry[ "index_normal_buffer" ] -> setBuffer(faceVnBuffer );
+                geometry[ "index_tex_buffer" ] -> setBuffer(faceVtBuffer );
+                geometry[ "material_buffer"] -> setBuffer(materialBuffer );
+                geometry -> setPrimitiveCount( faceNum );
+                geometry->setBoundingBoxProgram ( bounds_program );
+                geometry->setIntersectionProgram( intersection_program );
+
+                geom_instance = context->createGeometryInstance(
                     geometry,
                     optix_materials.begin(),
                     optix_materials.end()
                     );
+            }
+
             geometry_group -> addChild(geom_instance );
         }
     }

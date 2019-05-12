@@ -300,6 +300,7 @@ int main( int argc, char** argv )
     std::string outputFileName;
     std::string cameraFile("");
     int mode = 0;
+    bool rtxMode = false;
     std::vector<int> gpuIds;
     float noiseLimit = 0.11;
     int vertexLimit = 150000;
@@ -339,6 +340,9 @@ int main( int argc, char** argv )
                 exit(1);
             }
             mode = atoi(argv[++i] );
+        }
+        else if(std::string(argv[i]) == std::string("--rtx") ) {
+            rtxMode = true;
         }
         else if(std::string(argv[i] ) == std::string("-c") ){
             if(i == argc - 1){
@@ -426,6 +430,8 @@ int main( int argc, char** argv )
     bool isXml = readXML(fileName, shapes, materials, cameraInput, envmaps, points);
     if(!isXml ) return false;
 
+    std::cout << "RTX mode: " << (rtxMode ? "ON" : "OFF") << std::endl;
+
     long unsigned vertexNum = vertexCount(shapes );
 
     std::cout<<"Material num: "<<materials.size() << std::endl;
@@ -499,7 +505,7 @@ int main( int argc, char** argv )
         context -> setDevices(gpuIds.begin(), gpuIds.end() );
     }
     boundingBox(context, shapes);
-    createGeometry(context, shapes, materials, mode);
+    createGeometry(context, shapes, materials, mode, rtxMode);
     createAreaLightsBuffer(context, shapes);
     createEnvmap(context, envmaps); 
     createPointLight(context, points);
