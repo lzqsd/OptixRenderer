@@ -10,10 +10,14 @@ struct material_t {
 
     float albedo[3];
     float specular[3];
+    float transmittance[3];
+
     float fresnel;
     float roughness;
     float glossiness;
     float metallic;
+    float intIOR;
+    float extIOR;
 
 
     std::string albedo_texname;             // map_Kd
@@ -24,8 +28,9 @@ struct material_t {
     std::string metallic_texname;           // map metallic
 
     material_t(){
-        albedo[0] = albedo[1] = albedo[2] = 0;
-        specular[0] = specular[1] = specular[2] = 0;
+        albedo[0] = albedo[1] = albedo[2] = 1.0f;
+        specular[0] = specular[1] = specular[2] = 1.0f;
+        transmittance[0] = transmittance[1] = transmittance[2] = 1.0f;
         roughness = 1.0;
         glossiness = 0.0;
         fresnel = 0.05;

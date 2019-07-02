@@ -11,7 +11,7 @@
 			<lookAt origin="278, 273, -800" target="278, 273, -799" up="0, 1, 0"/>
 		</transform>
 		<sampler type="independent">
-			<integer name="sampleCount" value="1024"/>
+			<integer name="sampleCount" value="8192"/>
 		</sampler>
 
 		<film type="ldrfilm">
@@ -20,10 +20,12 @@
 		</film>
 	</sensor>
 
+
 	<bsdf type="diffuse" id="box">
         <rgb name="reflectance" value="0.5 0.5 0.5"/>
 	</bsdf>
-    
+
+
 	<bsdf type="diffuse" id="white">
         <rgb name="reflectance" value="1.0 1.0 1.0"/>
     </bsdf>
@@ -35,6 +37,11 @@
 	<bsdf type="diffuse" id="green">
 		<rgb name="reflectance" value="0.0 1.0 0.0"/>
     </bsdf>
+
+    <bsdf type="dielectric" id="transparent">
+        <float name="intIOR" value=1.33/>
+        <float name="extIOR" value=1.0/>
+    </bsdf>
     
 	<shape type="obj">
         <string name="filename" value="meshes/cbox_luminaire.obj"/>
@@ -42,7 +49,7 @@
 			<rgb name="radiance" value="20.0 20.0 20.0"/>
 		</emitter>
     </shape>
-
+    
 	<shape type="obj">
         <string name="filename" value="meshes/cbox_floor.obj"/>
         <ref id="white"/>
@@ -70,25 +77,12 @@
 
 	<shape type="obj">
         <string name="filename" value="meshes/cbox_smallbox.obj"/>
-		<ref id="box"/>
+		<ref id="transparent"/>
     </shape>
     
     <shape type="obj">
         <string name="filename" value="meshes/cbox_largebox.obj"/>
-		<ref id="box"/>
+		<ref id="transparent"/>
     </shape>
-
-    <!--
-	<shape type="obj">
-        <string name="filename" value="meshes/sphere.obj"/>
-		<ref id="box"/>
-        <transform name="toWorld">
-            <rotate x="0.0" y="1.0" z="0.0" angle="0.0"/>
-            <scale value="10"/>
-        </transform>
-    </shape>
-    -->
-    <emitter type = "envmap">
-        <string name="filename" value="envmap.hdr"/>
-    </emitter>
+    
 </scene>

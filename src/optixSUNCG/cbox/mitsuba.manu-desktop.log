@@ -1,0 +1,326 @@
+2019-07-02 14:57:15 INFO  main [mainwindow.cpp:80] Mitsuba version 0.5.0 (Linux, 64 bit), Copyright (c) 2014 Wenzel Jakob
+2019-07-02 14:57:15 INFO  main [mainwindow.cpp:83] Configured for RGB-based rendering
+2019-07-02 14:57:15 DEBUG main [X11Session] Initializing X11 session
+2019-07-02 14:57:15 DEBUG main [X11Session] VidMode extension 2.2 found
+2019-07-02 14:57:15 DEBUG main [X11Session] GLX Version 1.4 found
+2019-07-02 14:57:15 DEBUG main [GLXRenderer] Using an existing GLX context
+2019-07-02 14:57:15 DEBUG main [GLRenderer] OpenGL renderer : GeForce GTX 1080/PCIe/SSE2
+2019-07-02 14:57:15 DEBUG main [GLRenderer] OpenGL vendor   : NVIDIA Corporation
+2019-07-02 14:57:15 DEBUG main [GLRenderer] OpenGL version  : 4.5.0 NVIDIA 378.13
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Framebuffers objects are supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: GLSL is supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Floating point textures are supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Floating point color buffers are supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Fast buffer blitting is supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Multisample framebuffer objects are supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Vertex buffer objects are supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Geometry shaders are supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Custom texture filtering is supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Synchronization objects are supported.
+2019-07-02 14:57:15 DEBUG main [GLRenderer] Capabilities: Bindless rendering is supported.
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "prvw"
+2019-07-02 14:57:15 DEBUG prvw [X11Device] Initializing X11 device
+2019-07-02 14:57:15 DEBUG prvw [GLXRenderer] Initializing GLX renderer
+2019-07-02 14:57:15 DEBUG prvw [GLProgram] Uploading a GPU program : GPUProgram[name = 'Accumulation program']
+2019-07-02 14:57:15 DEBUG prvw [GLProgram] Uploading a GPU program : GPUProgram[name = 'Directional shadow map generator']
+2019-07-02 14:57:15 DEBUG prvw [GLProgram] Uploading a GPU program : GPUProgram[name = 'Paraboloid shadow map generator', maxVertices=4]
+2019-07-02 14:57:15 DEBUG prvw [GLProgram] Uploading a GPU program : GPUProgram[name = 'Cube/Hemicube shadow map generator (5/6 pass version)']
+2019-07-02 14:57:15 DEBUG prvw [GLProgram] Uploading a GPU program : GPUProgram[name = 'Cube shadow map generator (1 pass version)', maxVertices=18]
+2019-07-02 14:57:15 DEBUG prvw [GLProgram] Uploading a GPU program : GPUProgram[name = 'Hemicube shadow map generator (1 pass version)', maxVertices=15]
+2019-07-02 14:57:15 DEBUG main [GLProgram] Uploading a GPU program : GPUProgram[name = 'Tonemapper [Gamma]']
+2019-07-02 14:57:15 DEBUG main [GLProgram] Uploading a GPU program : GPUProgram[name = 'Tonemapper [Reinhard et al. 2002]']
+2019-07-02 14:57:15 DEBUG main [GLProgram] Uploading a GPU program : GPUProgram[name = 'Downsampling program']
+2019-07-02 14:57:15 DEBUG main [GLProgram] Uploading a GPU program : GPUProgram[name = 'Log-luminance program']
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk0"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk1"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk2"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk3"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk4"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk5"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk6"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk7"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk8"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk9"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk10"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk11"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk12"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk13"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk14"
+2019-07-02 14:57:15 DEBUG main [Thread] Spawning thread "wrk15"
+2019-07-02 14:57:25 DEBUG main [Thread] Spawning thread "load"
+2019-07-02 14:57:25 INFO  load [sceneloader.cpp:114] Parsing scene description from "/media/jonathan/program/SceneAR/Code/optixRendererForSUNCG/src/optixSUNCG/cbox/bunny.xml" ..
+2019-07-02 14:57:25 INFO  load [PluginManager] Loading plugin "plugins/path.so" ..
+2019-07-02 14:57:25 INFO  load [PluginManager] Loading plugin "plugins/independent.so" ..
+2019-07-02 14:57:25 INFO  load [PluginManager] Loading plugin "plugins/ldrfilm.so" ..
+2019-07-02 14:57:25 INFO  load [PluginManager] Loading plugin "plugins/gaussian.so" ..
+2019-07-02 14:57:25 INFO  load [PluginManager] Loading plugin "plugins/perspective.so" ..
+2019-07-02 14:57:25 INFO  load [PluginManager] Loading plugin "plugins/diffuse.so" ..
+2019-07-02 14:57:25 DEBUG load [Thread] Thread "load" has finished
+2019-07-02 14:58:20 DEBUG main [Thread] Spawning thread "load"
+2019-07-02 14:58:20 INFO  load [sceneloader.cpp:114] Parsing scene description from "/media/jonathan/program/SceneAR/Code/optixRendererForSUNCG/src/optixSUNCG/cbox/bunny.xml" ..
+2019-07-02 14:58:20 DEBUG load [Thread] Thread "load" has finished
+2019-07-02 14:59:35 DEBUG main [Thread] Spawning thread "load"
+2019-07-02 14:59:35 INFO  load [sceneloader.cpp:114] Parsing scene description from "/media/jonathan/program/SceneAR/Code/optixRendererForSUNCG/src/optixSUNCG/cbox/bunny.xml" ..
+2019-07-02 14:59:35 INFO  load [PluginManager] Loading plugin "plugins/dielectric.so" ..
+2019-07-02 14:59:35 DEBUG load [Thread] Thread "load" has finished
+2019-07-02 14:59:59 DEBUG main [Thread] Spawning thread "load"
+2019-07-02 14:59:59 INFO  load [sceneloader.cpp:114] Parsing scene description from "/media/jonathan/program/SceneAR/Code/optixRendererForSUNCG/src/optixSUNCG/cbox/bunny.xml" ..
+2019-07-02 14:59:59 INFO  load [PluginManager] Loading plugin "plugins/ply.so" ..
+2019-07-02 14:59:59 INFO  load [PLYLoader] Loading geometry from "bunny.ply" ..
+2019-07-02 14:59:59 WARN  load [PLYLoader] "bunny" [line 9] warning: property 'float32 confidence' of element 'vertex' is not handled
+2019-07-02 14:59:59 WARN  load [PLYLoader] "bunny" [line 10] warning: property 'float32 intensity' of element 'vertex' is not handled
+2019-07-02 14:59:59 INFO  load [PLYLoader] "bunny": Loaded 69451 triangles, 35947 vertices (1.2 MiB in 209 ms).
+2019-07-02 14:59:59 WARN  load [TriMesh] "bunny": Unable to generate 1113 vertex normals
+2019-07-02 14:59:59 INFO  load [PluginManager] Loading plugin "plugins/envmap.so" ..
+2019-07-02 14:59:59 INFO  load [EnvironmentMap] Loading environment map "env.hdr"
+2019-07-02 14:59:59 DEBUG load [EnvironmentMap] Loaded "env.hdr" in 0 ms
+2019-07-02 14:59:59 INFO  load [PluginManager] Loading plugin "plugins/lanczos.so" ..
+2019-07-02 14:59:59 DEBUG load [MIPMap] Created 256.2 KiB of MIP maps in 3 ms
+2019-07-02 14:59:59 INFO  load [EnvironmentMap] Precomputing data structures for environment map sampling (129.5 KiB)
+2019-07-02 14:59:59 INFO  load [EnvironmentMap] Done (took 3 ms)
+2019-07-02 14:59:59 INFO  load [KDTreeBase] Constructing a SAH kd-tree (69451 primitives) ..
+2019-07-02 14:59:59 DEBUG load [KDTreeBase] Creating a preliminary index list (271.3 KiB)
+2019-07-02 14:59:59 DEBUG load [KDTreeBase] Computed scene bounds in 2 ms
+2019-07-02 14:59:59 DEBUG load [KDTreeBase] 
+2019-07-02 14:59:59 DEBUG load [KDTreeBase] kd-tree configuration:
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Traversal cost           : 15.00
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Query cost               : 20.00
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Empty space bonus        : 0.90
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Max. tree depth          : 28
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Scene bounding box (min) : [-0.0610091, -1.25989e-05, -0.0587997]
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Scene bounding box (max) : [0.0946899, 0.154321, 0.0618736]
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Min-max bins             : 128
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    O(n log n) method        : use for <= 65536 primitives
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Perfect splits           : yes
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Retract bad splits       : yes
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Stopping primitive count : 6
+2019-07-02 14:59:59 DEBUG load [KDTreeBase]    Build tree in parallel   : yes
+2019-07-02 14:59:59 DEBUG load [KDTreeBase] 
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld0"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld1"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld2"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld3"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld4"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld5"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld6"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld7"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld8"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld9"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld10"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld11"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld12"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld13"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld14"
+2019-07-02 14:59:59 DEBUG load [Thread] Spawning thread "bld15"
+2019-07-02 14:59:59 DEBUG bld2 [Thread] Thread "bld2" has finished
+2019-07-02 14:59:59 DEBUG bld3 [Thread] Thread "bld3" has finished
+2019-07-02 14:59:59 DEBUG bld7 [Thread] Thread "bld7" has finished
+2019-07-02 14:59:59 DEBUG bld12[Thread] Thread "bld12" has finished
+2019-07-02 14:59:59 DEBUG bld14[Thread] Thread "bld14" has finished
+2019-07-02 14:59:59 DEBUG bld9 [Thread] Thread "bld9" has finished
+2019-07-02 14:59:59 DEBUG bld11[Thread] Thread "bld11" has finished
+2019-07-02 14:59:59 DEBUG bld10[Thread] Thread "bld10" has finished
+2019-07-02 14:59:59 DEBUG bld6 [Thread] Thread "bld6" has finished
+2019-07-02 14:59:59 DEBUG bld13[Thread] Thread "bld13" has finished
+2019-07-02 14:59:59 DEBUG bld5 [Thread] Thread "bld5" has finished
+2019-07-02 14:59:59 DEBUG bld4 [Thread] Thread "bld4" has finished
+2019-07-02 14:59:59 DEBUG bld8 [Thread] Thread "bld8" has finished
+2019-07-02 14:59:59 DEBUG bld15[Thread] Thread "bld15" has finished
+2019-07-02 14:59:59 DEBUG bld0 [Thread] Thread "bld0" has finished
+2019-07-02 15:00:00 DEBUG bld1 [Thread] Thread "bld1" has finished
+2019-07-02 15:00:00 INFO  load [KDTreeBase] Finished -- took 325 ms.
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] 
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] Temporary memory statistics:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Classification storage : 288.3 KiB
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Indirection entries    : 0 (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Main thread:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 2 chunks (2.6 MiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 2 chunks (3.2 MiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 3 entries, 1 blocks (512.0 KiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 1:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 3 chunks (4.0 MiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 4 chunks (2.6 MiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 71328 entries, 2 blocks (1024.0 KiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 104375 entries, 1 blocks (512.0 KiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 2:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 3 chunks (4.5 MiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 3 chunks (3.2 MiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 89810 entries, 2 blocks (1024.0 KiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 131640 entries, 2 blocks (1024.0 KiB)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 3:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 4:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 5:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 6:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 7:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 8:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 9:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 10:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 11:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 12:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 13:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 14:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 15:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Worker thread 16:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Left events   : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Right events  : 0 chunks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       kd-tree nodes : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]       Indices       : 0 entries, 0 blocks (0 B)
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Total: 24.4 MiB
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] 
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] Optimizing memory layout ..
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] Finished -- took 13 ms.
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] 
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] Structural kd-tree statistics:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Parallel work units         : 2
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Node storage cost           : 1.2 MiB
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Index storage cost          : 921.9 KiB
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Inner nodes                 : 80358
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Leaf nodes                  : 80359
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Nonempty leaf nodes         : 49029
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Leaf node histogram         : 0(31330) 1(197) 2(1316) 3(5146) 
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]                                  4(12162) 5(12514) 6(17379) 7(272) 
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]                                  8(35) 9(8) 10(0) 11(0) 
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]                                  12(0) 13(0) 14(0) 15(0) 
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] 
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] Qualitative kd-tree statistics:
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Retracted splits            : 257
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Pruned primitives           : 0
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Largest leaf node           : 9 primitives
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Avg. prims/nonempty leaf    : 4.81
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Expected traversals/query   : 48.09
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Expected leaf visits/query  : 13.48
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Expected prim. visits/query : 14.03
+2019-07-02 15:00:00 DEBUG load [KDTreeBase]    Final cost                  : 1001.83
+2019-07-02 15:00:00 DEBUG load [KDTreeBase] 
+2019-07-02 15:00:00 DEBUG load [ShapeKDTree] Precomputing triangle intersection information (3.2 MiB)
+2019-07-02 15:00:00 DEBUG load [ShapeKDTree] Finished -- took 5 ms.
+2019-07-02 15:00:00 DEBUG load [ShapeKDTree] 
+2019-07-02 15:00:00 INFO  load [PluginManager] Loading plugin "plugins/sphere.so" ..
+2019-07-02 15:00:00 DEBUG load [Thread] Thread "load" has finished
+2019-07-02 15:00:00 DEBUG prvw [GLProgram] Uploading a GPU program : GPUProgram[name = 'Background program']
+2019-07-02 15:00:00 INFO  prvw [PluginManager] Loading plugin "plugins/halton.so" ..
+2019-07-02 15:00:00 DEBUG prvw [GLProgram] Uploading a GPU program : GPUProgram[name = 'vpl=EnvironmentMapShader, bsdf=SmoothDielectricShader, ds']
+2019-07-02 15:00:03 DEBUG main [Thread] Spawning thread "rend"
+2019-07-02 15:00:03 INFO  rend [SamplingIntegrator] Starting render job (512x512, 1024 samples, 16 cores, SSE2 enabled) ..
+2019-07-02 15:00:18 INFO  rend [RenderJob] Render time: 15.4320s
+2019-07-02 15:00:18 DEBUG rend [LDRFilm] Developing film ..
+2019-07-02 15:00:18 INFO  rend [LDRFilm] Writing image to "/media/jonathan/program/SceneAR/Code/optixRendererForSUNCG/src/optixSUNCG/cbox/bunny.png" ..
+2019-07-02 15:00:18 DEBUG rend [Bitmap] Writing a 512x512 PNG file
+2019-07-02 15:00:18 DEBUG rend [Thread] Thread "rend" has finished
+2019-07-02 15:00:28 DEBUG main [GLProgram] Freeing GPU program "vpl=EnvironmentMapShader, bsdf=SmoothDielectricShader, ds"
+2019-07-02 15:00:28 DEBUG main [GLProgram] Freeing GPU program "Background program"
+2019-07-02 15:00:28 DEBUG prvw [GLProgram] Freeing GPU program "Directional shadow map generator"
+2019-07-02 15:00:28 DEBUG prvw [GLProgram] Freeing GPU program "Paraboloid shadow map generator"
+2019-07-02 15:00:28 DEBUG prvw [GLProgram] Freeing GPU program "Cube/Hemicube shadow map generator (5/6 pass version)"
+2019-07-02 15:00:28 DEBUG prvw [GLProgram] Freeing GPU program "Cube shadow map generator (1 pass version)"
+2019-07-02 15:00:28 DEBUG prvw [GLProgram] Freeing GPU program "Hemicube shadow map generator (1 pass version)"
+2019-07-02 15:00:28 DEBUG prvw [GLProgram] Freeing GPU program "Accumulation program"
+2019-07-02 15:00:28 DEBUG prvw [GLXRenderer] Shutting down GLX Renderer
+2019-07-02 15:00:28 DEBUG prvw [X11Device] Shutting down X11 device
+2019-07-02 15:00:28 DEBUG prvw [Thread] Thread "prvw" has finished
+2019-07-02 15:00:28 DEBUG wrk2 [Thread] Thread "wrk2" has finished
+2019-07-02 15:00:28 DEBUG wrk13[Thread] Thread "wrk13" has finished
+2019-07-02 15:00:28 DEBUG wrk0 [Thread] Thread "wrk0" has finished
+2019-07-02 15:00:28 DEBUG wrk10[Thread] Thread "wrk10" has finished
+2019-07-02 15:00:28 DEBUG wrk7 [Thread] Thread "wrk7" has finished
+2019-07-02 15:00:28 DEBUG wrk1 [Thread] Thread "wrk1" has finished
+2019-07-02 15:00:28 DEBUG wrk5 [Thread] Thread "wrk5" has finished
+2019-07-02 15:00:28 DEBUG wrk15[Thread] Thread "wrk15" has finished
+2019-07-02 15:00:28 DEBUG wrk6 [Thread] Thread "wrk6" has finished
+2019-07-02 15:00:28 DEBUG wrk11[Thread] Thread "wrk11" has finished
+2019-07-02 15:00:28 DEBUG wrk8 [Thread] Thread "wrk8" has finished
+2019-07-02 15:00:28 DEBUG wrk9 [Thread] Thread "wrk9" has finished
+2019-07-02 15:00:28 DEBUG wrk14[Thread] Thread "wrk14" has finished
+2019-07-02 15:00:28 DEBUG wrk12[Thread] Thread "wrk12" has finished
+2019-07-02 15:00:28 DEBUG wrk3 [Thread] Thread "wrk3" has finished
+2019-07-02 15:00:28 DEBUG wrk4 [Thread] Thread "wrk4" has finished
+2019-07-02 15:00:28 DEBUG main [GLProgram] Freeing GPU program "Log-luminance program"
+2019-07-02 15:00:28 DEBUG main [GLProgram] Freeing GPU program "Downsampling program"
+2019-07-02 15:00:28 DEBUG main [GLProgram] Freeing GPU program "Tonemapper [Reinhard et al. 2002]"
+2019-07-02 15:00:28 DEBUG main [GLProgram] Freeing GPU program "Tonemapper [Gamma]"
+2019-07-02 15:00:28 DEBUG main [X11Session] Shutting down X11 session
+2019-07-02 15:00:28 DEBUG main [X11Device] Destroying X11 device
+2019-07-02 15:00:28 DEBUG main [X11Session] Destroying X11 session
+2019-07-02 15:00:28 INFO  main [statistics.cpp:142] Statistics:
+------------------------------------------------------------
+ * Loaded plugins :
+    -  plugins/dielectric.so [Smooth dielectric BSDF]
+    -  plugins/diffuse.so [Smooth diffuse BRDF]
+    -  plugins/envmap.so [Environment map]
+    -  plugins/gaussian.so [Gaussian reconstruction filter]
+    -  plugins/halton.so [Halton QMC sampler]
+    -  plugins/independent.so [Independent sampler]
+    -  plugins/lanczos.so [Lanczos Sinc filter]
+    -  plugins/ldrfilm.so [Low dynamic range film]
+    -  plugins/path.so [MI path tracer]
+    -  plugins/perspective.so [Perspective camera]
+    -  plugins/ply.so [PLY mesh loader]
+    -  plugins/sphere.so [Sphere intersection primitive]
+
+  * General :
+    -  Normal rays traced : 328.975 M
+
+  * Path tracer :
+    -  Average path length : 1.10 (295.76 M / 268.44 M)
+
+  * Texture system :
+    -  Filtered texture lookups : 87.63 % (235.22 M of 268.43 M)
+    -  Lookups with clamped anisotropy : 0.00 % (0.00 of 235.22 M)
+
+  * VPL renderer :
+    -  Max. # of drawn triangles : 69.451 K
+    -  Pruned VPLs : 0.00 % (0.00 of 17.00)
+------------------------------------------------------------

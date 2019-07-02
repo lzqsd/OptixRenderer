@@ -26,31 +26,4 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-
-include_directories(${SAMPLES_INCLUDE_DIR})
-find_package(OpenCV REQUIRED)
-
-# See top level CMakeLists.txt file for documentation of OPTIX_add_sample_executable.
-OPTIX_add_sample_executable( optixSUNCG
-    optixRender.cpp
-    path_trace_camera.cu
-    diffuse.cu
-    mask.cu
-    areaLight.cu
-    triangle_mesh.cu
-    envmap.cu
-    microfacet.cu
-    phong.cu
-    albedo.cu
-    roughness.cu
-    metallic.cu
-    normal.cu
-    depth.cu
-
-    # common headers
-    ${SAMPLES_INCLUDE_DIR}/helpers.h
-    ${SAMPLES_INCLUDE_DIR}/intersection_refinement.h
-    ${SAMPLES_INCLUDE_DIR}/random.h
-    )
-target_link_libraries(optixSUNCG ${OpenCV_LIBS} )
-
+add_subdirectory(src)

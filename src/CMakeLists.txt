@@ -223,6 +223,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sampleConfig.h.in ${CMAKE_CURRENT_BIN
 
 # Path to sutil.h that all the samples need
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/sutil
+                     ${CMAKE_CURRENT_SOURCE_DIR}/optixSUNCG/include
                      ${CMAKE_CURRENT_SOURCE_DIR}
                      ${OptiX_INCLUDE}/optixu
                      ${CMAKE_CURRENT_BINARY_DIR}

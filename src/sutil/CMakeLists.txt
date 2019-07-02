@@ -32,10 +32,15 @@ set(sources
   ${SAMPLES_INCLUDE_DIR}/intersection_refinement.h
   ${SAMPLES_INCLUDE_DIR}/random.h
   tinyplyloader/tinyply.cpp
+  tinyplyloader/plyLoader.cpp
+
+  tinyobjloader/objLoader.cpp
+
   tinyxml/tinystr.cpp
   tinyxml/tinyxml.cpp
   tinyxml/tinyxmlerror.cpp
   tinyxml/tinyxmlparser.cpp
+
   Camera.cpp
   Camera.h
   OptiXMesh.cpp
