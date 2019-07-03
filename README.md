@@ -1,5 +1,5 @@
 # OptixRenderer
-An optix path tracer current designed for rendering SUNCG dataset
+An optix path tracer.
 
 ## Dependencies and compiling the code
 The requirements are almost the same as [optix_advanced_samples](https://github.com/nvpro-samples/optix_advanced_samples). 
