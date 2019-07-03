@@ -143,20 +143,6 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         depthOut.close();
         delete [] image;
 
-        /*
-        float* image = new float[3 * width * height];
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                for(int ch = 0; ch < 3; ch++){
-                    image[3*(i*width + j) + ch] = imgData[3 * ( (height-1-i) * width + j) + ch];
-                }
-            }
-        }
-        depthOut.write( (char*)image, sizeof(float) * 3 * width * height );
-        depthOut.close();
-        delete [] image;
-        */
-        
         return true;
     }
 
@@ -304,11 +290,13 @@ int main( int argc, char** argv )
     float noiseLimit = 0.11;
     int vertexLimit = 150000;
     float intensityLimit = 0.05;
-    //int rotateEnvmapNum = 0;
     bool noiseLimitEnabled = false;
     bool vertexLimitEnabled = false;
     bool intensityLimitEnabled = false;
-    //bool rotateEnvmapEnabled = false;
+    int maxPathLength = 5;
+    int rrBeginLength = 3;
+    
+    bool isForceOutput = false;
 
     int camStart = 0;
     int camEnd = -1;
@@ -397,6 +385,23 @@ int main( int argc, char** argv )
                 exit(1);
             }
             camEnd = atoi(argv[++i] );
+        }
+        else if(std::string(argv[i] ) == std::string("--forceOutput") ){
+            isForceOutput = true;   
+        }
+        else if(std::string(argv[i] ) == std::string("--rrBeginLength") ){
+            if(i == argc - 1){
+                std::cout<<"Missing input variable"<<std::endl;
+                exit(1);
+            }
+            rrBeginLength = atoi(argv[++i] );
+        }
+        else if(std::string(argv[i] ) == std::string("--maxPathLength") ){
+            if(i == argc-1){
+                std::cout<<"Missing input variable"<<std::endl;
+                exit(1);
+            }
+            maxPathLength = atoi(argv[++i] );
         }
         else{
             std::cout<<"Unrecognizable input command"<<std::endl;
@@ -493,7 +498,14 @@ int main( int argc, char** argv )
         }
     }
 
-    unsigned scale = createContext(context, use_pbo, cameraInput.cameraType, cameraInput.width, cameraInput.height, mode, cameraInput.sampleNum);
+    unsigned scale = createContext(context, use_pbo, cameraInput.cameraType, 
+            cameraInput.width, 
+            cameraInput.height, 
+            mode, 
+            cameraInput.sampleNum, 
+            maxPathLength, 
+            rrBeginLength );
+
     if(gpuIds.size() != 0){
         std::cout<<"GPU Num: "<<gpuIds.size()<<std::endl;
         context -> setDevices(gpuIds.begin(), gpuIds.end() );
@@ -521,7 +533,7 @@ int main( int argc, char** argv )
                 cameraInput.isHdr, i, camNum);
 
         std::ifstream f(outputFileNameNew.c_str() );
-        if(f.good() ){
+        if(f.good() && !isForceOutput ) {
             std::cout<<"Warning: "<<outputFileNameNew<<" already exists. Will be skipped."<<std::endl;
             continue;
         }
