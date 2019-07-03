@@ -1,4 +1,4 @@
-# optixRendererForSUNCG
+# OptixRenderer
 An optix path tracer current designed for rendering SUNCG dataset
 
 ## Dependencies and compiling the code
