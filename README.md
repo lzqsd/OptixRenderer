@@ -87,6 +87,7 @@ The renderer currently supports three kinds of materials: `diffuse`, `phong` and
 * `diffuse`: The parameters include `reflectance` and `normal`. The type of `reflectance` can be `rgb` or `texture`. The type of `normal` can only be `texture`. The normal map should be a bitmap. 
 * `phong`: The parameters include `diffuseReflectance`, `specularReflectance`, `alpha` and `normal`. The type of `diffuseReflectance` and `specularReflectance` can be `rgb` or `texture`. The type of `alpha` can be `float` or `texture`. 
 * `microfacet`: The parameters include `albedo`, `normal`, `roughness`, `metallic` and `fresnel`. The type of `albedo` can be `rgb` or `texture`. The type of `roughness`, `metallic` and `fresnel` can be `texture` and `float`. 
+* `dielectric`: The parameters include `specularReflectance`, `specularTransmittance`, `normal`, `intIOR` and `extIOR`. The type of `specularReflectance` and `specularTransmittance` can only be `rgb`. The type of  `intIOR` and `extIOR` can only be `float`. 
 
 Following is an example of `phong` material. Notice that the path to the texture should be absolute path. 
 ```
@@ -99,7 +100,7 @@ Following is an example of `phong` material. Notice that the path to the texture
 </bsdf>
 ```
 ### Shape
-Currently we only support `.obj` file. `.mtl` file is not supported so the material can only be defined in `.xml` file. However, we support using `usemtl ...` in `.obj` file so that you can have different materials for a single `.obj` file. Following is an example of a shape with two different materials. In `.obj` file, the material is defined using 
+Currently we support `.obj` file and `.ply` file formats. `.mtl` file is not supported so the material can only be defined in `.xml` file. However, we support using `usemtl ...` in `.obj` file so that you can have different materials for a single `.obj` file. Following is an example of a shape with two different materials. In `.obj` file, the material is defined using 
 ```
 ...
 usemtl Model#317-1_material_28
@@ -125,7 +126,7 @@ The corresponding `.xml` file should be
   </bsdf>
 </shape>
 ```
-Notice that the `id` of brdf should be consistent with the material defined by `usemtl` commmand. We also support scale and translate object. The format is exactly the same as mitsuba. 
+Notice that the `id` of brdf should be consistent with the material defined by `usemtl` commmand. We also support scale, translate and rotate an object. The format is exactly the same as mitsuba. 
 
 ### Emitter
 We support three kinds of emitter, area light (`area`), point light (`point`), flash light (`flash`) and environment map (`envmap`). 
@@ -148,6 +149,4 @@ Followings are examples of `area` light and `envmap` respectively.
 ```
 
 ## To be finished
-* Use OpenCV 3 to load and save hdr image. Installing OpenCV 3 might be non-trivial on Adobe Cluster, so I use OpenCV 2 instead, which does not support hdr image. 
-* Add more materials, especially transparent materials.
 * Bidirectional path tracing should be added, if we have time in the future. 
