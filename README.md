@@ -1,5 +1,5 @@
 # OptixRenderer
-An optix path tracer.
+An optix GPU based path tracer. 
 
 ## Dependencies and compiling the code
 The requirements are almost the same as [optix_advanced_samples](https://github.com/nvpro-samples/optix_advanced_samples). 
