@@ -44,7 +44,7 @@
     
 	<shape type="ply">
         <string name="filename" value="bunny.ply"/>
-        <ref id="transparent"/>
+        <ref id="white"/>
         <transform name="toWorld">
             <rotate x="0.0" y="1.0" z="0.0" angle = "180.0"/>
             <translate x="0.0" y="-0.033" z="0.0" />
