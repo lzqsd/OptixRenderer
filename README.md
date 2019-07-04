@@ -4,14 +4,14 @@ An optix GPU based path tracer.
 ## Dependencies and compiling the code
 The requirements are almost the same as [optix_advanced_samples](https://github.com/nvpro-samples/optix_advanced_samples). 
 We also need opencv 2 for image processing. 
-ccmake is needed to compile the code. Please check [INTALL-LINUX.txt](./INSTALL-LINUX.txt) and [INSTALL-WIN.txt](./INSTALL-WIN.txt) for details. After compiling, the executable file will be ./src/bin/optixSUNCG
+ccmake is needed to compile the code. Please check [INTALL-LINUX.txt](./INSTALL-LINUX.txt) and [INSTALL-WIN.txt](./INSTALL-WIN.txt) for details. After compiling, the executable file will be ./src/bin/optixRenderer
 
 ## Running the code
 To run the code, use the following command
 ```
-./src/bin/optixSUNCG -f [shape_file] -o [output_file] -c [camera_file] -m [mode] --gpuIds [gpu_ids]
+./src/bin/optixRenderer -f [shape_file] -o [output_file] -c [camera_file] -m [mode] --gpuIds [gpu_ids]
 ```
-* `shape_file`: The xml file used to define the scene.  See [Shape file](https://github.com/lzqsd/optixRendererForSUNCG/edit/master/README.md#shape-file)
+* `shape_file`: The xml file used to define the scene.  See [Shape file](https://github.com/lzqsd/optixRenderer/edit/master/README.md#shape-file)
 * `output_file`: The name of the rendered image. For ldr image, we support formats jpg, bmp, png. For hdr image, currently we support .rgbe image only. 
 * `camera_file`: The file containing all the camera positions. We support rendering multiple images from different view points for a single scene. The format camera file will be 
   ```
@@ -33,7 +33,7 @@ To run the code, use the following command
 * `gpuIds`: The ids of devices used for rendering. For example --gpuIds 0 1 2, then 3 gpus will be used for rendering. 
 
 ## Shape file
-We use xml file to define the scene. The format will be very similar to mitsuba. The main elements of the shape file include integrator, sensor, material, shape and emitter. We will introduce how to define the 5 elements in details in the following. An example rendering file can be find in ./src/optixSUNCG/cbox. A typical shape file will look like:
+We use xml file to define the scene. The format will be very similar to mitsuba. The main elements of the shape file include integrator, sensor, material, shape and emitter. We will introduce how to define the 5 elements in details in the following. An example rendering file can be find in ./src/optixRenderer/cbox. A typical shape file will look like:
 ```
 <?xml version="1.0" encoding="utf-8"?>
 
