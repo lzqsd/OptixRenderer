@@ -147,6 +147,8 @@ Followings are examples of `area` light and `envmap` respectively.
   <string name="filename" value="/home/exx/Zhengqin/SceneMaterial/Code/optix_advanced_samples/src/optixSUNCG/cbox/envmap.hdr"/>
 </emitter>
 ```
+## Examples
+There are three `.xml` files in `src/optixRenderer/cbox` directory, which can be directly used for testing.  
 
 ## To be finished
 * Bidirectional path tracing should be added, if we have time in the future. 
