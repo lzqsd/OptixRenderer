@@ -10,7 +10,7 @@
 
 using namespace optix;
 
-const char* const SAMPLE_NAME = "optixSUNCG";
+const char* const SAMPLE_NAME = "optixRenderer";
 
 std::string ptxPath( const std::string& cuda_file );
 
