@@ -32,6 +32,18 @@ To run the code, use the following command
   - 6: metallic (.png)
 * `gpuIds`: The ids of devices used for rendering. For example --gpuIds 0 1 2, then 3 gpus will be used for rendering. 
 
+# Other flags
+There are some other flags to control the program. 
+* `--noiseLimit`: If the variance of image is larger than this threshold in the first iteration of adaptive samplilng. This image will be abandoned directly. 
+* `--vertexLimit`: If the .obj or .ply file contains more vertices than the threshold, it will be abandoned.
+* `--intensityLimit`: If the intensity of the rendered image is smaller than the threshold, it will be abandoned.
+* `--camStart`: The start camera Id in the camera file.
+* `--camEnd`: The end camera Id in the camera file. 
+* `--forceOutput`: Overwrite the existing file. 
+* `--rrBeginLength`: Start Roulette Roulette for light path with length longer than this threshold.  
+* `--maxPathLength`: The maximum length of the light path. 
+
+
 ## Shape file
 We use xml file to define the scene. The format will be very similar to mitsuba. The main elements of the shape file include integrator, sensor, material, shape and emitter. We will introduce how to define the 5 elements in details in the following. An example rendering file can be find in ./src/optixRenderer/cbox. A typical shape file will look like:
 ```
