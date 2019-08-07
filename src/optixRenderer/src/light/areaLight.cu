@@ -13,6 +13,7 @@ using namespace optix;
 rtDeclareVariable( float3, shading_normal, attribute shading_normal, ); 
 rtDeclareVariable( float3, geometric_normal, attribute geometric_normal, );
 rtDeclareVariable( float, t_hit, rtIntersectionDistance, );
+rtDeclareVariable(int, max_depth, , );
 
 rtDeclareVariable(optix::Ray, ray,   rtCurrentRay, );
 rtDeclareVariable(PerRayData_radiance, prd_radiance, rtPayload, );
@@ -76,20 +77,25 @@ RT_PROGRAM void closest_hit_radiance()
         }
         else{
             // Use MIS to compute the radiance
-            float3 hitPoint = ray.origin + t_hit * ray.direction;
-            float Dist = length(hitPoint - prd_radiance.origin);
-            float3 L = normalize(hitPoint - prd_radiance.origin);
-            float cosPhi = dot(L, ffnormal);
-            if (cosPhi < 0) cosPhi = -cosPhi;
-            if (cosPhi < 1e-14) cosPhi = 0;
+            if(prd_radiance.depth == (max_depth - 1) ){
+                prd_radiance.radiance += radiance * prd_radiance.attenuation;
+            }
+            else{
+                float3 hitPoint = ray.origin + t_hit * ray.direction;
+                float Dist = length(hitPoint - prd_radiance.origin);
+                float3 L = normalize(hitPoint - prd_radiance.origin);
+                float cosPhi = dot(L, ffnormal);
+                if (cosPhi < 0) cosPhi = -cosPhi;
+                if (cosPhi < 1e-14) cosPhi = 0;
         
-            float pdfAreaBRDF = prd_radiance.pdf * cosPhi / Dist / Dist;
-            float pdfAreaLight = length(radiance) / areaSum;
+                float pdfAreaBRDF = prd_radiance.pdf * cosPhi / Dist / Dist;
+                float pdfAreaLight = length(radiance) / areaSum;
 
-            float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
-            float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
+                float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
+                float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
        
-            prd_radiance.radiance += radiance * pdfAreaBRDF2 / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
+                prd_radiance.radiance += radiance * pdfAreaBRDF2 / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
+            }
         }
     }
     prd_radiance.done = true;

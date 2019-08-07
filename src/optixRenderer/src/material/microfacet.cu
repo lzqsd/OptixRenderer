@@ -44,6 +44,7 @@ rtDeclareVariable( float3, shading_normal, attribute shading_normal, );
 rtDeclareVariable( float3, geometric_normal, attribute geometric_normal, );
 rtDeclareVariable(float3, tangent_direction, attribute tangent_direction, );
 rtDeclareVariable(float3, bitangent_direction, attribute bitangent_direction, );
+rtDeclareVariable(int, max_depth, , );
 
 rtDeclareVariable( float3, texcoord, attribute texcoord, );
 rtDeclareVariable( float, t_hit, rtIntersectionDistance, );
@@ -216,7 +217,7 @@ RT_PROGRAM void closest_hit_radiance()
 
     float roughValue = (isRoughTexture == 0) ? rough :
         tex2D(roughMap, texcoord.x, texcoord.y).x;
-    
+
     float metallicValue = (isMetallicTexture == 0) ? metallic :
         tex2D(metallicMap, texcoord.x, texcoord.y).x;
 
@@ -265,18 +266,23 @@ RT_PROGRAM void closest_hit_radiance()
                 if(prd_shadow.inShadow == false)
                 {
                     float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance) * cosPhi / Dist / Dist;
-                    float pdfSolidBRDF = pdf(L, V, N, roughValue);
-                    float pdfAreaBRDF = pdfSolidBRDF * cosPhi / Dist / Dist;
+                    
+                    if(prd_radiance.depth == (max_depth - 1) ){
+                    }
+                    else{
+                        float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
+                        float pdfSolidBRDF = pdf(L, V, N, roughValue);
+                        float pdfAreaBRDF = pdfSolidBRDF * cosPhi / Dist / Dist;
+                        float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
 
-                    float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
-                    float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
-
-                    prd_radiance.radiance += intensity * pdfAreaLight / 
-                        fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
+                        prd_radiance.radiance += intensity * pdfAreaLight / 
+                            fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;            
+                    }
                 }
             }
-        }
+        }   
     }
+
     
     // Connect to point light 
     {
@@ -293,7 +299,7 @@ RT_PROGRAM void closest_hit_radiance()
                     PerRayData_shadow prd_shadow; 
                     prd_shadow.inShadow = false;
                     rtTrace(top_object, shadowRay, prd_shadow);
-                    if(prd_shadow.inShadow == false){
+                    if(prd_shadow.inShadow == false && prd_radiance.depth != (max_depth - 1) ){
                         float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance) / Dist/ Dist;
                         prd_radiance.radiance += intensity * prd_radiance.attenuation;
                     }
@@ -317,11 +323,15 @@ RT_PROGRAM void closest_hit_radiance()
                 if(prd_shadow.inShadow == false)
                 {
                     float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance);
-                    float pdfSolidBRDF = pdf(L, V, N, roughValue);
-                    float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
-                    float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
-                    prd_radiance.radiance += intensity * pdfSolidEnv / 
-                        fmaxf(pdfSolidEnv2 + pdfSolidBRDF2, 1e-14) * prd_radiance.attenuation; 
+                    if(prd_radiance.depth == (max_depth - 1) ){
+                    }
+                    else{
+                        float pdfSolidBRDF = pdf(L, V, N, roughValue);
+                        float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
+                        float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
+                        prd_radiance.radiance += intensity * pdfSolidEnv / 
+                            fmaxf(pdfSolidEnv2 + pdfSolidBRDF2, 1e-14) * prd_radiance.attenuation; 
+                    }
                 }
             }
         }

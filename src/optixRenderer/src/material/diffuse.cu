@@ -43,6 +43,7 @@ rtDeclareVariable(float3, shading_normal, attribute shading_normal, );
 rtDeclareVariable(float3, geometric_normal, attribute geometric_normal, );
 rtDeclareVariable(float3, tangent_direction, attribute tangent_direction, );
 rtDeclareVariable(float3, bitangent_direction, attribute bitangent_direction, );
+rtDeclareVariable(int, max_depth, , );
 
 rtDeclareVariable( float3, texcoord, attribute texcoord, );
 rtDeclareVariable( float, t_hit, rtIntersectionDistance, );
@@ -176,13 +177,19 @@ RT_PROGRAM void closest_hit_radiance()
                 if(prd_shadow.inShadow == false)
                 {
                     float3 intensity = evaluate(albedoValue, N, V, L, radiance) * cosPhi / Dist / Dist;
-                    float pdfSolidBRDF = pdf(L, V, N);
-                    float pdfAreaBRDF = pdfSolidBRDF * cosPhi / Dist / Dist;
 
-                    float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
-                    float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
+                    if(prd_radiance.depth == (max_depth-1) ){
+                    }
+                    else{
+                        float pdfSolidBRDF = pdf(L, V, N);
+                        float pdfAreaBRDF = pdfSolidBRDF * cosPhi / Dist / Dist;
 
-                    prd_radiance.radiance += intensity * pdfAreaLight / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
+                        float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
+                        float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
+
+                        prd_radiance.radiance += intensity * pdfAreaLight / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
+                    }
+                    
                 }
             }
         }
@@ -203,7 +210,7 @@ RT_PROGRAM void closest_hit_radiance()
                     PerRayData_shadow prd_shadow; 
                     prd_shadow.inShadow = false;
                     rtTrace(top_object, shadowRay, prd_shadow);
-                    if(prd_shadow.inShadow == false){
+                    if(prd_shadow.inShadow == false && prd_radiance.depth != (max_depth-1) ){
                         float3 intensity = evaluate(albedoValue, N, V, L, radiance) / Dist / Dist;
                         prd_radiance.radiance += intensity * prd_radiance.attenuation;
                     }
@@ -227,11 +234,15 @@ RT_PROGRAM void closest_hit_radiance()
                 if(prd_shadow.inShadow == false)
                 {
                     float3 intensity = evaluate(albedoValue, N, V, L, radiance);
-                    float pdfSolidBRDF = pdf(L, V, N);
-                    float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
-                    float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
-                    prd_radiance.radiance += intensity * pdfSolidEnv /
-                        fmaxf( (pdfSolidEnv2 + pdfSolidBRDF2), 1e-14) * prd_radiance.attenuation; 
+                    if(prd_radiance.depth == (max_depth-1) ){
+                    }
+                    else{
+                        float pdfSolidBRDF = pdf(L, V, N);
+                        float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
+                        float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
+                        prd_radiance.radiance += intensity * pdfSolidEnv /
+                            fmaxf( (pdfSolidEnv2 + pdfSolidBRDF2), 1e-14) * prd_radiance.attenuation; 
+                    }
                 }
             }
         }
