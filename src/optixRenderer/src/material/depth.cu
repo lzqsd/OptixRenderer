@@ -54,12 +54,6 @@ RT_PROGRAM void closest_hit_radiance()
     float Dist = -t_hit * dot(V, cameraW);
     prd_radiance.radiance = make_float3(Dist );
     prd_radiance.done = true;
-    
-    /*
-    float3 coord = ray.origin + normalize(ray.direction) * t_hit;
-    prd_radiance.radiance = coord;
-    prd_radiance.done = true;
-    */
 }
 
 // any_hit_shadow program for every material include the lighting should be the same

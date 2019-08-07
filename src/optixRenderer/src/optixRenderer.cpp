@@ -125,7 +125,7 @@ float clip(float a, float min, float max){
 
 bool writeBufferToFile(const char* fileName, float* imgData, int width, int height, bool isHdr = false, int mode = 0)
 {   
-    if(mode == 1 || mode == 2 || mode == 3 || mode == 4 || mode  == 6)
+    if(mode == 1 || mode == 2 || mode == 3 || mode == 4 || mode  == 6 || mode == 7)
         isHdr = false;
     
     if(mode == 5){
@@ -142,6 +142,26 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         depthOut.write( (char*)image, sizeof(float) * width * height);
         depthOut.close();
         delete [] image;
+
+        return true;
+    }
+
+    if(mode == 7){
+        std::ofstream twoBounceOut(fileName, std::ios::out|std::ios::binary );
+        twoBounceOut.write( (char*)&height, sizeof(int) );
+        twoBounceOut.write( (char*)&width, sizeof(int) );
+
+        float* image = new float[width * height * 12];
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                for(int ch = 0; ch < 7; ch++ ){
+                    image[7*(i*width + j)+ch] = imgData[12 * ((height-1-i)*width + j) + ch];
+                }
+            }
+        }
+        twoBounceOut.write( (char*)image, sizeof(float)*width*height*7);
+        twoBounceOut.close(); 
+        delete [] image; 
 
         return true;
     }
@@ -225,7 +245,7 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
     else if(mode == 1 || mode == 2 || mode == 3 || mode == 4 || mode == 6){
         suffix = std::string("png");
     }
-    else if(mode == 5){
+    else if( mode == 5 || mode == 7 ){
         suffix = std::string("dat");
     }
 
@@ -238,6 +258,7 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
         case 4: modeString = "mask"; break;
         case 5: modeString = "depth"; break;
         case 6: modeString = "metallic"; break;
+        case 7: modeString = "double"; break;
     }
 
     if(camNum > 0){
@@ -245,9 +266,9 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
         std::sprintf(camId, "%d", i+1 );
         outputFileName = root + modeString + "_" + camId + "." + suffix;
     }
-    else{
+    else
         outputFileName = root + modeString + "." + suffix;
-    }
+
     return outputFileName;
 }
 
@@ -396,8 +417,8 @@ int main( int argc, char** argv )
             }
             rrBeginLength = atoi(argv[++i] );
         }
-        else if(std::string(argv[i] ) == std::string("--maxPathLength") ){
-            if(i == argc-1){
+        else if( std::string(argv[i] ) == std::string("--maxPathLength") ){
+            if (i == argc-1) {
                 std::cout<<"Missing input variable"<<std::endl;
                 exit(1);
             }
@@ -518,7 +539,13 @@ int main( int argc, char** argv )
     
     std::cout<<std::endl;
     
-    float* imgData = new float[cameraInput.width * cameraInput.height * 3];
+    float* imgData = NULL;
+    if(mode != 7){
+        imgData = new float[cameraInput.width * cameraInput.height * 3];
+    }
+    else{
+        imgData = new float[cameraInput.width * cameraInput.height * 12];
+    }
     unsigned camSp, camEp;
     camSp = std::max(0, camStart);
     if(camEnd == -1){
@@ -548,8 +575,8 @@ int main( int argc, char** argv )
         }
         createCamera(context, cameraInput);
         bool isFindFlash = false;
-        for(int j = 0; j < points.size(); j++){
-            if(points[j].isFlash == true){
+        for(int j = 0; j < points.size(); j++ ){
+            if(points[j].isFlash == true ) {
                 isFindFlash = true;
                 points[j].position.x = cameraInput.origin[0];
                 points[j].position.y = cameraInput.origin[1];
@@ -564,7 +591,7 @@ int main( int argc, char** argv )
         clock_t t;
         t = clock();
         
-        if(intensityLimitEnabled == true && mode == 0){
+        if(intensityLimitEnabled == true && mode == 0) {
             independentSampling(context, cameraInput.width, cameraInput.height, imgData, 4);
             float meanIntensity = 0;
             int pixelNum = cameraInput.width * cameraInput.height * 3;
@@ -582,7 +609,7 @@ int main( int argc, char** argv )
         std::cout<<"Start to render: "<<i+1<<"/"<<camEp<<std::endl;
         if(cameraInput.sampleType == std::string("independent") || mode != 0){
             int sampleNum = cameraInput.sampleNum;
-            independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum, scale);
+            independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum, scale, mode );
         }
         else if(cameraInput.sampleType == std::string("adaptive") ) {
             int sampleNum = cameraInput.sampleNum;
@@ -609,6 +636,5 @@ int main( int argc, char** argv )
     }
     destroyContext(context );
     delete [] imgData;
-
     return 0;
 }

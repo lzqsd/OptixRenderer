@@ -10,12 +10,15 @@ using namespace optix;
 
 void getOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1);
 
+void getTwoBounceOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1);
+
 void independentSampling(
         Context& context, 
         int width, int height, 
         float* imgData, 
         int sampleNum, 
-        unsigned sizeScale = 1);
+        unsigned sizeScale = 1, 
+        int mode=0 );
 
 float RMSEAfterScaling(const float* im1, const float* im2, int width, int height, float scale);
 

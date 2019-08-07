@@ -26,12 +26,60 @@ void getOutputBuffer(Context& context, float* imgData, int width, int height, un
     imgBuffer -> unmap();
 }
 
+void getTwoBounceOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale)
+{
+    Buffer imgBuffer1, imgBuffer2, imgBuffer3, imgBuffer4; 
+    float *imgDataBuffer1 = NULL, *imgDataBuffer2 = NULL;
+    float *imgDataBuffer3 = NULL, *imgDataBuffer4 = NULL;
+    int offset1 = 0, offset2 = 3, offset3 = 6, offset4 = 9; 
+
+    imgBuffer1 = context[ "normal1_buffer" ]->getBuffer();
+    imgDataBuffer1 = reinterpret_cast<float*>(imgBuffer1 -> map() );
+    imgBuffer2 = context[ "depth1_buffer" ]->getBuffer();
+    imgDataBuffer2 = reinterpret_cast<float*>(imgBuffer2 -> map() );
+    imgBuffer3 = context[ "normal2_buffer" ]->getBuffer();
+    imgDataBuffer3 = reinterpret_cast<float*>(imgBuffer3 -> map() );
+    imgBuffer4 = context[ "depth2_buffer" ]->getBuffer();
+    imgDataBuffer4 = reinterpret_cast<float*>(imgBuffer4 -> map() );
+
+    for(int r = 0; r < height; r++){
+        for(int c = 0; c < width; c++){
+            int N = sizeScale * sizeScale;
+            for(int ch = 0; ch < 3; ch++){ 
+                float sum1=0, sum2=0, sum3=0, sum4=0;
+
+                for(int sr = 0; sr < sizeScale; sr++){
+                    for(int sc = 0; sc < sizeScale; sc++){
+                        int C = c * sizeScale + sc;
+                        int R = r * sizeScale + sr;
+                        int Index = 3 * (R * width * sizeScale + C) + ch;
+
+                        sum1 += imgDataBuffer1[Index];
+                        sum2 += imgDataBuffer2[Index];
+                        sum3 += imgDataBuffer3[Index];
+                        sum4 += imgDataBuffer4[Index];
+                    }
+                }
+                imgData[12*(r*width + c) + ch + offset1] = sum1 / N;
+                imgData[12*(r*width + c) + ch + offset2] = sum2 / N;
+                imgData[12*(r*width + c) + ch + offset3] = sum3 / N;
+                imgData[12*(r*width + c) + ch + offset4] = sum4 / N;
+            }
+        }
+    }
+    imgBuffer1 -> unmap();
+    imgBuffer2 -> unmap();
+    imgBuffer3 -> unmap();
+    imgBuffer4 -> unmap();
+}
+
 void independentSampling(
         Context& context, 
         int width, int height, 
         float* imgData, 
         int sampleNum, 
-        unsigned sizeScale)
+        unsigned sizeScale, 
+        int mode)
 {
     unsigned bWidth = sizeScale * width;
     unsigned bHeight = sizeScale * height;
@@ -40,7 +88,12 @@ void independentSampling(
     context["initSeed"] -> setUint( rand() );
 
     context -> launch(0, bWidth, bHeight);
-    getOutputBuffer(context, imgData, width, height, sizeScale ); 
+    if(mode != 7){
+        getOutputBuffer(context, imgData, width, height, sizeScale ); 
+    }
+    else{
+        getTwoBounceOutputBuffer(context, imgData, width, height, sizeScale ); 
+    }
 }
 
 float RMSEAfterScaling(const float* im1, const float* im2, int width, int height, float scale){

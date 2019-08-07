@@ -281,6 +281,20 @@ void createGeometry(
                     }
                     optix_materials.push_back(createDefaultMaterial(context) );
                 }
+                else if(mode == 7){
+                    for(int i = 0; i < shape.mesh.materialNames.size(); i++){
+                        material_t matInput = materials[shape.mesh.materialNameIds[i] ];
+                        Material mat;
+                        if(matInput.cls == "dielectric"){
+                            mat = createTwoBounceMaterial(context, matInput );
+                        }
+                        else{
+                            mat = createBlackMaterial(context );
+                        }
+                        optix_materials.push_back(mat );
+                    }
+                    optix_materials.push_back(createDefaultMaterial(context ) );
+                }
                 else{
                     std::cout<<"Wrong: Unrecognizable mode!"<<std::endl;
                     exit(1);

@@ -32,18 +32,34 @@
 
 struct PerRayData_radiance
 {
-  int depth;
-  unsigned int seed;
+    int depth;
+    unsigned int seed;
 
-  // shading state
-  bool done;
-  float3 attenuation;
-  float3 radiance;
-  float3 origin;
-  float3 direction;
+    // shading state
+    bool done;
+    float3 attenuation;
+    float3 radiance;
+    float3 origin;
+    float3 direction;
 
- float pdf;
+    float pdf;
 
+};
+
+struct TwoBounce_data
+{
+    int depth;
+    unsigned int seed;
+
+    // shading state
+    bool done;
+    float3 origin;
+    float3 direction;
+
+    float3 normal1;
+    float3 normal2;
+    float3 depth1;
+    float3 depth2;
 };
 
 struct PerRayData_shadow

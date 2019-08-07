@@ -33,15 +33,35 @@ unsigned createContext(
     }
     unsigned bWidth = width * scale;
     unsigned bHeight = height * scale;
-    Buffer outputBuffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
-    context["output_buffer"]->set( outputBuffer );
+
+    if(mode != 7){
+        Buffer outputBuffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["output_buffer"]->set( outputBuffer );
+    }
+    else{
+        Buffer normal1Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["normal1_buffer"]->set( normal1Buffer ); 
+
+        Buffer normal2Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["normal2_buffer"]->set( normal1Buffer ); 
+
+        Buffer depth1Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["depth1_buffer"]->set( depth1Buffer ); 
+
+        Buffer depth2Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["depth2_buffer"]->set( depth2Buffer ); 
+    }
     
     unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) / float(scale * scale) ) + 1.0);
     if(sqrt_num_samples == 0){
         sqrt_num_samples = 1;
     }
-    if(mode > 0){
+    if(mode > 0 && mode !=7 ){
         maxDepth = 1;
+        sqrt_num_samples = 4;
+    }
+    else if(mode == 7){
+        maxDepth = 2;
         sqrt_num_samples = 4;
     }
 
@@ -49,9 +69,26 @@ unsigned createContext(
     context["sqrt_num_samples"] -> setUint(sqrt_num_samples);
 
     // Ray generation program 
-    std::string ptx_path( ptxPath( "path_trace_camera.cu" ) );
-    Program ray_gen_program = context->createProgramFromPTXFile( ptx_path, "pinhole_camera" );
-    context->setRayGenerationProgram( 0, ray_gen_program );
+    if(mode != 7){
+        std::string ptx_path( ptxPath( "path_trace_camera.cu" ) );
+        Program ray_gen_program = context->createProgramFromPTXFile( ptx_path, "pinhole_camera" );
+        context->setRayGenerationProgram( 0, ray_gen_program );
+        
+        // Exception program
+        Program exception_program = context->createProgramFromPTXFile( ptx_path, "exception" );
+        context->setExceptionProgram( 0, exception_program );
+        context["bad_color"]->setFloat( 0.0f, 0.0f, 0.0f );
+    }
+    else{
+        std::string ptx_path( ptxPath("two_bounce_camera.cu") );
+        Program ray_gen_program = context->createProgramFromPTXFile( ptx_path, "pinhole_camera" );
+        context->setRayGenerationProgram( 0, ray_gen_program );
+        
+        // Exception program
+        Program exception_program = context->createProgramFromPTXFile( ptx_path, "exception" );
+        context->setExceptionProgram( 0, exception_program );
+        context["bad_color"]->setFloat( 0.0f, 0.0f, 0.0f );
+    }
     
     if(cameraType == std::string("perspective") ){
         context["cameraMode"] -> setInt(0);
@@ -67,10 +104,6 @@ unsigned createContext(
         exit(1);
     }
 
-    // Exception program
-    Program exception_program = context->createProgramFromPTXFile( ptx_path, "exception" );
-    context->setExceptionProgram( 0, exception_program );
-    context["bad_color"]->setFloat( 0.0f, 0.0f, 0.0f );
 
     // Missing Program 
     std::string miss_path( ptxPath("envmap.cu") );
