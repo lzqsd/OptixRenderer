@@ -154,12 +154,21 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         float* image = new float[width * height * 12];
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                for(int ch = 0; ch < 7; ch++ ){
-                    image[7*(i*width + j)+ch] = imgData[12 * ((height-1-i)*width + j) + ch];
+                for(int ch = 0; ch < 12; ch++ ){
+                    image[12*(i*width + j)+ch] = imgData[12 * ((height-1-i)*width + j) + ch];
                 }
             }
         }
-        twoBounceOut.write( (char*)image, sizeof(float)*width*height*7);
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                int offset = (i * width + j) * 12;
+                if(image[offset + 5] < image[offset+11]){
+                    for(int ch = 6; ch < 12; ch++)
+                        image[offset + ch] = 0;
+                }
+            }
+        }
+        twoBounceOut.write( (char*)image, sizeof(float)*width*height*12);
         twoBounceOut.close(); 
         delete [] image; 
 
@@ -258,7 +267,7 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
         case 4: modeString = "mask"; break;
         case 5: modeString = "depth"; break;
         case 6: modeString = "metallic"; break;
-        case 7: modeString = "double"; break;
+        case 7: modeString = "twoBounce"; break;
     }
 
     if(camNum > 0){
@@ -533,6 +542,7 @@ int main( int argc, char** argv )
     }
     boundingBox(context, shapes);
     createGeometry(context, shapes, materials, mode);
+
     createAreaLightsBuffer(context, shapes);
     createEnvmap(context, envmaps); 
     createPointLight(context, points);

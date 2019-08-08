@@ -296,7 +296,7 @@ void createGeometry(
                     optix_materials.push_back(createDefaultMaterial(context ) );
                 }
                 else{
-                    std::cout<<"Wrong: Unrecognizable mode!"<<std::endl;
+                    std::cout<<"Wrong: Unrecognizable mode "<<mode<<" !"<<std::endl;
                     exit(1);
                 }
             }

@@ -4,6 +4,7 @@ rtDeclareVariable(int, max_depth, , );
 
 rtDeclareVariable(optix::Ray, ray,   rtCurrentRay, );
 rtDeclareVariable(PerRayData_radiance, prd_radiance, rtPayload, );
+rtDeclareVariable(TwoBounce_data, prd_twoBounce, rtPayload, );
 
 // Environmental Lighting 
 rtDeclareVariable(int, isEnvmap, , );
@@ -135,4 +136,8 @@ RT_PROGRAM void envmap_miss(){
 RT_PROGRAM void miss(){
     prd_radiance.radiance = make_float3(0.0);
     prd_radiance.done = true;
+}
+
+RT_PROGRAM void missTwoBounce(){
+    prd_twoBounce.done = true;
 }

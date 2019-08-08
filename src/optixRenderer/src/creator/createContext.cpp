@@ -43,7 +43,7 @@ unsigned createContext(
         context["normal1_buffer"]->set( normal1Buffer ); 
 
         Buffer normal2Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
-        context["normal2_buffer"]->set( normal1Buffer ); 
+        context["normal2_buffer"]->set( normal2Buffer ); 
 
         Buffer depth1Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
         context["depth1_buffer"]->set( depth1Buffer ); 
@@ -112,8 +112,14 @@ unsigned createContext(
         context->setMissProgram(0, miss_program);
     }
     else{
-        Program miss_program = context->createProgramFromPTXFile(miss_path, "miss");
-        context->setMissProgram(0, miss_program);
+        if(mode == 7){
+            Program miss_program = context->createProgramFromPTXFile(miss_path, "missTwoBounce");
+            context->setMissProgram(0, miss_program);
+        }
+        else{
+            Program miss_program = context->createProgramFromPTXFile(miss_path, "miss");
+            context->setMissProgram(0, miss_program);
+        }
     }
 
     // Set light sampling program 
