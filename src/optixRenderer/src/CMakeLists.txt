@@ -35,6 +35,8 @@ OPTIX_add_sample_executable( optixRenderer
     optixRenderer.cpp
 
     camera/path_trace_camera.cu
+    camera/light_camera.cu
+
     creator/createAreaLight.cpp
     creator/createCamera.cpp
     creator/createContext.cpp

@@ -83,7 +83,6 @@ rtDeclareVariable(
         rtCallableProgramX<void(unsigned int&, float3&, float3&, float3&, float&)>, 
         sampleAreaLight, , );
 
-
 // Computing the pdfSolidAngle of BRDF giving a direction 
 RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& V, const float3& N)
 {

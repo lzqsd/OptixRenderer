@@ -66,6 +66,8 @@ RT_PROGRAM void closest_hit_radiance()
     const float3 world_shading_normal   = normalize( rtTransformNormal( RT_OBJECT_TO_WORLD, shading_normal ) );
     const float3 world_geometric_normal = normalize( rtTransformNormal( RT_OBJECT_TO_WORLD, geometric_normal ) );
     const float3 ffnormal = faceforward( world_shading_normal, -ray.direction, world_geometric_normal );
+    
+    float3 hitPoint = ray.origin + t_hit * ray.direction;
 
     if(prd_radiance.depth == 0){
         // Directly hit the light
@@ -81,7 +83,6 @@ RT_PROGRAM void closest_hit_radiance()
                 prd_radiance.radiance += radiance * prd_radiance.attenuation;
             }
             else{
-                float3 hitPoint = ray.origin + t_hit * ray.direction;
                 float Dist = length(hitPoint - prd_radiance.origin);
                 float3 L = normalize(hitPoint - prd_radiance.origin);
                 float cosPhi = dot(L, ffnormal);
@@ -99,6 +100,7 @@ RT_PROGRAM void closest_hit_radiance()
         }
     }
     prd_radiance.done = true;
+    prd_radiance.origin = hitPoint;
 }
 
 

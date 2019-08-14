@@ -123,9 +123,47 @@ float clip(float a, float min, float max){
 }
 
 
+void writeBufferToMemory(float* outputData, float*imgData, int width, int height, int mode, int camId){ 
+        
+    int channelNum = -1;
+    if(mode == 0 || mode == 1 || mode == 2 || mode == 3 ){
+        channelNum = 3;
+    }
+    else if(mode == 4 || mode == 5 || mode == 6){
+        channelNum = 1;
+    }
+    else if(mode == 7){
+        channelNum = 9;
+    }
+    else{
+        std::cout<<"Wrong: Unrecognizable mode "<<mode<<'.'<<std::endl;
+        exit(1);
+    }
+
+    int offset = camId * width * height * channelNum;
+    if(mode == 4 || mode == 5 || mode == 6){
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                outputData[offset + i*width + j] = imgData[3*( (height-1-i)*width + j )];
+            }
+        }
+    }
+    else{
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                for(int ch = 0; ch < channelNum; ch++){
+                    outputData[offset + channelNum*(i*width + j) + ch] =
+                        imgData[channelNum * ( (height-1-i)*width+j ) + ch];
+
+                }
+            }
+        }
+    }
+}
+
 bool writeBufferToFile(const char* fileName, float* imgData, int width, int height, bool isHdr = false, int mode = 0)
 {   
-    if(mode == 1 || mode == 2 || mode == 3 || mode == 4 || mode  == 6)
+    if(mode == 1 || mode == 2 || mode == 3 || mode == 4 || mode  == 6 || mode == 7)
         isHdr = false;
     
     if(mode == 5){
@@ -141,6 +179,26 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         }
         depthOut.write( (char*)image, sizeof(float) * width * height);
         depthOut.close();
+        delete [] image;
+
+        return true;
+    }
+
+    if(mode == 7){
+        std::ofstream lightOut( fileName, std::ios::out|std::ios::binary );
+        lightOut.write( (char*)&height, sizeof(int) );
+        lightOut.write( (char*)&width, sizeof(int) );
+
+        float* image = new float[width * height * 9];
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){ 
+                for(int ch = 0; ch < 9; ch++ ){
+                    image[9*(i*width + j) + ch] = imgData[9*( (height-1-i)*width + j ) + ch];
+                }
+            }
+        }
+        lightOut.write( (char*)image, sizeof(float)*width*height*9 );
+        lightOut.close();
         delete [] image;
 
         return true;
@@ -188,12 +246,11 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         } 
         cv::imwrite(fileName, image);
     }
-
     return true;
 }
 
 
-std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, int i,  int camNum){
+std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, int i,  int camNum, bool isWriteToMemory = false ){
     std::string root;
     std::string suffix;
     std::size_t pos = fileName.find_last_of(".");
@@ -225,9 +282,12 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
     else if(mode == 1 || mode == 2 || mode == 3 || mode == 4 || mode == 6){
         suffix = std::string("png");
     }
-    else if(mode == 5){
+    else if(mode == 5 || mode == 7 ) {
         suffix = std::string("dat");
     }
+
+    if(isWriteToMemory )
+        suffix = std::string("dat");
 
     std::string outputFileName;
     std::string modeString = "";
@@ -238,6 +298,7 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
         case 4: modeString = "mask"; break;
         case 5: modeString = "depth"; break;
         case 6: modeString = "metallic"; break;
+        case 7: modeString = "light"; break;
     }
 
     if(camNum > 0){
@@ -295,6 +356,8 @@ int main( int argc, char** argv )
     bool intensityLimitEnabled = false;
     int maxPathLength = 5;
     int rrBeginLength = 3;
+
+    bool isWriteToMemory = false;
     
     bool isForceOutput = false;
 
@@ -403,12 +466,15 @@ int main( int argc, char** argv )
             }
             maxPathLength = atoi(argv[++i] );
         }
+        else if(std::string(argv[i] ) == std::string("--writeToMemory") ){
+            isWriteToMemory = true;
+        }
         else{
             std::cout<<"Unrecognizable input command"<<std::endl;
             exit(1);
         }
     }
-    
+
     std::vector<shape_t> shapes;
     std::vector<material_t> materials;
     CameraInput cameraInput;
@@ -518,7 +584,13 @@ int main( int argc, char** argv )
     
     std::cout<<std::endl;
     
-    float* imgData = new float[cameraInput.width * cameraInput.height * 3];
+    float* imgData = NULL;
+    if(mode != 7){
+        imgData = new float[cameraInput.width * cameraInput.height * 3];
+    }
+    else{
+        imgData = new float[cameraInput.width * cameraInput.height * 9];
+    }
     unsigned camSp, camEp;
     camSp = std::max(0, camStart);
     if(camEnd == -1){
@@ -526,6 +598,29 @@ int main( int argc, char** argv )
     }
     else{
         camEp = std::max(std::min(camEnd, camNum), 0);
+    }
+
+    std::string outputFileNameSet;
+    float* imgSet = NULL;
+    int channelNum = -1;
+    if(isWriteToMemory ){
+        outputFileNameSet = generateOutputFilename(outputFileName, mode, 
+                cameraInput.isHdr, 0, -1, true);
+        std::ifstream f(outputFileNameSet.c_str() );
+        if(f.good() && !isForceOutput ) {
+            std::cout<<"Warning: "<<outputFileNameSet<<" already exists. Will be skipped."<<std::endl;
+            exit(1);
+        }
+        if(mode == 0 || mode == 1 || mode == 2 || mode == 3 ){
+            channelNum = 3;
+        }
+        else if(mode == 4 || mode == 5 || mode == 6){
+            channelNum = 1;
+        }
+        else if(mode == 7){
+            channelNum = 9;
+        }
+        imgSet = new float[camNum *  cameraInput.height * cameraInput.width * channelNum];
     }
     
     for(int i = camSp; i < camEp; i++){ 
@@ -582,7 +677,7 @@ int main( int argc, char** argv )
         std::cout<<"Start to render: "<<i+1<<"/"<<camEp<<std::endl;
         if(cameraInput.sampleType == std::string("independent") || mode != 0){
             int sampleNum = cameraInput.sampleNum;
-            independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum, scale);
+            independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum, scale, mode);
         }
         else if(cameraInput.sampleType == std::string("adaptive") ) {
             int sampleNum = cameraInput.sampleNum;
@@ -600,15 +695,29 @@ int main( int argc, char** argv )
         t = clock() - t;
         std::cout<<"Time: "<<float(t) / CLOCKS_PER_SEC<<'s'<<std::endl;
 
-         
-        bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
-                imgData,
-                cameraInput.width, cameraInput.height, 
-                cameraInput.isHdr,
-                mode);
+        
+        if(isWriteToMemory == false ){
+            bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
+                    imgData,
+                    cameraInput.width, cameraInput.height, 
+                    cameraInput.isHdr,
+                    mode);        
+        }
+        else{
+            writeBufferToMemory(imgSet, imgData, cameraInput.width, cameraInput.height, mode, i);
+        }
     }
     destroyContext(context );
     delete [] imgData;
 
+    if(isWriteToMemory ){
+        std::ofstream imageSetOut(outputFileNameSet.c_str(), std::ios::out|std::ios::binary ); 
+        imageSetOut.write((char*)&camNum, sizeof(int) );
+        imageSetOut.write((char*)&cameraInput.height, sizeof(int) );
+        imageSetOut.write((char*)&cameraInput.width, sizeof(int) );
+        imageSetOut.write((char*)imgSet, sizeof(float)*cameraInput.width*cameraInput.height*camNum*channelNum );
+        imageSetOut.close();
+        delete [] imgSet;
+    }
     return 0;
 }

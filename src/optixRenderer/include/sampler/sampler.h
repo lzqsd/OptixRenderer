@@ -10,12 +10,15 @@ using namespace optix;
 
 void getOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1);
 
+void getLightOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1);
+
 void independentSampling(
         Context& context, 
         int width, int height, 
         float* imgData, 
         int sampleNum, 
-        unsigned sizeScale = 1);
+        unsigned sizeScale = 1, 
+        int mode = 0);
 
 float RMSEAfterScaling(const float* im1, const float* im2, int width, int height, float scale);
 
@@ -27,7 +30,6 @@ bool adaptiveSampling(
         bool noiseLimitEnabled = false,
         int maxIteration = 4, 
         float noiseThreshold = 0.03,
-        unsigned sizeScale = 1
-        );
+        unsigned sizeScale = 1 );
 
 #endif

@@ -26,12 +26,80 @@ void getOutputBuffer(Context& context, float* imgData, int width, int height, un
     imgBuffer -> unmap();
 }
 
+void getLightOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale)
+{
+    Buffer imgBuffer1, imgBuffer2, imgBuffer3; 
+    float *imgDataBuffer1 = NULL, *imgDataBuffer2 = NULL;
+    float *imgDataBuffer3 = NULL;
+    int offset1 = 0, offset2 = 3, offset3 = 6; 
+
+    imgBuffer1 = context[ "position_buffer" ]->getBuffer();
+    imgDataBuffer1 = reinterpret_cast<float*>(imgBuffer1 -> map() );
+    imgBuffer2 = context[ "direction_buffer" ]->getBuffer();
+    imgDataBuffer2 = reinterpret_cast<float*>(imgBuffer2 -> map() );
+    imgBuffer3 = context[ "intensity_buffer" ]->getBuffer();
+    imgDataBuffer3 = reinterpret_cast<float*>(imgBuffer3 -> map() );
+
+    float *sum1 = NULL, *sum2 = NULL, *sum3 = NULL;
+    float *d1 = NULL, *d2 = NULL, *d3 = NULL;
+    sum1 = new float[3];
+    sum2 = new float[3];
+    sum3 = new float[3];
+    d1 = new float[3];
+
+
+    for(int r = 0; r < height; r++){
+        for(int c = 0; c < width; c++){
+
+            int count1 = 0;
+            int N = sizeScale * sizeScale;
+            for(int ch = 0; ch < 3; ch++ ){
+                sum1[ch] = sum2[ch] = sum3[ch] = 0;
+            }
+
+            for(int sr = 0; sr < sizeScale; sr++){
+                for(int sc = 0; sc < sizeScale; sc++){
+                    int C = c * sizeScale + sc;
+                    int R = r * sizeScale + sr;
+                    int Index = 3 * (R * width * sizeScale + C);
+                    for(int ch = 0; ch < 3; ch++){
+                        d1[ch] = imgDataBuffer1[Index + ch];
+                        sum2[ch] += imgDataBuffer2[Index + ch];
+                        sum3[ch] += imgDataBuffer3[Index + ch];
+                    }
+                    if(fabs(d1[0]) > 0 || fabs(d1[1]) > 0 || fabs(d1[2]) > 0){
+                        count1 += 0;
+                        for(int ch = 0; ch < 3; ch++){
+                            sum1[ch] += d1[ch];
+                        }
+                    }
+                }
+            }
+
+            for(int ch = 0; ch < 3; ch++){
+                imgData[9*(r*width + c) + ch + offset1] = sum1[ch] / count1;
+                imgData[9*(r*width + c) + ch + offset2] = sum2[ch] / N;
+                imgData[9*(r*width + c) + ch + offset3] = sum3[ch] / N;
+            }
+        }
+    }
+    imgBuffer1 -> unmap();
+    imgBuffer2 -> unmap();
+    imgBuffer3 -> unmap();
+
+    delete [] sum1;
+    delete [] sum2;
+    delete [] sum3;
+    delete [] d1;
+}
+
 void independentSampling(
         Context& context, 
         int width, int height, 
         float* imgData, 
         int sampleNum, 
-        unsigned sizeScale)
+        unsigned sizeScale, 
+        int mode )
 {
     unsigned bWidth = sizeScale * width;
     unsigned bHeight = sizeScale * height;
@@ -40,7 +108,13 @@ void independentSampling(
     context["initSeed"] -> setUint( rand() );
 
     context -> launch(0, bWidth, bHeight);
-    getOutputBuffer(context, imgData, width, height, sizeScale ); 
+
+    if(mode != 7){
+        getOutputBuffer(context, imgData, width, height, sizeScale ); 
+    }
+    else{
+        getLightOutputBuffer(context, imgData, width, height, sizeScale ); 
+    }
 }
 
 float RMSEAfterScaling(const float* im1, const float* im2, int width, int height, float scale){
