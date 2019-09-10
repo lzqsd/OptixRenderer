@@ -238,7 +238,7 @@ bool loadSensorFromXML(CameraInput& Camera, TiXmlNode* module)
             }
         }
         else{
-            std::cout<<"Wrong: unrecognizable module of sensor!"<<std::endl;
+            std::cout<<"Wrong: unrecognizable module "<<seSubModule -> Value()<<" of sensor!"<<std::endl;
             return false;
         }
     }

@@ -68,7 +68,8 @@
 #include "creator/createGeometry.h"
 #include "creator/createMaterial.h"
 #include "creator/createPointFlashLight.h"
-#include "sampler/sampler.h"
+#include "sampler/sampler.h" 
+#include "postprocessing/filter.h"
 #include "stdio.h"
 
 using namespace optix;
@@ -293,10 +294,11 @@ int main( int argc, char** argv )
     bool noiseLimitEnabled = false;
     bool vertexLimitEnabled = false;
     bool intensityLimitEnabled = false;
-    int maxPathLength = 5;
-    int rrBeginLength = 3;
+    int maxPathLength = 7;
+    int rrBeginLength = 5;
     
     bool isForceOutput = false;
+    bool isMedianFilter = false;
 
     int camStart = 0;
     int camEnd = -1;
@@ -402,6 +404,9 @@ int main( int argc, char** argv )
                 exit(1);
             }
             maxPathLength = atoi(argv[++i] );
+        } 
+        else if(std::string(argv[i] ) == std::string("--medianFilter") ){ 
+            isMedianFilter = true;
         }
         else{
             std::cout<<"Unrecognizable input command"<<std::endl;
@@ -599,7 +604,10 @@ int main( int argc, char** argv )
         }
         t = clock() - t;
         std::cout<<"Time: "<<float(t) / CLOCKS_PER_SEC<<'s'<<std::endl;
-
+        
+        if(isMedianFilter && mode == 0 ){
+            medianFilter(imgData, cameraInput.width, cameraInput.height, 1);
+        }
          
         bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
                 imgData,

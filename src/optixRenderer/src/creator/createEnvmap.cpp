@@ -53,8 +53,8 @@ void createEnvmapBuffer(Context& context,
     context["envmap"] -> setTextureSampler(envmapSampler);
     
     TextureSampler envmapDirectSampler = createTextureSampler(context );
-    loadImageToTextureSampler(context, envmapSampler, envMat );
-    context["envmapDirec"] -> setTextureSampler(envmapSampler);
+    loadImageToTextureSampler(context, envmapDirectSampler, envMat );
+    context["envmapDirec"] -> setTextureSampler(envmapDirectSampler);
   
     Buffer envcdfV = context -> createBuffer(RT_BUFFER_INPUT, RT_FORMAT_FLOAT, 1, gridHeight);
     Buffer envcdfH = context -> createBuffer(RT_BUFFER_INPUT, RT_FORMAT_FLOAT, gridWidth, gridHeight);
@@ -179,7 +179,8 @@ void createEnvmap(
         Envmap env = envmaps[0];
         cv::Mat envMat = loadEnvmap(env, width, height);
         
-        unsigned kernelSize = std::max(3, int(height / 100) );
+        unsigned kernelSize = std::max(5, int(height / 100) );
+        if(kernelSize % 2 == 0) kernelSize += 1;
         cv::Mat envMatBlured(height, width, CV_32FC3);
         cv::GaussianBlur(envMat, envMatBlured, cv::Size(kernelSize, kernelSize), 0, 0); 
 
