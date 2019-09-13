@@ -43,7 +43,6 @@ void loadImageToTextureSampler(Context& context, TextureSampler& Sampler, cv::Ma
                 exit(1);
             }
             texPt[index + 3] = 1.0;
-
         }   
     } 
     texBuffer -> unmap();

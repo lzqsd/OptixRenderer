@@ -9,12 +9,17 @@ struct material_t {
     std::string cls;
 
     float albedo[3];
+    float albedoScale[3];
     float specular[3];
-    float transmittance[3];
+    float specularScale[3];
+    float transmittance[3]; 
+    float transmittanceScale[3];
 
     float fresnel;
-    float roughness;
+    float roughness; 
+    float roughnessScale;
     float glossiness;
+    float glossinessScale;
     float metallic;
     float intIOR;
     float extIOR;
@@ -34,7 +39,13 @@ struct material_t {
         roughness = 1.0;
         glossiness = 0.0;
         fresnel = 0.05;
-        metallic = 0.0;
+        metallic = 0.0; 
+
+        albedoScale[0] = albedoScale[1] = albedoScale[2] = 1.0;
+        specularScale[0] = specularScale[1] = specularScale[2] = 1.0;
+        transmittanceScale[0] = transmittanceScale[1] = transmittanceScale[2] = 1.0;
+        roughnessScale = 1.0;
+        glossinessScale = 1.0;
         
         name = "";
         cls = "";
@@ -73,7 +84,6 @@ struct shape_t {
         radiance[0] = radiance[1] = radiance[2] = 0;
     }
 }; 
-
 
 
 #endif 

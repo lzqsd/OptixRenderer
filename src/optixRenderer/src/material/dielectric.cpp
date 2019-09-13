@@ -1,4 +1,5 @@
 #include "creator/createMaterial.h"
+#include <algorithm>
 
 Material createDielectricMaterial(Context& context, material_t mat)
 {
@@ -29,9 +30,14 @@ Material createDielectricMaterial(Context& context, material_t mat)
     material["normalMap"] -> setTextureSampler(normalSampler ); 
 
     
-    material["specular"] -> setFloat(mat.specular[0], mat.specular[1], mat.specular[2] );
-    material["transmittance"] -> setFloat(mat.transmittance[0], 
-            mat.transmittance[1], mat.transmittance[2] ); 
+    material["specular"] -> setFloat(
+            std::min(mat.specular[0] * mat.specularScale[0], 1.0f), 
+            std::min(mat.specular[1] * mat.specularScale[1], 1.0f), 
+            std::min(mat.specular[2] * mat.specularScale[2], 1.0f) );
+    material["transmittance"] -> setFloat(
+            std::min(mat.transmittance[0] * mat.transmittanceScale[0], 1.0f), 
+            std::min(mat.transmittance[1] * mat.transmittanceScale[1], 1.0f), 
+            std::min(mat.transmittance[2] * mat.transmittanceScale[2], 1.0f) ); 
     material["intIOR"] -> setFloat(mat.intIOR );
     material["extIOR"] -> setFloat(mat.extIOR );
 
