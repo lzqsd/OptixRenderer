@@ -140,7 +140,28 @@ bool loadShapeFromXML(std::vector<shape_t>& shapes, std::vector<material_t>& mat
                     for(TiXmlAttribute* trSubAttri = trSubEle -> FirstAttribute(); trSubAttri != 0; trSubAttri = trSubAttri -> Next() ){
                         if(trSubAttri -> Name() == std::string("value") ){
                             std::vector<float> scaleArr = parseFloatStr(trSubAttri -> Value() );
-                            T.value[0] = scaleArr[0];
+                            if(scaleArr.size() == 1){
+                                T.value[0] = scaleArr[0];
+                                T.value[1] = scaleArr[0];
+                                T.value[2] = scaleArr[0];
+                            }
+                            else if(scaleArr.size() == 3){
+                                T.value[0] = scaleArr[0];
+                                T.value[1] = scaleArr[1];
+                                T.value[2] = scaleArr[2];
+                            }
+                        }
+                        else if(trSubAttri -> Name() == std::string("x") ){
+                            std::vector<float> scaleXArr = parseFloatStr(trSubAttri -> Value() );
+                            T.value[0] = scaleXArr[0];
+                        }
+                        else if(trSubAttri -> Name() == std::string("y") ){
+                            std::vector<float> scaleYArr = parseFloatStr(trSubAttri -> Value() );
+                            T.value[1] = scaleYArr[0];
+                        }
+                        else if(trSubAttri -> Name() == std::string("z") ){
+                            std::vector<float> scaleZArr = parseFloatStr(trSubAttri -> Value() );
+                            T.value[2] = scaleZArr[0];
                         }
                         else{
                             std::cout<<"Wrong: unrecognizable attribute of scale of transform of shape!"<<std::endl;

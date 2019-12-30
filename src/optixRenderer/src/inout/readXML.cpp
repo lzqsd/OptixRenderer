@@ -49,8 +49,25 @@ bool doObjTransform(shape_t& shape, std::vector<objTransform>& TArr)
             }
         }
         else if(T.name == std::string("scale") ){
-            for(int i = 0; i < shape.mesh.positions.size(); i++){
-                shape.mesh.positions[i] *= T.value[0];
+            int vertexNum = int(shape.mesh.positions.size() / 3 );
+            for(int i = 0; i < vertexNum; i++){
+                for(int r = 0; r < 3; r++){
+                    shape.mesh.positions[3*i + r] *= T.value[r];    
+                }
+            }
+
+            int normalNum = int(shape.mesh.normals.size() / 3);
+            for(int i = 0; i < normalNum; i++){
+                float norm = 0;
+                for(int r = 0; r < 3; r++){
+                    shape.mesh.normals[3*i + r] *= T.value[r];
+                    norm += shape.mesh.normals[3*i + r] * 
+                        shape.mesh.normals[3*i + r];
+                }
+                norm = sqrt(norm );
+                for(int r = 0; r < 3; r++){
+                    shape.mesh.normals[3*i+r ] /= norm;
+                }
             }
         }
         else if(T.name == std::string("rotate") ){
