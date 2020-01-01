@@ -211,7 +211,12 @@ void createGeometry(
             if(!shape.isLight ){
                 if(mode == 0){
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
-                        Material mat;
+                        Material mat; 
+
+                        if(materials.size() == 0){
+                            optix_materials.push_back(createDefaultMaterial(context) );
+                            continue;
+                        }
                         material_t matInput = materials[shape.mesh.materialNameIds[i] ];
                         if(matInput.cls == std::string("diffuse") ){
                             mat = createDiffuseMaterial(context, matInput );
@@ -232,6 +237,12 @@ void createGeometry(
                 else if(mode == 1){
                     // Output the albedo value 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
+                        if(materials.size() == 0){
+                            material_t matInput;
+                            Material mat = createAlbedoMaterial(context, matInput );
+                            optix_materials.push_back(mat);
+                            continue;
+                        }
                         material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
                         Material mat = createAlbedoMaterial(context, matInput);
                         optix_materials.push_back(mat);
@@ -241,6 +252,12 @@ void createGeometry(
                 else if(mode == 2){
                     // Output the normal value 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
+                        if(materials.size() == 0){
+                            material_t matInput; 
+                            Material mat = createNormalMaterial(context, matInput);
+                            optix_materials.push_back(mat);
+                            continue;
+                        }
                         material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
                         Material mat = createNormalMaterial(context, matInput);
                         optix_materials.push_back(mat);
@@ -250,6 +267,12 @@ void createGeometry(
                 else if(mode == 3){
                     // Output the roughness value 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
+                        if(materials.size() == 0){
+                            material_t matInput; 
+                            Material mat = createRoughnessMaterial(context, matInput);
+                            optix_materials.push_back(mat);
+                            continue;
+                        }
                         material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
                         Material mat = createRoughnessMaterial(context, matInput);
                         optix_materials.push_back(mat);
@@ -275,6 +298,12 @@ void createGeometry(
                 else if(mode == 6){
                     // Output the metallic 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
+                        if(materials.size() == 0){
+                            material_t matInput; 
+                            Material mat = createMetallicMaterial(context, matInput);
+                            optix_materials.push_back(mat );
+                            continue;
+                        }
                         material_t matInput = materials[shape.mesh.materialNameIds[i] ]; 
                         Material mat = createMetallicMaterial(context, matInput);
                         optix_materials.push_back(mat );
