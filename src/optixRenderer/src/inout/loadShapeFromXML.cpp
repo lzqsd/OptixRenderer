@@ -61,7 +61,7 @@ bool loadShapeFromXML(std::vector<shape_t>& shapes, std::vector<material_t>& mat
             TiXmlElement* shSubEle = shSubModule -> ToElement();
             for(TiXmlAttribute* shSubAttri = shSubEle -> FirstAttribute(); shSubAttri != 0; shSubAttri = shSubAttri -> Next() ){
                 if(shSubAttri -> Name() == std::string("name") ){
-                    if(shSubAttri -> Value() != "bsdf"){ 
+                    if(shSubAttri -> Value() != std::string("bsdf") ){ 
                         std::cout<<"Wrong: unrecognizable name of ref of shape!"<<std::endl;
                     }
                 }
