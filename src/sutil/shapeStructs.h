@@ -13,7 +13,8 @@ struct material_t {
     float specular[3];
     float specularScale[3];
     float transmittance[3]; 
-    float transmittanceScale[3];
+    float transmittanceScale[3]; 
+    float uvScale;
 
     float fresnel;
     float roughness; 
@@ -40,6 +41,7 @@ struct material_t {
         glossiness = 0.0;
         fresnel = 0.05;
         metallic = 0.0; 
+        uvScale = 1.0;
 
         albedoScale[0] = albedoScale[1] = albedoScale[2] = 1.0;
         specularScale[0] = specularScale[1] = specularScale[2] = 1.0;

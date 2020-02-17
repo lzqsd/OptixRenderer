@@ -20,6 +20,7 @@ Material createMetallicMaterial(Context& context, material_t mat){
         }
         loadImageToTextureSampler(context, metallicSampler, metallicTexture); 
         material["metallic"] -> setFloat(1.0);
+        material["uvScale"] -> setFloat(mat.uvScale );
     }
     else{
         material["isMetallicTexture"] -> setInt(0);

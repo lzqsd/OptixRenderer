@@ -9,6 +9,8 @@ Material createRoughnessMaterial(Context& context, material_t mat){
     Material material = context->createMaterial();
     material->setClosestHitProgram( 0, ch_program );
     material->setAnyHitProgram( 1, ah_program );
+    
+    material["uvScale"] -> setFloat(mat.uvScale );
         
     TextureSampler roughSampler = createTextureSampler(context );
     

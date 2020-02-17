@@ -10,6 +10,8 @@ Material createPhongMaterial(Context& context, material_t mat)
     material->setClosestHitProgram( 0, ch_program );
     material->setAnyHitProgram( 1, ah_program );
     
+    material["uvScale"] -> setFloat(mat.uvScale );
+    
     // Texture Sampler 
     TextureSampler albedoSampler = createTextureSampler(context);
     

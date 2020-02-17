@@ -46,7 +46,7 @@ bool doObjTransform(shape_t& shape, std::vector<objTransform>& TArr)
                 shape.mesh.positions[3*i] += T.value[0];
                 shape.mesh.positions[3*i + 1] += T.value[1];
                 shape.mesh.positions[3*i + 2] += T.value[2];
-            }
+            } 
         }
         else if(T.name == std::string("scale") ){
             int vertexNum = int(shape.mesh.positions.size() / 3 );
@@ -54,7 +54,7 @@ bool doObjTransform(shape_t& shape, std::vector<objTransform>& TArr)
                 for(int r = 0; r < 3; r++){
                     shape.mesh.positions[3*i + r] *= T.value[r];    
                 }
-            }
+            } 
 
             int normalNum = int(shape.mesh.normals.size() / 3);
             for(int i = 0; i < normalNum; i++){
@@ -106,8 +106,8 @@ bool doObjTransform(shape_t& shape, std::vector<objTransform>& TArr)
                     rotMat[r][c] = cos(theta) * rotMat_0[r][c] + 
                         sin(theta) * rotMat_1[r][c] + (1 - cos(theta) ) * axis[r] * axis[c];
                 }
-            }
-            
+            } 
+
             // Rotate 3D points 
             int vertexNum = shape.mesh.positions.size() / 3;
             for(int i = 0; i < vertexNum; i++ ){

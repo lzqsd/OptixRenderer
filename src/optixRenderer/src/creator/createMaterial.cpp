@@ -48,7 +48,7 @@ Material createWhiteMaterial(Context& context ){
     TextureSampler albedoSampler = createTextureSampler(context);
     material["isAlbedoTexture"] -> setInt(0);   
     loadEmptyToTextureSampler(context, albedoSampler);
-    material["albedo"] -> setFloat(1.0, 1.0, 1.0 );
+    material["albedo"] -> setFloat(1.0, 1.0, 1.0 ); 
     material["albedoMap"] -> setTextureSampler(albedoSampler);
    
     return material;

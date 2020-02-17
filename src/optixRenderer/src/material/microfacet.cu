@@ -54,6 +54,8 @@ rtDeclareVariable(PerRayData_radiance, prd_radiance, rtPayload, );
 rtDeclareVariable(PerRayData_shadow,   prd_shadow, rtPayload, );
 rtDeclareVariable(float, scene_epsilon, , );
 
+rtDeclareVariable( float, uvScale, , ); 
+
 // Materials
 rtDeclareVariable( float3, albedo, , );
 rtTextureSampler<float4, 2> albedoMap;
@@ -209,17 +211,17 @@ RT_PROGRAM void closest_hit_radiance()
         albedoValue = albedo;
     }
     else{
-        albedoValue = make_float3(tex2D(albedoMap, texcoord.x, texcoord.y) );
+        albedoValue = make_float3(tex2D(albedoMap, texcoord.x * uvScale, texcoord.y * uvScale) );
         albedoValue.x = pow(albedoValue.x, 2.2);
         albedoValue.y = pow(albedoValue.y, 2.2);
         albedoValue.z = pow(albedoValue.z, 2.2);
     }
 
     float roughValue = (isRoughTexture == 0) ? rough :
-        tex2D(roughMap, texcoord.x, texcoord.y).x;
+        tex2D(roughMap, texcoord.x * uvScale, texcoord.y * uvScale).x;
 
     float metallicValue = (isMetallicTexture == 0) ? metallic :
-        tex2D(metallicMap, texcoord.x, texcoord.y).x;
+        tex2D(metallicMap, texcoord.x * uvScale, texcoord.y * uvScale).x;
 
     float3 fresnel = F0 * (1 - metallicValue) + metallicValue * albedoValue;
     albedoValue = (1 - metallicValue) * albedoValue;
@@ -233,7 +235,7 @@ RT_PROGRAM void closest_hit_radiance()
         N = ffnormal;
     }
     else{
-        N = make_float3(tex2D(normalMap, texcoord.x, texcoord.y) );
+        N = make_float3(tex2D(normalMap, texcoord.x * uvScale, texcoord.y * uvScale) );
         N = normalize(2 * N - 1);
         N = N.x * tangent_direction 
             + N.y * bitangent_direction 

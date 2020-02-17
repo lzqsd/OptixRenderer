@@ -86,6 +86,33 @@ bool loadBsdfFromXML(std::vector<material_t>& materials, TiXmlNode* module, std:
                             }
                         }
                     }
+                    else if(matSubModule -> Value() == std::string("float") ){
+                        TiXmlElement* matSubEle = matSubModule -> ToElement();
+                        std::string floatName;
+                        for(TiXmlAttribute* matSubAttri = matSubEle -> FirstAttribute(); matSubAttri != 0; matSubAttri = matSubAttri -> Next() ){
+                            if(matSubAttri -> Name() == std::string("name") ){
+                                if(matSubAttri -> Value() == std::string("uvScale") ){
+                                    floatName = std::string("uvScale");
+                                } 
+                                else{
+                                    std::cout<<"Wrong: unrecognizable name of float of microfacet BRDF!"<<std::endl;
+                                    return false;
+                                }
+                            }
+                        }
+                        for(TiXmlAttribute* matSubAttri = matSubEle -> FirstAttribute(); matSubAttri != 0; matSubAttri = matSubAttri -> Next() ){
+                            if(matSubAttri -> Name() == std::string("value") ){
+                                std::vector<float> value = parseFloatStr(matSubAttri -> Value() );
+                                if(floatName == std::string("uvScale") ){
+                                    mat.uvScale = value[0];
+                                }
+                            }
+                            else if(matSubAttri -> Name() != std::string("name") ){
+                                std::cout<<"Wrong: unrecognizable attribute of float of microfacet BRDF!"<<std::endl;
+                                return false;
+                            }
+                        }
+                    }
                     else{
                         std::cout<<"Wrong: unrecognizable module of diffuse BRDF!"<<std::endl;
                         return false;
@@ -210,7 +237,11 @@ bool loadBsdfFromXML(std::vector<material_t>& materials, TiXmlNode* module, std:
                                 }
                                 else if(matSubAttri -> Value() == std::string("alphaScale") ){ 
                                     floatName = std::string("alphaScale");
-                                }
+                                } 
+                                else if(matSubAttri -> Value() == std::string("uvScale") ){ 
+                                    floatName = std::string("uvScale");
+                                } 
+                                
                                 else{
                                     std::cout<<"Wrong: unrecognizable name of float of phong BRDF!"<<std::endl;
                                     return false;
@@ -219,12 +250,15 @@ bool loadBsdfFromXML(std::vector<material_t>& materials, TiXmlNode* module, std:
                         }
                         for(TiXmlAttribute* matSubAttri = matSubEle -> FirstAttribute(); matSubAttri != 0; matSubAttri = matSubAttri -> Next() ){
                             if(matSubAttri -> Name() == std::string("value") ){
-                                std::vector<float> glossinessArr = parseFloatStr(matSubAttri -> Value() );
+                                std::vector<float> value = parseFloatStr(matSubAttri -> Value() );
                                 if(floatName == std::string("alpha") ){
-                                    mat.glossiness = glossinessArr[0];
+                                    mat.glossiness = value[0];
                                 }
                                 else if(floatName == std::string("alphaScale") ){
-                                    mat.glossinessScale = glossinessArr[0];
+                                    mat.glossinessScale = value[0];
+                                }
+                                else if(floatName == std::string("uvScale") ){
+                                    mat.uvScale = value[0];
                                 }
                             }
                         }
@@ -466,7 +500,10 @@ bool loadBsdfFromXML(std::vector<material_t>& materials, TiXmlNode* module, std:
                                 }
                                 else if(matSubAttri -> Value() == std::string("metallic") ){
                                     floatName = std::string("metallic");
-                                }
+                                } 
+                                else if(matSubAttri -> Value() == std::string("uvScale") ){
+                                    floatName = std::string("uvScale");
+                                } 
                                 else{
                                     std::cout<<"Wrong: unrecognizable name of float of microfacet BRDF!"<<std::endl;
                                     return false;
@@ -487,6 +524,9 @@ bool loadBsdfFromXML(std::vector<material_t>& materials, TiXmlNode* module, std:
                                 }
                                 else if(floatName == std::string("metallic") ){
                                     mat.metallic = value[0];
+                                }
+                                else if(floatName == std::string("uvScale") ){
+                                    mat.uvScale = value[0];
                                 }
                             }
                             else if(matSubAttri -> Name() != std::string("name") ){
