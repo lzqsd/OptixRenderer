@@ -12,14 +12,15 @@ using namespace optix;
 
 void destroyContext(Context& context );
 
-unsigned createContext( 
-        Context& context, 
-        bool use_pbo, 
+unsigned createContext(
+        Context& context,
+        bool use_pbo,
         std::string cameraType,
-        unsigned width, unsigned height, 
+        unsigned width, unsigned height,
+        unsigned envWidth, unsigned envHeight,
         unsigned int mode = 0,
-        unsigned int sampleNum = 400, 
-        unsigned maxDepth = 5, 
+        unsigned int sampleNum = 400,
+        unsigned maxDepth = 5,
         unsigned rr_begin_depth = 3);
 
 #endif

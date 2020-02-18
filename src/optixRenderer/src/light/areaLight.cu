@@ -66,41 +66,48 @@ RT_PROGRAM void closest_hit_radiance()
     const float3 world_shading_normal   = normalize( rtTransformNormal( RT_OBJECT_TO_WORLD, shading_normal ) );
     const float3 world_geometric_normal = normalize( rtTransformNormal( RT_OBJECT_TO_WORLD, geometric_normal ) );
     const float3 ffnormal = faceforward( world_shading_normal, -ray.direction, world_geometric_normal );
-    
-    float3 hitPoint = ray.origin + t_hit * ray.direction;
 
-    if(prd_radiance.depth == 0){
-        // Directly hit the light
-        prd_radiance.radiance = radiance;
+    float3 hitPoint = ray.origin + t_hit * ray.direction;
+    prd_radiance.done = true;
+
+    if(prd_radiance.depth == 1){
+        float Dist = length(hitPoint - prd_radiance.origin);
+        float3 L = normalize(hitPoint - prd_radiance.origin);
+        float cosPhi = dot(L, ffnormal);
+        if (cosPhi < 0) cosPhi = -cosPhi;
+        if (cosPhi < 1e-3 ) cosPhi = 1e-3;
+        
+        float pdfAreaLight = length(radiance) / areaSum;
+        float pdfSolidLight = pdfAreaLight * Dist * Dist / fmaxf(cosPhi, 1e-3 );
+        float pdfSolidLight2 = pdfSolidLight * pdfSolidLight;
+    
+        float pdfSolidBRDF = prd_radiance.pdf;
+        float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
+       
+        prd_radiance.radiance += radiance * pdfSolidBRDF / fmaxf(pdfSolidBRDF2 + pdfSolidLight2, 1e-14);
     }
-    else{
-        if(prd_radiance.pdf < 0){
+    else if(prd_radiance.depth > 1){
+        if(prd_radiance.depth == (max_depth - 1) ){
             prd_radiance.radiance += radiance * prd_radiance.attenuation;
         }
         else{
-            // Use MIS to compute the radiance
-            if(prd_radiance.depth == (max_depth - 1) ){
-                prd_radiance.radiance += radiance * prd_radiance.attenuation;
-            }
-            else{
-                float Dist = length(hitPoint - prd_radiance.origin);
-                float3 L = normalize(hitPoint - prd_radiance.origin);
-                float cosPhi = dot(L, ffnormal);
-                if (cosPhi < 0) cosPhi = -cosPhi;
-                if (cosPhi < 1e-14) cosPhi = 0;
+            float3 hitPoint = ray.origin + t_hit * ray.direction;
+            float Dist = length(hitPoint - prd_radiance.origin);
+            float3 L = normalize(hitPoint - prd_radiance.origin);
+            float cosPhi = dot(L, ffnormal);
+            if (cosPhi < 0) cosPhi = -cosPhi;
+            if (cosPhi < 1e-14) cosPhi = 0;
         
-                float pdfAreaBRDF = prd_radiance.pdf * cosPhi / Dist / Dist;
-                float pdfAreaLight = length(radiance) / areaSum;
+            float pdfAreaBRDF = prd_radiance.pdf * cosPhi / Dist / Dist;
+            float pdfAreaLight = length(radiance) / areaSum;
 
-                float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
-                float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
+            float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
+            float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
        
-                prd_radiance.radiance += radiance * pdfAreaBRDF2 / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
-            }
-        }
+            prd_radiance.radiance += radiance * pdfAreaBRDF2 / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
+        } 
     }
-    prd_radiance.done = true;
-    prd_radiance.origin = hitPoint;
+    prd_radiance.origin = hitPoint; 
 }
 
 

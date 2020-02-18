@@ -51,7 +51,6 @@
 #include <cmath>
 #include <map>
 
-
 #include "inout/readXML.h"
 #include "structs/cameraInput.h"
 #include "lightStructs.h"
@@ -86,8 +85,7 @@ long unsigned vertexCount(const std::vector<shape_t>& shapes)
 
 void boundingBox(
         Context& context,
-        const std::vector<shape_t>& shapes
-        )
+        const std::vector<shape_t>& shapes )
 {
     float3 vmin, vmax;
     for(int i = 0; i < shapes.size(); i++){
@@ -122,135 +120,8 @@ float clip(float a, float min, float max){
     return a;
 }
 
-
-void writeBufferToMemory(float* outputData, float*imgData, int width, int height, int mode, int camId){ 
-        
-    int channelNum = -1;
-    if(mode == 0 || mode == 1 || mode == 2 || mode == 3 ){
-        channelNum = 3;
-    }
-    else if(mode == 4 || mode == 5 || mode == 6){
-        channelNum = 1;
-    }
-    else if(mode == 7){
-        channelNum = 9;
-    }
-    else{
-        std::cout<<"Wrong: Unrecognizable mode "<<mode<<'.'<<std::endl;
-        exit(1);
-    }
-
-    int offset = camId * width * height * channelNum;
-    if(mode == 4 || mode == 5 || mode == 6){
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                outputData[offset + i*width + j] = imgData[3*( (height-1-i)*width + j )];
-            }
-        }
-    }
-    else{
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                for(int ch = 0; ch < channelNum; ch++){
-                    outputData[offset + channelNum*(i*width + j) + ch] =
-                        imgData[channelNum * ( (height-1-i)*width+j ) + ch];
-
-                }
-            }
-        }
-    }
-}
-
-bool writeBufferToFile(const char* fileName, float* imgData, int width, int height, bool isHdr = false, int mode = 0)
-{   
-    if(mode == 1 || mode == 2 || mode == 3 || mode == 4 || mode  == 6 || mode == 7)
-        isHdr = false;
-    
-    if(mode == 5){
-        std::ofstream depthOut(fileName, std::ios::out|std::ios::binary);
-        depthOut.write((char*)&height, sizeof(int) );
-        depthOut.write((char*)&width, sizeof(int) );
-
-        float* image = new float[width * height];
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                image[i*width + j] = imgData[3 * ( (height-1-i) * width +j ) ];
-            }
-        }
-        depthOut.write( (char*)image, sizeof(float) * width * height);
-        depthOut.close();
-        delete [] image;
-
-        return true;
-    }
-
-    if(mode == 7){
-        std::ofstream lightOut( fileName, std::ios::out|std::ios::binary );
-        lightOut.write( (char*)&height, sizeof(int) );
-        lightOut.write( (char*)&width, sizeof(int) );
-
-        float* image = new float[width * height * 9];
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){ 
-                for(int ch = 0; ch < 9; ch++ ){
-                    image[9*(i*width + j) + ch] = imgData[9*( (height-1-i)*width + j ) + ch];
-                }
-            }
-        }
-        lightOut.write( (char*)image, sizeof(float)*width*height*9 );
-        lightOut.close();
-        delete [] image;
-
-        return true;
-    }
-
-    if(isHdr){
-        FILE* imgOut = fopen(fileName, "w");
-        if(imgOut == NULL){
-            std::cout<<"Wrong: can not open the output file!"<<std::endl;
-            return false;
-        }
-        float* image = new float[width * height * 3];
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                for(int ch = 0; ch < 3; ch ++){
-                    image[3*(i * width + j) + ch] = imgData[3*( (height-1-i) * width + j) + ch];
-                }
-            }
-        }
-        RGBE_WriteHeader(imgOut, width, height, NULL);
-        RGBE_WritePixels(imgOut, image, width * height);
-        fclose(imgOut);
-        delete [] image;
-    }
-    else{
-        cv::Mat image(height, width, CV_8UC3);
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                int ind = 3 * ( (height - 1 -i) * width + j);
-                float r = imgData[ind];
-                float g = imgData[ind + 1]; 
-                float b = imgData[ind + 2];
-                if(mode == 0){
-                    r = pow(r, 1.0f/2.2f);
-                    g = pow(g, 1.0f/2.2f);
-                    b = pow(b, 1.0f/2.2f);
-                }
-                r = clip(r, 0.0f, 1.0f);
-                g = clip(g, 0.0f, 1.0f);
-                b = clip(b, 0.0f, 1.0f);
-                image.at<cv::Vec3b>(i, j)[0] = (unsigned char)(b * 255);
-                image.at<cv::Vec3b>(i, j)[1] = (unsigned char)(g * 255);
-                image.at<cv::Vec3b>(i, j)[2] = (unsigned char)(r * 255);
-            }
-        } 
-        cv::imwrite(fileName, image);
-    }
-    return true;
-}
-
-
-std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, int i,  int camNum, bool isWriteToMemory = false ){
+std::string generateOutputFilename(std::string fileName, int mode, int i, int camNum, bool isWriteToMemory = false ){
+    assert(mode == 7);
     std::string root;
     std::string suffix;
     std::size_t pos = fileName.find_last_of(".");
@@ -263,32 +134,7 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
         suffix = fileName.substr(pos+1, fileName.length() );
     }
     
-    if(mode == 0){
-        if(isHdr){
-            if(suffix != std::string("rgbe") ){
-                std::cout<<"Warning: we only support rgbe image for hdr"<<std::endl;
-            }
-            suffix = std::string("rgbe");
-        }
-        else{
-            if(suffix != std::string("bmp") && suffix != std::string("png") 
-                    && suffix != std::string("jpg") && suffix != std::string("jpeg") )
-            {
-                std::cout<<"Warning: only support jpg, bmp, png file format"<<std::endl;
-                suffix = std::string("png");
-            }
-        }
-    }
-    else if(mode == 1 || mode == 2 || mode == 3 || mode == 4 || mode == 6){
-        suffix = std::string("png");
-    }
-    else if(mode == 5 || mode == 7 ) {
-        suffix = std::string("dat");
-    }
-
-    if(isWriteToMemory )
-        suffix = std::string("dat");
-
+    suffix = std::string("dat");
     std::string outputFileName;
     std::string modeString = "";
     switch(mode){
@@ -298,9 +144,8 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
         case 4: modeString = "mask"; break;
         case 5: modeString = "depth"; break;
         case 6: modeString = "metallic"; break;
-        case 7: modeString = "light"; break;
+        case 7: modeString = "env"; break;
     }
-
     if(camNum > 0){
         char camId[10];
         std::sprintf(camId, "%d", i+1 );
@@ -337,8 +182,6 @@ bool loadCamFile(std::string fileName, int& camNum, std::vector<float>& originAr
     return true;
 }
 
-
-
 int main( int argc, char** argv )
 {
     bool use_pbo  = false;
@@ -346,7 +189,7 @@ int main( int argc, char** argv )
     std::string fileName;
     std::string outputFileName;
     std::string cameraFile("");
-    int mode = 0;
+    int mode = 7;
     std::vector<int> gpuIds;
     float noiseLimit = 0.11;
     int vertexLimit = 150000;
@@ -354,7 +197,7 @@ int main( int argc, char** argv )
     bool noiseLimitEnabled = false;
     bool vertexLimitEnabled = false;
     bool intensityLimitEnabled = false;
-    int maxPathLength = 5;
+    int maxPathLength = 7;
     int rrBeginLength = 3;
 
     bool isWriteToMemory = false;
@@ -474,7 +317,11 @@ int main( int argc, char** argv )
             exit(1);
         }
     }
-
+    
+    if(mode != 7){
+        std::cout<<"Wrong: the mode has to be 7."<<std::endl;
+        return 0;
+    }
     std::vector<shape_t> shapes;
     std::vector<material_t> materials;
     CameraInput cameraInput;
@@ -512,7 +359,7 @@ int main( int argc, char** argv )
     std::cout<<"Width: "<<cameraInput.width<<std::endl;
     std::cout<<"Height: "<<cameraInput.height<<std::endl;
     std::cout<<"FovAxis: ";
-    if(cameraInput.isAxisX == true)
+    if(cameraInput.isAxisX == true )
         std::cout<<"x"<<std::endl;
     else
         std::cout<<"y"<<std::endl;
@@ -563,14 +410,25 @@ int main( int argc, char** argv )
             upArr.push_back(cameraInput.up[i]);
         }
     }
+   
+    // Hard code the width and height of the image and the environment map 
+    unsigned imWidth = 160;
+    unsigned imHeight = 120;  
+    cameraInput.width = imWidth;
+    cameraInput.height = imHeight;
+    unsigned envHeight = 16;
+    unsigned envWidth = 32;
+    cameraInput.sampleNum = 25600; 
 
     unsigned scale = createContext(context, use_pbo, cameraInput.cameraType, 
             cameraInput.width, 
-            cameraInput.height, 
+            cameraInput.height,  
+            envWidth,
+            envHeight, 
             mode, 
             cameraInput.sampleNum, 
             maxPathLength, 
-            rrBeginLength );
+            rrBeginLength  );
 
     if(gpuIds.size() != 0){
         std::cout<<"GPU Num: "<<gpuIds.size()<<std::endl;
@@ -585,12 +443,8 @@ int main( int argc, char** argv )
     std::cout<<std::endl;
     
     float* imgData = NULL;
-    if(mode != 7){
-        imgData = new float[cameraInput.width * cameraInput.height * 3];
-    }
-    else{
-        imgData = new float[cameraInput.width * cameraInput.height * 9];
-    }
+    imgData = new float[cameraInput.width * envWidth * cameraInput.height * envHeight * 3];   
+
     unsigned camSp, camEp;
     camSp = std::max(0, camStart);
     if(camEnd == -1){
@@ -601,31 +455,8 @@ int main( int argc, char** argv )
     }
 
     std::string outputFileNameSet;
-    float* imgSet = NULL;
-    int channelNum = -1;
-    if(isWriteToMemory ){
-        outputFileNameSet = generateOutputFilename(outputFileName, mode, 
-                cameraInput.isHdr, 0, -1, true);
-        std::ifstream f(outputFileNameSet.c_str() );
-        if(f.good() && !isForceOutput ) {
-            std::cout<<"Warning: "<<outputFileNameSet<<" already exists. Will be skipped."<<std::endl;
-            exit(1);
-        }
-        if(mode == 0 || mode == 1 || mode == 2 || mode == 3 ){
-            channelNum = 3;
-        }
-        else if(mode == 4 || mode == 5 || mode == 6){
-            channelNum = 1;
-        }
-        else if(mode == 7){
-            channelNum = 9;
-        }
-        imgSet = new float[camNum *  cameraInput.height * cameraInput.width * channelNum];
-    }
-    
     for(int i = camSp; i < camEp; i++){ 
-        std::string outputFileNameNew = generateOutputFilename(outputFileName, mode,
-                cameraInput.isHdr, i, camNum);
+        std::string outputFileNameNew = generateOutputFilename(outputFileName, mode, i, camNum);
 
         std::ifstream f(outputFileNameNew.c_str() );
         if(f.good() && !isForceOutput ) {
@@ -659,65 +490,23 @@ int main( int argc, char** argv )
         clock_t t;
         t = clock();
         
-        if(intensityLimitEnabled == true && mode == 0){
-            independentSampling(context, cameraInput.width, cameraInput.height, imgData, 4);
-            float meanIntensity = 0;
-            int pixelNum = cameraInput.width * cameraInput.height * 3;
-            for(int i = 0; i < pixelNum; i++){
-                meanIntensity += imgData[i];
-            }
-            meanIntensity /= pixelNum;
-            std::cout<<"Mean Intensity of image: "<<meanIntensity<<std::endl;
-            if(meanIntensity < 0.05){
-                std::cout<<"Warning: the image is too dark, will be skipped"<<std::endl;
-                continue;
-            }
-        }
-
         std::cout<<"Start to render: "<<i+1<<"/"<<camEp<<std::endl;
-        if(cameraInput.sampleType == std::string("independent") || mode != 0){
-            int sampleNum = cameraInput.sampleNum;
-            independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum, scale, mode);
-        }
-        else if(cameraInput.sampleType == std::string("adaptive") ) {
-            int sampleNum = cameraInput.sampleNum;
-            bool isTooNoisy = adaptiveSampling(context, cameraInput.width, cameraInput.height, sampleNum, imgData, 
-                    noiseLimit, noiseLimitEnabled, 
-                    cameraInput.adaptiveSampler.maxIteration, 
-                    cameraInput.adaptiveSampler.noiseThreshold, 
-                    scale);
-            std::cout<<"Sample Num: "<<sampleNum<<std::endl;
-            if(isTooNoisy){
-                std::cout<<"This image will not be output!"<<std::endl;
-                continue;
-            }
-        }
+        independentSampling(context, 
+                cameraInput.width, cameraInput.height, 
+                envWidth, envHeight, 
+                imgData,
+                cameraInput.sampleNum );
         t = clock() - t;
-        std::cout<<"Time: "<<float(t) / CLOCKS_PER_SEC<<'s'<<std::endl;
+        std::cout<<"Time: "<<float(t) / CLOCKS_PER_SEC<<'s'<<std::endl;  
 
-        
-        if(isWriteToMemory == false ){
-            bool isWrite = writeBufferToFile(outputFileNameNew.c_str(), 
-                    imgData,
-                    cameraInput.width, cameraInput.height, 
-                    cameraInput.isHdr,
-                    mode);        
-        }
-        else{
-            writeBufferToMemory(imgSet, imgData, cameraInput.width, cameraInput.height, mode, i);
-        }
+        // Write intensity 
+        std::ofstream intOut(outputFileNameNew.c_str(), std::ios::out|std::ios::binary );
+        intOut.write( (char*)imgData, sizeof(float)*imWidth * imHeight * envWidth * envHeight * 3 );
+        intOut.close();
     }
     destroyContext(context );
+
     delete [] imgData;
 
-    if(isWriteToMemory ){
-        std::ofstream imageSetOut(outputFileNameSet.c_str(), std::ios::out|std::ios::binary ); 
-        imageSetOut.write((char*)&camNum, sizeof(int) );
-        imageSetOut.write((char*)&cameraInput.height, sizeof(int) );
-        imageSetOut.write((char*)&cameraInput.width, sizeof(int) );
-        imageSetOut.write((char*)imgSet, sizeof(float)*cameraInput.width*cameraInput.height*camNum*channelNum );
-        imageSetOut.close();
-        delete [] imgSet;
-    }
     return 0;
 }

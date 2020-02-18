@@ -1,4 +1,6 @@
 #include "creator/createMaterial.h"
+#include <cmath>
+#include <algorithm>
 
 Material createAlbedoMaterial(Context& context, material_t mat){
     const std::string ptx_path = ptxPath( "albedo.cu" );
@@ -8,16 +10,39 @@ Material createAlbedoMaterial(Context& context, material_t mat){
     Material material = context->createMaterial();
     material->setClosestHitProgram( 0, ch_program );
     material->setAnyHitProgram( 1, ah_program );
+    
+    material["uvScale"] -> setFloat(mat.uvScale );
         
     // Texture Sampler 
     TextureSampler albedoSampler = createTextureSampler(context);
 
     if(mat.albedo_texname != std::string("") ){
         material["isAlbedoTexture"] -> setInt(1);
-        cv::Mat albedoTexture = cv::imread(mat.albedo_texname, cv::IMREAD_COLOR);
+        cv::Mat albedoTexture = cv::imread(mat.albedo_texname, cv::IMREAD_COLOR);  
         if(albedoTexture.empty() ){
             std::cout<<"Wrong: unable to load the texture map: "<<mat.albedo_texname<<"!"<<std::endl;
             exit(1);
+        } 
+        if(mat.albedoScale[0] != 1 || mat.albedoScale[1] != 1 || mat.albedoScale[2] != 1){
+            for(int i = 0; i < albedoTexture.rows; i++){
+                for(int j = 0; j < albedoTexture.cols; j++){
+                    float b = albedoTexture.at<cv::Vec3b>(i, j)[0];
+                    float g = albedoTexture.at<cv::Vec3b>(i, j)[1];
+                    float r = albedoTexture.at<cv::Vec3b>(i, j)[2]; 
+
+                    b = 255.0 * pow(pow(b / 255.0, 2.2f) * mat.albedoScale[2], 1.0f / 2.2f);
+                    g = 255.0 * pow(pow(g / 255.0, 2.2f) * mat.albedoScale[1], 1.0f / 2.2f);
+                    r = 255.0 * pow(pow(r / 255.0, 2.2f) * mat.albedoScale[0], 1.0f / 2.2f); 
+                    
+                    b = std::min(b, 255.0f);
+                    g = std::min(g, 255.0f); 
+                    r = std::min(r, 255.0f);
+
+                    albedoTexture.at<cv::Vec3b>(i, j)[0] = (unsigned char)b;
+                    albedoTexture.at<cv::Vec3b>(i, j)[1] = (unsigned char)g;
+                    albedoTexture.at<cv::Vec3b>(i, j)[2] = (unsigned char)r;
+                }
+            }
         }
         loadImageToTextureSampler(context, albedoSampler, albedoTexture );
         material["albedo"] -> setFloat(make_float3(1.0) );
@@ -27,8 +52,10 @@ Material createAlbedoMaterial(Context& context, material_t mat){
         
         // albedo buffer
         loadEmptyToTextureSampler(context, albedoSampler);
-        material["albedo"] -> setFloat(mat.albedo[0], \
-                mat.albedo[1], mat.albedo[2] );
+        material["albedo"] -> setFloat(
+                std::min(mat.albedo[0] * mat.albedoScale[0], 255.0f),
+                std::min(mat.albedo[1] * mat.albedoScale[1], 255.0f), 
+                std::min(mat.albedo[2] * mat.albedoScale[2], 255.0f) );
     }
     material["albedoMap"] -> setTextureSampler(albedoSampler); 
     return material;

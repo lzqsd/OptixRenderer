@@ -99,32 +99,31 @@ RT_CALLABLE_PROGRAM void sampleEnvironmapLight(unsigned int& seed, float3& radia
 
 RT_PROGRAM void envmap_miss(){
     if(isEnvmap == 0){
-        prd_radiance.attenuation = make_float3(0.0);
+        prd_radiance.radiance = make_float3(0.0);
     }
     else if(isEnvmap == 1){    
-        float2 uv = EnvDirecToUV(prd_radiance.direction);
+        float2 uv = EnvDirecToUV(prd_radiance.direction); 
+        float3 radiance = make_float3(tex2D(envmap, uv.x, uv.y) );
 
-        if(prd_radiance.depth == 0){
-            prd_radiance.radiance = make_float3(tex2D(envmapDirec, uv.x, uv.y) ); 
-        }
-        else{
-            float3 radiance = make_float3(tex2D(envmap, uv.x, uv.y) );
+        if(prd_radiance.depth == 1){
             // Multiple Importance Sampling 
-            if(prd_radiance.pdf < 0){
-                prd_radiance.radiance += radiance * prd_radiance.attenuation;
+            float pdfSolidEnv = EnvDirecToPdf(prd_radiance.direction);
+            float pdfSolidBRDF = prd_radiance.pdf;
+            float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
+            float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
+            prd_radiance.radiance = radiance  * pdfSolidBRDF / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-14);
+        }
+        else if(prd_radiance.depth > 1 ){
+            if(prd_radiance.depth == (max_depth - 1) ){
+                prd_radiance.radiance += radiance  * prd_radiance.attenuation;
             }
             else{
-                if(prd_radiance.depth == (max_depth - 1) ){
-                    prd_radiance.radiance += radiance  * prd_radiance.attenuation;
-                }
-                else{
-                    float pdfSolidEnv = EnvDirecToPdf(prd_radiance.direction);
-                    float pdfSolidBRDF = prd_radiance.pdf;
-                    float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
-                    float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
+                float pdfSolidEnv = EnvDirecToPdf(prd_radiance.direction);
+                float pdfSolidBRDF = prd_radiance.pdf;
+                float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
+                float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
 
-                    prd_radiance.radiance += radiance  * pdfSolidBRDF2 / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-14)* prd_radiance.attenuation;
-                }
+                prd_radiance.radiance += radiance  * pdfSolidBRDF2 / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-14)* prd_radiance.attenuation;
             }
         }
     }

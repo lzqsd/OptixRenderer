@@ -41,10 +41,10 @@ rtDeclareVariable( float3, texcoord, attribute texcoord, );
 rtDeclareVariable(optix::Ray, ray,   rtCurrentRay, );
 rtDeclareVariable(PerRayData_radiance, prd_radiance, rtPayload, );
 rtDeclareVariable(PerRayData_shadow,   prd_shadow, rtPayload, );
-rtDeclareVariable( float, t_hit, rtIntersectionDistance, );
 
 // Diffuse albedo
-rtDeclareVariable( float3, albedo, , );
+rtDeclareVariable( float3, albedo, , ); 
+rtDeclareVariable( float, uvScale, , ); 
 rtTextureSampler<float4, 2> albedoMap;
 rtDeclareVariable( int, isAlbedoTexture, , );
 
@@ -55,16 +55,13 @@ RT_PROGRAM void closest_hit_radiance()
         albedoValue = albedo;
     }
     else{
-        albedoValue = make_float3(tex2D(albedoMap, texcoord.x, texcoord.y) );
+        albedoValue = make_float3(tex2D(albedoMap, texcoord.x * uvScale, texcoord.y * uvScale) );
         albedoValue.x = pow(albedoValue.x, 2.2);
         albedoValue.y = pow(albedoValue.y, 2.2);
         albedoValue.z = pow(albedoValue.z, 2.2);
     }
     prd_radiance.radiance = albedoValue;
     prd_radiance.done = true;
-
-    float3 hitPoint = ray.origin + t_hit * ray.direction;
-    prd_radiance.origin = hitPoint;
 }
 
 // any_hit_shadow program for every material include the lighting should be the same

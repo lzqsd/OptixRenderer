@@ -52,7 +52,9 @@ rtDeclareVariable( float, t_hit, rtIntersectionDistance, );
 rtDeclareVariable(optix::Ray, ray,   rtCurrentRay, );
 rtDeclareVariable(PerRayData_radiance, prd_radiance, rtPayload, );
 rtDeclareVariable(PerRayData_shadow,   prd_shadow, rtPayload, );
-rtDeclareVariable(float, scene_epsilon, , );
+rtDeclareVariable(float, scene_epsilon, , ); 
+
+rtDeclareVariable( float, uvScale, ,  );
 
 // Materials
 rtDeclareVariable( float3, albedo, , );
@@ -142,9 +144,31 @@ RT_CALLABLE_PROGRAM float3 evaluate(const float3& albedoValue, const float3& N, 
     return intensity;
 }
 
+RT_CALLABLE_PROGRAM void sampleFirstBounce(unsigned& seed, 
+        const float3& N, optix::Onb onb,
+        float3& attenuation, float3& direction,float& pdfSolid)
+{
+    const float z1 = rnd( seed );
+    const float z2 = rnd( seed );
+    
+    float3 L; 
+    float phi = 2 * M_PIf * z1;
+    float sin_theta = sqrt(2*z2 - z2*z2);
+    float cos_theta = (1 - z2);
+
+    L = make_float3(
+            sin_theta * cos(phi), 
+            sin_theta * sin(phi), 
+            cos_theta );
+    onb.inverse_transform(L);
+    direction = normalize(L);
+    pdfSolid = 0.5 / M_PIf;
+    attenuation = make_float3(1/pdfSolid );
+}
+
 RT_CALLABLE_PROGRAM void sample(unsigned& seed, 
         const float3& albedoValue, const float3& N, const float rough, const float3& fresnel, const float3& V, 
-        optix::Onb onb, 
+        optix::Onb onb, bool& done, 
         float3& attenuation, float3& direction, float& pdfSolid)
 {
     const float z1 = rnd( seed );
@@ -192,10 +216,12 @@ RT_CALLABLE_PROGRAM void sample(unsigned& seed,
         }
         else{
             attenuation = make_float3(0.0f);
+            done = true;
         }
     }
     pdfSolid = pdf(L, V, N, rough);
 }
+
 
 
 RT_PROGRAM void closest_hit_radiance()
@@ -209,17 +235,17 @@ RT_PROGRAM void closest_hit_radiance()
         albedoValue = albedo;
     }
     else{
-        albedoValue = make_float3(tex2D(albedoMap, texcoord.x, texcoord.y) );
+        albedoValue = make_float3(tex2D(albedoMap, texcoord.x * uvScale, texcoord.y * uvScale ) );
         albedoValue.x = pow(albedoValue.x, 2.2);
         albedoValue.y = pow(albedoValue.y, 2.2);
         albedoValue.z = pow(albedoValue.z, 2.2);
     }
 
     float roughValue = (isRoughTexture == 0) ? rough :
-        tex2D(roughMap, texcoord.x, texcoord.y).x;
+        tex2D(roughMap, texcoord.x * uvScale, texcoord.y * uvScale).x;
 
     float metallicValue = (isMetallicTexture == 0) ? metallic :
-        tex2D(metallicMap, texcoord.x, texcoord.y).x;
+        tex2D(metallicMap, texcoord.x * uvScale, texcoord.y * uvScale).x;
 
     float3 fresnel = F0 * (1 - metallicValue) + metallicValue * albedoValue;
     albedoValue = (1 - metallicValue) * albedoValue;
@@ -233,43 +259,110 @@ RT_PROGRAM void closest_hit_radiance()
         N = ffnormal;
     }
     else{
-        N = make_float3(tex2D(normalMap, texcoord.x, texcoord.y) );
+        N = make_float3(tex2D(normalMap, texcoord.x * uvScale, texcoord.y * uvScale) );
         N = normalize(2 * N - 1);
         N = N.x * tangent_direction 
             + N.y * bitangent_direction 
             + N.z * ffnormal;
     }
     N = normalize(N );
-    optix::Onb onb(N );
- 
+    optix::Onb onb(N ); 
+
     float3 hitPoint = ray.origin + t_hit * ray.direction;
-    prd_radiance.origin = hitPoint;
+    prd_radiance.origin = hitPoint;  
 
-    // Connect to the area Light
-    {
-        if(isAreaLight == 1){
-            float3 position, radiance, normal;
-            float pdfAreaLight;
-            sampleAreaLight(prd_radiance.seed, radiance, position, normal, pdfAreaLight);
+
+    if(prd_radiance.depth == 0){
+        prd_radiance.normal = N;
+        
+        // Connect to the area Light
+        {
+            if(isAreaLight == 1 ){
+                float3 position, radiance, normal;
+                float pdfAreaLight;
+                sampleAreaLight(prd_radiance.seed, radiance, position, normal, pdfAreaLight);
    
-            float Dist = length(position - hitPoint);
-            float3 L = normalize(position - hitPoint);
+                float Dist = length(position - hitPoint);
+                float3 L = normalize(position - hitPoint);
 
-            if(fmaxf(dot(N, L), 0.0f) * fmaxf(dot(N, V), 0.0f) > 0 ){
-                float cosPhi = dot(L, normal);
-                cosPhi = (cosPhi < 0) ? -cosPhi : cosPhi;
+                if(fmaxf(dot(N, L), 0.0f) * fmaxf(dot(N, V), 0.0f) > 0 ){
+                    float cosPhi = dot(L, normal);
+                    cosPhi = (cosPhi < 0) ? -cosPhi : cosPhi;
 
-                Ray shadowRay = make_Ray(hitPoint, L, 1, scene_epsilon, Dist - scene_epsilon);
-                PerRayData_shadow prd_shadow; 
-                prd_shadow.inShadow = false;
-                rtTrace(top_object, shadowRay, prd_shadow);
-                if(prd_shadow.inShadow == false)
-                {
-                    float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance) * cosPhi / Dist / Dist;
+                    Ray shadowRay = make_Ray(hitPoint, L, 1, scene_epsilon, Dist - scene_epsilon);
+                    PerRayData_shadow prd_shadow; 
+                    prd_shadow.inShadow = false;
+                    rtTrace(top_object, shadowRay, prd_shadow);
+                    if(prd_shadow.inShadow == false)
+                    {
+                        float pdfSolidLight = pdfAreaLight * Dist * Dist / fmaxf(cosPhi, 1e-6);
+                        float pdfSolidBRDF = 0.5 / M_PIf;
+
+                        float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
+                        float pdfSolidLight2 = pdfSolidLight * pdfSolidLight;  
                     
-                    if(prd_radiance.depth == (max_depth - 1) ){
+                        prd_radiance.isHitArea = true;
+                        prd_radiance.areaDirection = L;
+                        prd_radiance.areaRadiance = radiance * pdfSolidLight / fmaxf(pdfSolidLight2 + pdfSolidBRDF2, 1e-14 );
                     }
-                    else{
+                }
+            }   
+        }
+    
+        // Connect to the environmental map 
+        { 
+            if(isEnvmap == 1 ){
+                float3 L, radiance;
+                float pdfSolidEnv;
+                sampleEnvironmapLight(prd_radiance.seed, radiance, L, pdfSolidEnv);
+
+                if( fmaxf(dot(L, N), 0.0f) * fmaxf(dot(V, N), 0.0f) > 0){
+                    Ray shadowRay = make_Ray(hitPoint + 0.1 * scene_epsilon, L, 1, scene_epsilon, infiniteFar);
+                    PerRayData_shadow prd_shadow;
+                    prd_shadow.inShadow = false;
+                    rtTrace(top_object, shadowRay, prd_shadow);
+                    if(prd_shadow.inShadow == false)
+                    {
+                        float pdfSolidBRDF = 0.5 / M_PIf;
+                        float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
+                        float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv; 
+
+                        prd_radiance.isHitEnv = true;
+                        prd_radiance.envDirection = L;
+                        prd_radiance.envRadiance = radiance * pdfSolidEnv / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-14 );
+                    }
+                }
+            }
+        }
+
+        // Sammple the new ray 
+        sampleFirstBounce(prd_radiance.seed, 
+            N, onb,
+            prd_radiance.attenuation, prd_radiance.direction, prd_radiance.pdf );
+        prd_radiance.brdfDirection = prd_radiance.direction;
+    }
+    else{ 
+        // Connect to the area Light
+        {
+            if(isAreaLight == 1 && prd_radiance.depth != (max_depth-1) ){
+                float3 position, radiance, normal;
+                float pdfAreaLight;
+                sampleAreaLight(prd_radiance.seed, radiance, position, normal, pdfAreaLight);
+   
+                float Dist = length(position - hitPoint);
+                float3 L = normalize(position - hitPoint);
+
+                if(fmaxf(dot(N, L), 0.0f) * fmaxf(dot(N, V), 0.0f) > 0 ){
+                    float cosPhi = dot(L, normal);
+                    cosPhi = (cosPhi < 0) ? -cosPhi : cosPhi;
+
+                    Ray shadowRay = make_Ray(hitPoint, L, 1, scene_epsilon, Dist - scene_epsilon);
+                    PerRayData_shadow prd_shadow; 
+                    prd_shadow.inShadow = false;
+                    rtTrace(top_object, shadowRay, prd_shadow);
+                    if(prd_shadow.inShadow == false)
+                    {
+                        float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance) * cosPhi / Dist / Dist; 
                         float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
                         float pdfSolidBRDF = pdf(L, V, N, roughValue);
                         float pdfAreaBRDF = pdfSolidBRDF * cosPhi / Dist / Dist;
@@ -279,53 +372,24 @@ RT_PROGRAM void closest_hit_radiance()
                             fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;            
                     }
                 }
-            }
-        }   
-    }
+            }   
+        }
 
-    
-    // Connect to point light 
-    {
-        if(isPointLight == 1){
-            // Connect to every point light 
-            for(int i = 0; i < pointLightNum; i++){
-                float3 position = pointLights[i].position;
-                float3 radiance = pointLights[i].intensity;
-                float3 L = normalize(position - hitPoint);
-                float Dist = length(position - hitPoint);
+        // Connect to the environmental map 
+        { 
+            if(isEnvmap == 1 && prd_radiance.depth != (max_depth-1) ){
+                float3 L, radiance;
+                float pdfSolidEnv;
+                sampleEnvironmapLight(prd_radiance.seed, radiance, L, pdfSolidEnv);
 
-                if( fmaxf(dot(N, L), 0.0f) * fmaxf(dot(N, V), 0.0f) > 0 ){
-                    Ray shadowRay = make_Ray(hitPoint + 0.1 * L * scene_epsilon, L, 1, scene_epsilon, Dist - scene_epsilon);
-                    PerRayData_shadow prd_shadow; 
+                if( fmaxf(dot(L, N), 0.0f) * fmaxf(dot(V, N), 0.0f) > 0){
+                    Ray shadowRay = make_Ray(hitPoint + 0.1 * scene_epsilon, L, 1, scene_epsilon, infiniteFar);
+                    PerRayData_shadow prd_shadow;
                     prd_shadow.inShadow = false;
                     rtTrace(top_object, shadowRay, prd_shadow);
-                    if(prd_shadow.inShadow == false && prd_radiance.depth != (max_depth - 1) ){
-                        float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance) / Dist/ Dist;
-                        prd_radiance.radiance += intensity * prd_radiance.attenuation;
-                    }
-                }
-            }
-        }
-    }
-
-    // Connect to the environmental map 
-    { 
-        if(isEnvmap == 1){
-            float3 L, radiance;
-            float pdfSolidEnv;
-            sampleEnvironmapLight(prd_radiance.seed, radiance, L, pdfSolidEnv);
-
-            if( fmaxf(dot(L, N), 0.0f) * fmaxf(dot(V, N), 0.0f) > 0){
-                Ray shadowRay = make_Ray(hitPoint + 0.1 * scene_epsilon, L, 1, scene_epsilon, infiniteFar);
-                PerRayData_shadow prd_shadow;
-                prd_shadow.inShadow = false;
-                rtTrace(top_object, shadowRay, prd_shadow);
-                if(prd_shadow.inShadow == false)
-                {
-                    float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance);
-                    if(prd_radiance.depth == (max_depth - 1) ){
-                    }
-                    else{
+                    if(prd_shadow.inShadow == false)
+                    {
+                        float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance);
                         float pdfSolidBRDF = pdf(L, V, N, roughValue);
                         float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
                         float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
@@ -335,14 +399,13 @@ RT_PROGRAM void closest_hit_radiance()
                 }
             }
         }
+
+        // Sammple the new ray 
+        sample(prd_radiance.seed, 
+            albedoValue, N, fmaxf(roughValue, 0.02), fresnel, V, 
+            onb, prd_radiance.done,  
+            prd_radiance.attenuation, prd_radiance.direction, prd_radiance.pdf);
     }
-
-
-    // Sammple the new ray 
-    sample(prd_radiance.seed, 
-        albedoValue, N, fmaxf(roughValue, 0.02), fresnel, V, 
-        onb, 
-        prd_radiance.attenuation, prd_radiance.direction, prd_radiance.pdf);
 }
 
 // any_hit_shadow program for every material include the lighting should be the same

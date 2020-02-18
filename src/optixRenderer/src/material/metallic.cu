@@ -42,6 +42,8 @@ rtDeclareVariable(optix::Ray, ray,   rtCurrentRay, );
 rtDeclareVariable(PerRayData_radiance, prd_radiance, rtPayload, );
 rtDeclareVariable(PerRayData_shadow,   prd_shadow, rtPayload, );
 
+rtDeclareVariable( float, uvScale, , ); 
+
 rtDeclareVariable( float, metallic, , );
 rtTextureSampler<float4, 2> metallicMap;
 rtDeclareVariable( int, isMetallicTexture, , );
@@ -49,7 +51,7 @@ rtDeclareVariable( int, isMetallicTexture, , );
 RT_PROGRAM void closest_hit_radiance()
 {
     float metallicValue = (isMetallicTexture == 0) ? metallic :
-        tex2D(metallicMap, texcoord.x, texcoord.y).x;
+        tex2D(metallicMap, texcoord.x * uvScale, texcoord.y * uvScale ).x;
 
     prd_radiance.radiance = make_float3(metallicValue );
     prd_radiance.done = true; 

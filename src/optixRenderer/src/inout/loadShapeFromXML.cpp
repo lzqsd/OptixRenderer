@@ -61,7 +61,7 @@ bool loadShapeFromXML(std::vector<shape_t>& shapes, std::vector<material_t>& mat
             TiXmlElement* shSubEle = shSubModule -> ToElement();
             for(TiXmlAttribute* shSubAttri = shSubEle -> FirstAttribute(); shSubAttri != 0; shSubAttri = shSubAttri -> Next() ){
                 if(shSubAttri -> Name() == std::string("name") ){
-                    if(shSubAttri -> Value() != "bsdf"){ 
+                    if(shSubAttri -> Value() != std::string("bsdf") ){ 
                         std::cout<<"Wrong: unrecognizable name of ref of shape!"<<std::endl;
                     }
                 }
@@ -114,7 +114,7 @@ bool loadShapeFromXML(std::vector<shape_t>& shapes, std::vector<material_t>& mat
                             std::vector<float> radianceArr = parseFloatStr(emAttri -> Value() );
                             shape.radiance[0] = radianceArr[0];
                             shape.radiance[1] = radianceArr[1];
-                            shape.radiance[2] = radianceArr[2];               
+                            shape.radiance[2] = radianceArr[2];
                         }
                     }
                 }
@@ -140,7 +140,28 @@ bool loadShapeFromXML(std::vector<shape_t>& shapes, std::vector<material_t>& mat
                     for(TiXmlAttribute* trSubAttri = trSubEle -> FirstAttribute(); trSubAttri != 0; trSubAttri = trSubAttri -> Next() ){
                         if(trSubAttri -> Name() == std::string("value") ){
                             std::vector<float> scaleArr = parseFloatStr(trSubAttri -> Value() );
-                            T.value[0] = scaleArr[0];
+                            if(scaleArr.size() == 1){
+                                T.value[0] = scaleArr[0];
+                                T.value[1] = scaleArr[0];
+                                T.value[2] = scaleArr[0];
+                            }
+                            else if(scaleArr.size() == 3){
+                                T.value[0] = scaleArr[0];
+                                T.value[1] = scaleArr[1];
+                                T.value[2] = scaleArr[2];
+                            }
+                        }
+                        else if(trSubAttri -> Name() == std::string("x") ){
+                            std::vector<float> scaleXArr = parseFloatStr(trSubAttri -> Value() );
+                            T.value[0] = scaleXArr[0];
+                        }
+                        else if(trSubAttri -> Name() == std::string("y") ){
+                            std::vector<float> scaleYArr = parseFloatStr(trSubAttri -> Value() );
+                            T.value[1] = scaleYArr[0];
+                        }
+                        else if(trSubAttri -> Name() == std::string("z") ){
+                            std::vector<float> scaleZArr = parseFloatStr(trSubAttri -> Value() );
+                            T.value[2] = scaleZArr[0];
                         }
                         else{
                             std::cout<<"Wrong: unrecognizable attribute of scale of transform of shape!"<<std::endl;
@@ -232,6 +253,9 @@ bool loadShapeFromXML(std::vector<shape_t>& shapes, std::vector<material_t>& mat
                 shape.mesh.materialIds[i] = 0;
             }
         }
+        else if(materialsShape.size() == 0 && matRefNames.size() == 0) {
+            std::cout<<"Warning: no materials assigned to this shapes."<<std::endl;
+        }
         else{
             // Check whether all materials are covered
             for(int i = 0; i < shape.mesh.materialNames.size(); i++){
@@ -255,7 +279,7 @@ bool loadShapeFromXML(std::vector<shape_t>& shapes, std::vector<material_t>& mat
                     }
                 }
                 if(!isFind){
-                    std::cout<<"Wrong: unrecognizable materials "<<shape.mesh.materialNames[i] <<" in .obj file."<<std::endl;
+                    std::cout<<"Warning: unrecognizable materials "<<shape.mesh.materialNames[i] <<" in .obj file."<<std::endl;
                     return false;
                 }
             }

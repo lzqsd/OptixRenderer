@@ -209,7 +209,7 @@ void createGeometry(
             // Currently only support diffuse material and area light 
             std::vector<Material> optix_materials;
             if(!shape.isLight ){
-                if(mode == 0){
+                if(mode == 0 || mode == 7){
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
                         Material mat;
                         material_t matInput = materials[shape.mesh.materialNameIds[i] ];
@@ -280,14 +280,6 @@ void createGeometry(
                         optix_materials.push_back(mat );
                     }
                     optix_materials.push_back(createDefaultMaterial(context) );
-                }
-                else if(mode == 7){
-                    // Output the mask
-                    for(int i = 0; i < shape.mesh.materialNames.size(); i++){
-                        Material mat = createBlackMaterial(context );
-                        optix_materials.push_back(mat );
-                    }
-                    optix_materials.push_back(createDefaultMaterial(context ) );
                 }
                 else{
                     std::cout<<"Wrong: Unrecognizable mode!"<<std::endl;

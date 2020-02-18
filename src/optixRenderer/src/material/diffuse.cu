@@ -53,6 +53,8 @@ rtDeclareVariable(PerRayData_radiance, prd_radiance, rtPayload, );
 rtDeclareVariable(PerRayData_shadow,   prd_shadow, rtPayload, );
 rtDeclareVariable(float, scene_epsilon, , );
 
+rtDeclareVariable( float, uvScale, , ); 
+
 // Diffuse albedo
 rtDeclareVariable( float3, albedo, , );
 rtTextureSampler<float4, 2> albedoMap;
@@ -82,6 +84,7 @@ rtDeclareVariable(
 rtDeclareVariable(
         rtCallableProgramX<void(unsigned int&, float3&, float3&, float3&, float&)>, 
         sampleAreaLight, , );
+
 
 // Computing the pdfSolidAngle of BRDF giving a direction 
 RT_CALLABLE_PROGRAM float pdf(const float3& L, const float3& V, const float3& N)
@@ -127,7 +130,7 @@ RT_PROGRAM void closest_hit_radiance()
         albedoValue = albedo;
     }
     else{
-        albedoValue = make_float3(tex2D(albedoMap, texcoord.x, texcoord.y) );
+        albedoValue = make_float3(tex2D(albedoMap, texcoord.x * uvScale, texcoord.y * uvScale ) );
         albedoValue.x = pow(albedoValue.x, 2.2);
         albedoValue.y = pow(albedoValue.y, 2.2);
         albedoValue.z = pow(albedoValue.z, 2.2);
@@ -142,7 +145,7 @@ RT_PROGRAM void closest_hit_radiance()
         N = ffnormal;
     }
     else{
-        N = make_float3(tex2D(normalMap, texcoord.x, texcoord.y) );
+        N = make_float3(tex2D(normalMap, texcoord.x * uvScale, texcoord.y * uvScale ) );
         N = normalize(2 * N - 1);
         N = N.x * tangent_direction 
             + N.y * bitangent_direction 

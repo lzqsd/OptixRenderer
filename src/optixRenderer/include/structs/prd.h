@@ -36,14 +36,27 @@ struct PerRayData_radiance
   unsigned int seed;
 
   // shading state
-  bool done;
-  float3 attenuation;
-  float3 radiance;
   float3 origin;
+
+  bool done;
+    
+  float3 normal;
+  
   float3 direction;
+  float3 radiance;  
 
- float pdf;
+  float3 brdfDirection;
 
+  bool isHitArea;
+  float3 areaRadiance;
+  float3 areaDirection;
+
+  bool isHitEnv;
+  float3 envRadiance;
+  float3 envDirection;
+
+  float3 attenuation;
+  float pdf;
 };
 
 struct PerRayData_shadow
