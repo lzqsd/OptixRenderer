@@ -232,60 +232,67 @@ bool loadShapeFromXML(std::vector<shape_t>& shapes, std::vector<material_t>& mat
         }
     }
     // When no materials are defined in obj 
-    if(!shape.isLight ) {
-        if(shape.mesh.materialNames.size() == 0){
-            if(materialsShape.size() + matRefNames.size() > 1){
-                std::cout<<"Wrong: more than one materials corresponds to a single shape without assigned material!"<<std::endl;
-                return false;
-            }
-            else if(materialsShape.size() + matRefNames.size() == 0){
-                std::cout<<"Warning: no materials assigned to this shapes."<<std::endl;
-            }
-            else if(materialsShape.size() == 1){
-                shape.mesh.materialNames.push_back(materialsShape[0].name );
-                shape.mesh.materialNameIds.push_back(materials.size() );
-            }
-            else{
-                shape.mesh.materialNames.push_back(matRefNames[0] );
-                shape.mesh.materialNameIds.push_back(matRefIds[0] );
-            }
+    if(!shape.isLight ) { 
+        
+        if(materialsShape.size() == 0 && matRefNames.size() == 0) {
+            std::cout<<"Warning: no materials assigned to this shapes."<<std::endl;
             for(int i = 0; i < shape.mesh.materialIds.size(); i++){
                 shape.mesh.materialIds[i] = 0;
-            }
-        }
-        else if(materialsShape.size() == 0 && matRefNames.size() == 0) {
-            std::cout<<"Warning: no materials assigned to this shapes."<<std::endl;
+            } 
+            shape.mesh.materialNames.erase(shape.mesh.materialNames.begin(), 
+                    shape.mesh.materialNames.end() );
+            shape.mesh.materialNameIds.erase(shape.mesh.materialNameIds.begin(), 
+                    shape.mesh.materialNameIds.end() );
         }
         else{
-            // Check whether all materials are covered
-            for(int i = 0; i < shape.mesh.materialNames.size(); i++){
-                std::string matName = shape.mesh.materialNames[i];
-                bool isFind = false;
-                for(int j = 0; j < materialsShape.size(); j++){
-                    if(matName == materialsShape[j].name ){
-                        isFind = true;
-                        shape.mesh.materialNameIds[i] = j + materials.size();
-                        break;
-                    }
-                }
-                if(isFind == true)
-                    continue;
-
-                for(int j = 0; j < matRefNames.size(); j++){
-                    if(matName == matRefNames[j] ){
-                        isFind = true;
-                        shape.mesh.materialNameIds[i] = matRefIds[j];
-                        break;
-                    }
-                }
-                if(!isFind){
-                    std::cout<<"Warning: unrecognizable materials "<<shape.mesh.materialNames[i] <<" in .obj file."<<std::endl;
+            if(shape.mesh.materialNames.size() == 0){
+                if(materialsShape.size() + matRefNames.size() > 1){
+                    std::cout<<"Wrong: more than one materials corresponds to a single shape without assigned material!"<<std::endl;
                     return false;
                 }
+                else if(materialsShape.size() == 1){
+                    shape.mesh.materialNames.push_back(materialsShape[0].name );
+                    shape.mesh.materialNameIds.push_back(materials.size() );
+                }
+                else{
+                    shape.mesh.materialNames.push_back(matRefNames[0] );
+                    shape.mesh.materialNameIds.push_back(matRefIds[0] );
+                }
+                for(int i = 0; i < shape.mesh.materialIds.size(); i++){
+                    shape.mesh.materialIds[i] = 0;
+                }
             }
-            for(int i = 0; i < shape.mesh.materialIds.size(); i++){
-                if(shape.mesh.materialIds[i] == -1)
-                    shape.mesh.materialIds[i] = shape.mesh.materialNames.size();
+            else{
+                // Check whether all materials are covered
+                for(int i = 0; i < shape.mesh.materialNames.size(); i++){
+                    std::string matName = shape.mesh.materialNames[i];
+                    bool isFind = false;
+                    for(int j = 0; j < materialsShape.size(); j++){
+                        if(matName == materialsShape[j].name ){
+                            isFind = true;
+                            shape.mesh.materialNameIds[i] = j + materials.size();
+                            break;
+                        }
+                    }
+                    if(isFind == true)
+                        continue;
+
+                    for(int j = 0; j < matRefNames.size(); j++){
+                        if(matName == matRefNames[j] ){
+                            isFind = true;
+                            shape.mesh.materialNameIds[i] = matRefIds[j];
+                            break;
+                        }
+                    }
+                    if(!isFind){ 
+                        std::cout<<"Warning: unrecognizable materials "<<shape.mesh.materialNames[i] <<" in .obj file."<<std::endl;
+                        return false;
+                    }
+                }
+                for(int i = 0; i < shape.mesh.materialIds.size(); i++){
+                    if(shape.mesh.materialIds[i] == -1)
+                        shape.mesh.materialIds[i] = shape.mesh.materialNames.size();
+                }
             }
         }
     }
