@@ -134,7 +134,7 @@ std::string generateOutputFilename(std::string fileName, int mode, int i, int ca
         suffix = fileName.substr(pos+1, fileName.length() );
     }
     
-    suffix = std::string("dat");
+    suffix = std::string("hdr");
     std::string outputFileName;
     std::string modeString = "";
     switch(mode){
@@ -500,9 +500,14 @@ int main( int argc, char** argv )
         std::cout<<"Time: "<<float(t) / CLOCKS_PER_SEC<<'s'<<std::endl;  
 
         // Write intensity 
-        std::ofstream intOut(outputFileNameNew.c_str(), std::ios::out|std::ios::binary );
-        intOut.write( (char*)imgData, sizeof(float)*imWidth * imHeight * envWidth * envHeight * 3 );
-        intOut.close();
+        FILE* imgOut = fopen(outputFileNameNew.c_str(), "w");
+        if(imgOut == NULL){
+            std::cout<<"Wrong: can not open the output file!"<<std::endl;
+            return false;
+        }
+        RGBE_WriteHeader(imgOut, imWidth * envWidth, imHeight * envHeight, NULL);
+        RGBE_WritePixels(imgOut, imgData, imWidth * envWidth * imHeight * envHeight );
+        fclose(imgOut);
     }
     destroyContext(context );
 

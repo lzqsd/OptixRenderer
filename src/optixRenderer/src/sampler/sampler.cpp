@@ -26,12 +26,13 @@ void getLightOutputBuffer(Context& context,
                     int bc = c * envWidth + ec; 
 
                     int bInd = 3 * (br * envWidth * width + bc );
-
-                    int ind = (r * width + c) * 3 * envWidth * envHeight + 
-                        3 * (er * envWidth + ec );
+                    
+                    int ir = r * envHeight + er;
+                    int ic = c * envWidth + ec;
+                    int ind = (ir * envWidth * width + ic) * 3;
                     
                     for(int ch = 0; ch < 3; ch++){  
-                        imgData[ind + ch] = imgDataBuffer[bInd + ch] / sampleNum / weight; 
+                        imgData[ind +  2- ch] = imgDataBuffer[bInd + ch] / sampleNum / weight; 
                         if(isnan(imgData[ind + ch] ) )
                             std::cout<<"Wrong: nan in the image"<<std::endl;
                         if(isnan(imgDataBuffer[bInd + ch] ) )
