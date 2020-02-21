@@ -174,7 +174,7 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
                 float r = imgData[ind];
                 float g = imgData[ind + 1]; 
                 float b = imgData[ind + 2];
-                if(mode == 0){
+                if(mode == 0 || mode == 1){
                     r = pow(r, 1.0f/2.2f);
                     g = pow(g, 1.0f/2.2f);
                     b = pow(b, 1.0f/2.2f);
