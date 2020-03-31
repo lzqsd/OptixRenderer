@@ -145,7 +145,8 @@ RT_CALLABLE_PROGRAM float3 evaluate(const float3& albedoValue, const float3& N, 
 }
 
 RT_CALLABLE_PROGRAM void sample(unsigned& seed, 
-        const float3& albedoValue, const float3& N, const float rough, const float3& fresnel, const float3& V, 
+        const float3& albedoValue, const float3& N, const float rough, const float3& fresnel, const float3& V,  
+        const float3& ffnormal, 
         optix::Onb onb, 
         float3& attenuation, float3& direction, float& pdfSolid)
 {
@@ -173,7 +174,7 @@ RT_CALLABLE_PROGRAM void sample(unsigned& seed,
         float3 H = make_float3(
                 sinTheta * cos(phi),
                 sinTheta * sin(phi),
-                cosTheta);
+                cosTheta );
         onb.inverse_transform(H);
         L = 2 * dot(V, H) * H - V;
         direction = L;
@@ -183,7 +184,7 @@ RT_CALLABLE_PROGRAM void sample(unsigned& seed,
         float NoH = fmaxf(dot(N, H), 0.0);
         float VoH = fmaxf(dot(V, H), 0.0);
 
-        if( NoL >= 0){
+        if( dot(ffnormal, L) >= 0.05 ){
             float G1 = NoV / (NoV * (1-k) + k);
             float G2 = NoL / (NoL * (1-k) + k);
             float FMi = (-5.55473 * VoH - 6.98316) * VoH;
@@ -257,7 +258,7 @@ RT_PROGRAM void closest_hit_radiance()
             float Dist = length(position - hitPoint);
             float3 L = normalize(position - hitPoint);
 
-            if(fmaxf(dot(N, L), 0.0f) * fmaxf(dot(N, V), 0.0f) > 0 ){
+            if(fmaxf(dot(ffnormal, L), 0.0f) * fmaxf(dot(ffnormal, V), 0.0f) > 0.0025 ){
                 float cosPhi = dot(L, normal);
                 cosPhi = (cosPhi < 0) ? -cosPhi : cosPhi;
 
@@ -296,7 +297,7 @@ RT_PROGRAM void closest_hit_radiance()
                 float3 L = normalize(position - hitPoint);
                 float Dist = length(position - hitPoint);
 
-                if( fmaxf(dot(N, L), 0.0f) * fmaxf(dot(N, V), 0.0f) > 0 ){
+                if( fmaxf(dot(ffnormal, L), 0.0f) * fmaxf(dot(ffnormal, V), 0.0f) > 0.0025){
                     Ray shadowRay = make_Ray(hitPoint + 0.1 * L * scene_epsilon, L, 1, scene_epsilon, Dist - scene_epsilon);
                     PerRayData_shadow prd_shadow; 
                     prd_shadow.inShadow = false;
@@ -317,7 +318,7 @@ RT_PROGRAM void closest_hit_radiance()
             float pdfSolidEnv;
             sampleEnvironmapLight(prd_radiance.seed, radiance, L, pdfSolidEnv);
 
-            if( fmaxf(dot(L, N), 0.0f) * fmaxf(dot(V, N), 0.0f) > 0){
+            if( fmaxf(dot(L, ffnormal), 0.0f) * fmaxf(dot(V, ffnormal ), 0.0f) > 0.0025){
                 Ray shadowRay = make_Ray(hitPoint + 0.1 * scene_epsilon, L, 1, scene_epsilon, infiniteFar);
                 PerRayData_shadow prd_shadow;
                 prd_shadow.inShadow = false;
@@ -343,8 +344,8 @@ RT_PROGRAM void closest_hit_radiance()
     // Sammple the new ray 
     sample(prd_radiance.seed, 
         albedoValue, N, fmaxf(roughValue, 0.02), fresnel, V, 
-        onb, 
-        prd_radiance.attenuation, prd_radiance.direction, prd_radiance.pdf);
+        ffnormal, onb, 
+        prd_radiance.attenuation, prd_radiance.direction, prd_radiance.pdf );
 }
 
 // any_hit_shadow program for every material include the lighting should be the same

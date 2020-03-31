@@ -286,7 +286,8 @@ int main( int argc, char** argv )
     std::string fileName;
     std::string outputFileName;
     std::string cameraFile("");
-    int mode = 0;
+    int mode = 0; 
+    int maxIteration = -1;
     std::vector<int> gpuIds;
     float noiseLimit = 0.11;
     int vertexLimit = 150000;
@@ -404,6 +405,13 @@ int main( int argc, char** argv )
                 exit(1);
             }
             maxPathLength = atoi(argv[++i] );
+        } 
+        else if(std::string(argv[i] ) == std::string("--maxIteration") ){
+            if(i == argc-1){
+                std::cout<<"Missing input variable"<<std::endl;
+                exit(1);
+            }
+            maxIteration = atoi(argv[++i] );
         } 
         else if(std::string(argv[i] ) == std::string("--medianFilter") ){ 
             isMedianFilter = true;
@@ -590,7 +598,12 @@ int main( int argc, char** argv )
             independentSampling(context, cameraInput.width, cameraInput.height, imgData, sampleNum, scale);
         }
         else if(cameraInput.sampleType == std::string("adaptive") ) {
-            int sampleNum = cameraInput.sampleNum;
+            int sampleNum = cameraInput.sampleNum; 
+            
+            if(maxIteration >= 1){
+                cameraInput.adaptiveSampler.maxIteration =  maxIteration; 
+            }
+
             bool isTooNoisy = adaptiveSampling(context, cameraInput.width, cameraInput.height, sampleNum, imgData, 
                     noiseLimit, noiseLimitEnabled, 
                     cameraInput.adaptiveSampler.maxIteration, 
