@@ -251,9 +251,9 @@ void createGeometry(
                 }
                 else if(mode == 2){
                     // Output the normal value 
+                    material_t matInput; 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
                         if(materials.size() == 0){
-                            material_t matInput; 
                             Material mat = createNormalMaterial(context, matInput);
                             optix_materials.push_back(mat);
                             continue;
@@ -262,7 +262,7 @@ void createGeometry(
                         Material mat = createNormalMaterial(context, matInput);
                         optix_materials.push_back(mat);
                     }
-                    optix_materials.push_back(createDefaultMaterial(context ) ); 
+                    optix_materials.push_back(createNormalMaterial(context, matInput ) ); 
                 }
                 else if(mode == 3){
                     // Output the roughness value 
@@ -285,7 +285,7 @@ void createGeometry(
                         Material mat = createMaskMaterial(context, false );
                         optix_materials.push_back(mat );
                     }
-                    optix_materials.push_back(createDefaultMaterial(context ) );
+                    optix_materials.push_back(createMaskMaterial(context, false ) );
                 }
                 else if(mode == 5){
                     // Output the depth 
@@ -293,7 +293,7 @@ void createGeometry(
                         Material mat = createDepthMaterial(context );
                         optix_materials.push_back(mat);
                     }
-                    optix_materials.push_back(createDefaultMaterial(context) );
+                    optix_materials.push_back(createDepthMaterial(context ) );
                 }
                 else if(mode == 6){
                     // Output the metallic 
