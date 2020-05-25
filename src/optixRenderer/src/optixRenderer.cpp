@@ -175,6 +175,7 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         return true;
     }
 
+
     if(isHdr){
         FILE* imgOut = fopen(fileName, "w");
         if(imgOut == NULL){
