@@ -46,7 +46,7 @@ struct PerRayData_radiance
 
 };
 
-struct TwoBounce_data
+struct FourBounce_data
 {
     int depth;
     unsigned int seed;
@@ -58,8 +58,12 @@ struct TwoBounce_data
 
     float3 normal1;
     float3 normal2;
+    float3 normal3;
+    float3 normal4;
     float3 depth1;
     float3 depth2;
+    float3 depth3;
+    float3 depth4;
 };
 
 struct PerRayData_shadow

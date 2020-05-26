@@ -35,7 +35,7 @@ OPTIX_add_sample_executable( optixRenderer
     optixRenderer.cpp
 
     camera/path_trace_camera.cu
-    camera/two_bounce_camera.cu
+    camera/four_bounce_camera.cu
 
     creator/createAreaLight.cpp
     creator/createCamera.cpp
@@ -79,8 +79,8 @@ OPTIX_add_sample_executable( optixRenderer
     material/roughness.cu
     material/dielectric.cpp
     material/dielectric.cu
-    material/twoBounce.cpp
-    material/twoBounce.cu
+    material/fourBounce.cpp
+    material/fourBounce.cu
 
     sampler/sampler.cpp
 

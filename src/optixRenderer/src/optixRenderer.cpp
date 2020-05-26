@@ -175,7 +175,6 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         return true;
     }
 
-
     if(isHdr){
         FILE* imgOut = fopen(fileName, "w");
         if(imgOut == NULL){
@@ -268,7 +267,7 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
         case 4: modeString = "mask"; break;
         case 5: modeString = "depth"; break;
         case 6: modeString = "metallic"; break;
-        case 7: modeString = "twoBounce"; break;
+        case 7: modeString = "fourBounce"; break;
     }
 
     if(camNum > 0){
@@ -555,7 +554,7 @@ int main( int argc, char** argv )
         imgData = new float[cameraInput.width * cameraInput.height * 3];
     }
     else{
-        imgData = new float[cameraInput.width * cameraInput.height * 12];
+        imgData = new float[cameraInput.width * cameraInput.height * 24];
     }
     unsigned camSp, camEp;
     camSp = std::max(0, camStart);

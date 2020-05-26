@@ -43,13 +43,25 @@ unsigned createContext(
         context["normal1_buffer"]->set( normal1Buffer ); 
 
         Buffer normal2Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
-        context["normal2_buffer"]->set( normal2Buffer ); 
+        context["normal2_buffer"]->set( normal2Buffer );
+
+        Buffer normal3Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["normal3_buffer"]->set( normal3Buffer ); 
+
+        Buffer normal4Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["normal4_buffer"]->set( normal4Buffer ); 
 
         Buffer depth1Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
         context["depth1_buffer"]->set( depth1Buffer ); 
 
         Buffer depth2Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
         context["depth2_buffer"]->set( depth2Buffer ); 
+
+        Buffer depth3Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["depth3_buffer"]->set( depth3Buffer ); 
+
+        Buffer depth4Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
+        context["depth4_buffer"]->set( depth4Buffer ); 
     }
     
     unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) / float(scale * scale) ) + 1.0);
@@ -80,7 +92,7 @@ unsigned createContext(
         context["bad_color"]->setFloat( 0.0f, 0.0f, 0.0f );
     }
     else{
-        std::string ptx_path( ptxPath("two_bounce_camera.cu") );
+        std::string ptx_path( ptxPath("four_bounce_camera.cu") );
         Program ray_gen_program = context->createProgramFromPTXFile( ptx_path, "pinhole_camera" );
         context->setRayGenerationProgram( 0, ray_gen_program );
         
@@ -113,7 +125,7 @@ unsigned createContext(
     }
     else{
         if(mode == 7){
-            Program miss_program = context->createProgramFromPTXFile(miss_path, "missTwoBounce");
+            Program miss_program = context->createProgramFromPTXFile(miss_path, "missFourBounce");
             context->setMissProgram(0, miss_program);
         }
         else{

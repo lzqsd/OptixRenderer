@@ -25,7 +25,7 @@ Material createMicrofacetMaterial(Context& context, material_t mat);
 
 Material createDielectricMaterial(Context& context, material_t mat);
 
-Material createTwoBounceMaterial(Context& context, material_t mat);
+Material createFourBounceMaterial(Context& context, material_t mat);
 
 Material createWhiteMaterial(Context& context );
 

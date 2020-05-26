@@ -286,7 +286,7 @@ void createGeometry(
                         material_t matInput = materials[shape.mesh.materialNameIds[i] ];
                         Material mat;
                         if(matInput.cls == "dielectric"){
-                            mat = createTwoBounceMaterial(context, matInput );
+                            mat = createFourBounceMaterial(context, matInput );
                         }
                         else{
                             mat = createBlackMaterial(context );

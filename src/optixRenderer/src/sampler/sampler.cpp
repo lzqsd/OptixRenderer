@@ -26,12 +26,16 @@ void getOutputBuffer(Context& context, float* imgData, int width, int height, un
     imgBuffer -> unmap();
 }
 
-void getTwoBounceOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale)
+void getFourBounceOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale)
 {
     Buffer imgBuffer1, imgBuffer2, imgBuffer3, imgBuffer4; 
+    Buffer imgBuffer5, imgBuffer6, imgBuffer7, imgBuffer8; 
     float *imgDataBuffer1 = NULL, *imgDataBuffer2 = NULL;
     float *imgDataBuffer3 = NULL, *imgDataBuffer4 = NULL;
+    float *imgDataBuffer5 = NULL, *imgDataBuffer6 = NULL;
+    float *imgDataBuffer7 = NULL, *imgDataBuffer8 = NULL;
     int offset1 = 0, offset2 = 3, offset3 = 6, offset4 = 9; 
+    int offset5 = 12, offset6 = 15, offset7 = 18, offset8 = 21; 
 
     imgBuffer1 = context[ "normal1_buffer" ]->getBuffer();
     imgDataBuffer1 = reinterpret_cast<float*>(imgBuffer1 -> map() );
@@ -41,12 +45,21 @@ void getTwoBounceOutputBuffer(Context& context, float* imgData, int width, int h
     imgDataBuffer3 = reinterpret_cast<float*>(imgBuffer3 -> map() );
     imgBuffer4 = context[ "depth2_buffer" ]->getBuffer();
     imgDataBuffer4 = reinterpret_cast<float*>(imgBuffer4 -> map() );
+    imgBuffer5 = context[ "normal3_buffer" ]->getBuffer();
+    imgDataBuffer5 = reinterpret_cast<float*>(imgBuffer5 -> map() );
+    imgBuffer6 = context[ "depth3_buffer" ]->getBuffer();
+    imgDataBuffer6 = reinterpret_cast<float*>(imgBuffer6 -> map() );
+    imgBuffer7 = context[ "normal4_buffer" ]->getBuffer();
+    imgDataBuffer7 = reinterpret_cast<float*>(imgBuffer7 -> map() );
+    imgBuffer8 = context[ "depth4_buffer" ]->getBuffer();
+    imgDataBuffer8 = reinterpret_cast<float*>(imgBuffer8 -> map() );
 
     for(int r = 0; r < height; r++){
         for(int c = 0; c < width; c++){
             int N = sizeScale * sizeScale;
             for(int ch = 0; ch < 3; ch++){ 
                 float sum1=0, sum2=0, sum3=0, sum4=0;
+                float sum5=0, sum6=0, sum7=0, sum8=0;
 
                 for(int sr = 0; sr < sizeScale; sr++){
                     for(int sc = 0; sc < sizeScale; sc++){
@@ -58,12 +71,20 @@ void getTwoBounceOutputBuffer(Context& context, float* imgData, int width, int h
                         sum2 += imgDataBuffer2[Index];
                         sum3 += imgDataBuffer3[Index];
                         sum4 += imgDataBuffer4[Index];
+                        sum5 += imgDataBuffer5[Index];
+                        sum6 += imgDataBuffer6[Index];
+                        sum7 += imgDataBuffer7[Index];
+                        sum8 += imgDataBuffer8[Index];
                     }
                 }
-                imgData[12*(r*width + c) + ch + offset1] = sum1 / N;
-                imgData[12*(r*width + c) + ch + offset2] = sum2 / N;
-                imgData[12*(r*width + c) + ch + offset3] = sum3 / N;
-                imgData[12*(r*width + c) + ch + offset4] = sum4 / N;
+                imgData[24*(r*width + c) + ch + offset1] = sum1 / N;
+                imgData[24*(r*width + c) + ch + offset2] = sum2 / N;
+                imgData[24*(r*width + c) + ch + offset3] = sum3 / N;
+                imgData[24*(r*width + c) + ch + offset4] = sum4 / N;
+                imgData[24*(r*width + c) + ch + offset5] = sum5 / N;
+                imgData[24*(r*width + c) + ch + offset6] = sum6 / N;
+                imgData[24*(r*width + c) + ch + offset7] = sum7 / N;
+                imgData[24*(r*width + c) + ch + offset8] = sum8 / N;
             }
         }
     }
@@ -71,6 +92,10 @@ void getTwoBounceOutputBuffer(Context& context, float* imgData, int width, int h
     imgBuffer2 -> unmap();
     imgBuffer3 -> unmap();
     imgBuffer4 -> unmap();
+    imgBuffer5 -> unmap();
+    imgBuffer6 -> unmap();
+    imgBuffer7 -> unmap();
+    imgBuffer8 -> unmap();
 }
 
 void independentSampling(
@@ -92,7 +117,7 @@ void independentSampling(
         getOutputBuffer(context, imgData, width, height, sizeScale ); 
     }
     else{
-        getTwoBounceOutputBuffer(context, imgData, width, height, sizeScale ); 
+        getFourBounceOutputBuffer(context, imgData, width, height, sizeScale ); 
     }
 }
 
