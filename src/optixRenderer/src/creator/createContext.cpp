@@ -62,6 +62,18 @@ unsigned createContext(
 
         Buffer depth4Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT3, bWidth, bHeight);
         context["depth4_buffer"]->set( depth4Buffer ); 
+
+        Buffer mask1Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT, bWidth, bHeight);
+        context["mask1_buffer"]->set( mask1Buffer ); 
+
+        Buffer mask2Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT, bWidth, bHeight);
+        context["mask2_buffer"]->set( mask2Buffer ); 
+
+        Buffer mask3Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT, bWidth, bHeight);
+        context["mask3_buffer"]->set( mask3Buffer ); 
+
+        Buffer mask4Buffer = context -> createBuffer(RT_BUFFER_OUTPUT, RT_FORMAT_FLOAT, bWidth, bHeight);
+        context["mask4_buffer"]->set( mask4Buffer ); 
     }
     
     unsigned sqrt_num_samples = (unsigned )(sqrt(float(sampleNum ) / float(scale * scale) ) + 1.0);
@@ -73,7 +85,7 @@ unsigned createContext(
         sqrt_num_samples = 4;
     }
     else if(mode == 7){
-        maxDepth = 2;
+        maxDepth = 4;
         sqrt_num_samples = 4;
     }
 

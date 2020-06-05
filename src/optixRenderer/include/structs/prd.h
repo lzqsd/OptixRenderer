@@ -56,6 +56,8 @@ struct FourBounce_data
     float3 origin;
     float3 direction;
 
+    bool isHit;
+
     float3 normal1;
     float3 normal2;
     float3 normal3;
@@ -64,6 +66,10 @@ struct FourBounce_data
     float3 depth2;
     float3 depth3;
     float3 depth4;
+    float mask1;
+    float mask2;
+    float mask3;
+    float mask4;
 };
 
 struct PerRayData_shadow

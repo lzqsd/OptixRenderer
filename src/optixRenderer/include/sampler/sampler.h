@@ -10,7 +10,7 @@ using namespace optix;
 
 void getOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1);
 
-void getTwoBounceOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1);
+void getFourBounceOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale = 1);
 
 void independentSampling(
         Context& context, 

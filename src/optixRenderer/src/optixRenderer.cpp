@@ -151,24 +151,16 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         twoBounceOut.write( (char*)&height, sizeof(int) );
         twoBounceOut.write( (char*)&width, sizeof(int) );
 
-        float* image = new float[width * height * 12];
+        float* image = new float[width * height * 28];
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                for(int ch = 0; ch < 12; ch++ ){
-                    image[12*(i*width + j)+ch] = imgData[12 * ((height-1-i)*width + j) + ch];
+                for(int ch = 0; ch < 28; ch++ ){
+                    image[28*(i*width + j)+ch] = imgData[28 * ((height-1-i)*width + j) + ch];
                 }
             }
         }
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                int offset = (i * width + j) * 12;
-                if(image[offset + 5] < image[offset+11]){
-                    for(int ch = 6; ch < 12; ch++)
-                        image[offset + ch] = 0;
-                }
-            }
-        }
-        twoBounceOut.write( (char*)image, sizeof(float)*width*height*12);
+
+        twoBounceOut.write( (char*)image, sizeof(float)*width*height*28);
         twoBounceOut.close(); 
         delete [] image; 
 
@@ -554,7 +546,7 @@ int main( int argc, char** argv )
         imgData = new float[cameraInput.width * cameraInput.height * 3];
     }
     else{
-        imgData = new float[cameraInput.width * cameraInput.height * 24];
+        imgData = new float[cameraInput.width * cameraInput.height * 28];
     }
     unsigned camSp, camEp;
     camSp = std::max(0, camStart);

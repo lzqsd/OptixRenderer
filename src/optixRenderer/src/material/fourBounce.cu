@@ -108,39 +108,40 @@ RT_PROGRAM void closest_hit_radiance()
 
     float3 refracDirec;
     const bool isTotalReflect = !optix::refract(refracDirec, -V, N, eta );
-    
-    if(isTotalReflect ){
-        prd_radiance.done = true;
+
+    prd_radiance.direction = refracDirec;
+
+    float3 Z = normalize(-cameraW);
+    float3 X = normalize(cameraU);
+    float3 Y = normalize(cameraV);
+    float3 camN = make_float3( dot(N, X), dot(N, Y), dot(N, Z) );
+    float3 camHitPoint = make_float3(
+            dot(X, hitPoint - eye ), 
+            dot(Y, hitPoint - eye ), 
+            dot(Z, hitPoint - eye )
+            );
+    if(prd_radiance.depth == 0){
+        prd_radiance.normal1 = camN;
+        prd_radiance.depth1 = camHitPoint;
+        prd_radiance.isHit = true;
+        prd_radiance.mask1 = 1.0;
     }
-    else{ 
-        prd_radiance.direction = refracDirec;
-    
-        float3 Z = normalize(-cameraW);
-        float3 X = normalize(cameraU);
-        float3 Y = normalize(cameraV);
-        float3 camN = make_float3( dot(N, X), dot(N, Y), dot(N, Z) );
-        float3 camHitPoint = make_float3(
-                dot(X, hitPoint - eye ), 
-                dot(Y, hitPoint - eye ), 
-                dot(Z, hitPoint - eye )
-                );
-        if(prd_radiance.depth == 0){
-            prd_radiance.normal1 = camN;
-            prd_radiance.depth1 = camHitPoint;
-        }
-        else if(prd_radiance.depth == 1){
-            prd_radiance.normal2 = camN;
-            prd_radiance.depth2 = camHitPoint;
-        }
-        else if(prd_radiance.depth == 2){
-            prd_radiance.normal3 = camN;
-            prd_radiance.depth3 = camHitPoint;
-        }
-        else if(prd_radiance.depth == 3){
-            prd_radiance.normal4 = camN;
-            prd_radiance.depth4 = camHitPoint;
-        }
+    else if(prd_radiance.depth == 1){
+        prd_radiance.normal2 = camN;
+        prd_radiance.depth2 = camHitPoint;
+        if(!isTotalReflect) prd_radiance.mask2 = 1.0;
     }
+    else if(prd_radiance.depth == 2){
+        prd_radiance.normal3 = camN;
+        prd_radiance.depth3 = camHitPoint;
+        if(!isTotalReflect) prd_radiance.mask3 = 1.0;
+    }
+    else if(prd_radiance.depth == 3){
+        prd_radiance.normal4 = camN;
+        prd_radiance.depth4 = camHitPoint;
+        if(!isTotalReflect) prd_radiance.mask4 = 1.0;
+    }
+    
 }
 
 // any_hit_shadow program for every material include the lighting should be the same

@@ -45,12 +45,16 @@ rtDeclareVariable(int,           max_depth, , );
 
 rtBuffer<float3, 2>              normal1_buffer;
 rtBuffer<float3, 2>              depth1_buffer;
+rtBuffer<float, 2>               mask1_buffer;
 rtBuffer<float3, 2>              normal2_buffer;
 rtBuffer<float3, 2>              depth2_buffer;
+rtBuffer<float, 2>               mask2_buffer;
 rtBuffer<float3, 2>              normal3_buffer;
 rtBuffer<float3, 2>              depth3_buffer;
+rtBuffer<float, 2>               mask3_buffer;
 rtBuffer<float3, 2>              normal4_buffer;
 rtBuffer<float3, 2>              depth4_buffer;
+rtBuffer<float, 2>               mask4_buffer;
 
 rtDeclareVariable(rtObject,      top_object, , );
 rtDeclareVariable(uint2,         launch_index, rtLaunchIndex, );
@@ -73,12 +77,21 @@ RT_PROGRAM void pinhole_camera()
         ( (initSeed)*(screen.x*launch_index.y+launch_index.x) + initSeed ), 
         ( (screen.y * launch_index.x + launch_index.y) * initSeed ) );
     
+    float hitCount = 0.0;
+
+    float mask1 = 0.0;
     float3 normal1 = make_float3(0.0f);
     float3 depth1 = make_float3(0.0f);
+
+    float mask2 = 0.0;
     float3 normal2 = make_float3(0.0f);
     float3 depth2 = make_float3(0.0f);
+
+    float mask3 = 0.0;
     float3 normal3 = make_float3(0.0f);
     float3 depth3 = make_float3(0.0f);
+
+    float mask4 = 0.0;
     float3 normal4 = make_float3(0.0f);
     float3 depth4 = make_float3(0.0f);
 
@@ -126,12 +139,18 @@ RT_PROGRAM void pinhole_camera()
         prd.seed = seed;
         prd.depth = 0;
         prd.direction = ray_direction;
+
+        prd.isHit = false;
+        prd.mask1 = 0.0;
         prd.normal1 = make_float3(0.0f);
         prd.depth1 = make_float3(0.0f);
+        prd.mask2 = 0.0;
         prd.normal2 = make_float3(0.0f);
         prd.depth2 = make_float3(0.0f);
+        prd.mask3 = 0.0;
         prd.normal3 = make_float3(0.0f);
         prd.depth3 = make_float3(0.0f);
+        prd.mask4 = 0.0;
         prd.normal4 = make_float3(0.0f);
         prd.depth4 = make_float3(0.0f);
 
@@ -152,28 +171,80 @@ RT_PROGRAM void pinhole_camera()
             ray_origin = prd.origin;
             ray_direction = prd.direction;
         } 
-        normal1 += prd.normal1;
-        depth1 += prd.depth1; 
-        normal2 += prd.normal2; 
-        depth2 += prd.depth2;
-        normal3 += prd.normal3;
-        depth3 += prd.depth3; 
-        normal4 += prd.normal4; 
-        depth4 += prd.depth4;
+        mask1 += prd.mask1;
+        mask2 += prd.mask2;
+        mask3 += prd.mask3;
+        mask4 += prd.mask4;
+
+        if (prd.isHit) {
+            hitCount += 1;
+            normal1 += prd.normal1;
+            depth1 += prd.depth1; 
+            normal2 += prd.normal2; 
+            depth2 += prd.depth2;
+            normal3 += prd.normal3;
+            depth3 += prd.depth3; 
+            normal4 += prd.normal4; 
+            depth4 += prd.depth4;
+        }
 
         seed = prd.seed;
     } while (--samples_per_pixel);
 
     // Update the output buffer
     unsigned sampleNum = sqrt_num_samples * sqrt_num_samples;
-    normal1_buffer[launch_index ] = normal1 / sampleNum;
-    depth1_buffer[launch_index ] = depth1 / sampleNum;
-    normal2_buffer[launch_index ] = normal2 / sampleNum;
-    depth2_buffer[launch_index ] = depth2 / sampleNum;
-    normal3_buffer[launch_index ] = normal3 / sampleNum;
-    depth3_buffer[launch_index ] = depth3 / sampleNum;
-    normal4_buffer[launch_index ] = normal4 / sampleNum;
-    depth4_buffer[launch_index ] = depth4 / sampleNum;
+    mask1_buffer[launch_index ] = mask1 / sampleNum;
+    if(hitCount != 0){
+        if(normal1.x != 0 || normal1.y != 0 || normal1.z != 0){
+            normal1_buffer[launch_index ] = normalize(normal1 );
+        } else {
+            normal1_buffer[launch_index ] = make_float3(0.0);
+        }
+        depth1_buffer[launch_index ] = depth1 / hitCount;
+    } else {
+        normal1_buffer[launch_index ] = make_float3(0.0);
+        depth1_buffer[launch_index ] = make_float3(0.0);
+    }
+
+    mask2_buffer[launch_index ] = mask2 / sampleNum;
+    if(hitCount != 0){
+        if(normal2.x != 0 || normal2.y != 0 || normal2.z != 0){
+            normal2_buffer[launch_index ] = normalize(normal2 );
+        } else {
+            normal2_buffer[launch_index ] = make_float3(0.0);
+        }
+        depth2_buffer[launch_index ] = depth2 / hitCount;
+    } else {
+        normal2_buffer[launch_index ] = make_float3(0.0);
+        depth2_buffer[launch_index ] = make_float3(0.0);
+    }
+
+    mask3_buffer[launch_index ] = mask3 / sampleNum;
+    if(hitCount != 0){
+        if(normal3.x != 0 || normal3.y != 0 || normal3.z != 0){
+            normal3_buffer[launch_index ] = normalize(normal3 );
+        } else {
+            normal3_buffer[launch_index ] = make_float3(0.0);
+        }
+        depth3_buffer[launch_index ] = depth3 / hitCount;
+    } else {
+        normal3_buffer[launch_index ] = make_float3(0.0);
+        depth3_buffer[launch_index ] = make_float3(0.0);
+    }
+
+    mask4_buffer[launch_index ] = mask4 / sampleNum;
+    if(hitCount != 0){
+        if(normal4.x != 0 || normal4.y != 0 || normal4.z != 0){
+            normal4_buffer[launch_index ] = normalize(normal4 );
+        } else {
+            normal4_buffer[launch_index ] = make_float3(0.0);
+        }
+        depth4_buffer[launch_index ] = depth4 / hitCount;
+    } else {
+        normal4_buffer[launch_index ] = make_float3(0.0);
+        depth4_buffer[launch_index ] = make_float3(0.0);
+    }
+
 }
 
 RT_PROGRAM void exception()
