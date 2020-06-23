@@ -3,6 +3,8 @@ An optix GPU based path tracer. If you use the renderer in your own project, ple
 * Li, Z., Shafiei, M., Ramamoorthi, R., Sunkavalli, K., & Chandraker, M. (2020). Inverse rendering for complex indoor scenes: Shape, spatially-varying lighting and svbrdf from a single image. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 2475-2484).
 * Li, Z.\*, Yeh, Y. Y.\*, & Chandraker, M. (2020). Through the Looking Glass: Neural 3D Reconstruction of Transparent Shapes. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 1262-1271).
 
+Please contact [Zhengqin Li](https://sites.google.com/a/eng.ucsd.edu/zhengqinli) with any questions with regard to the renderer. 
+
 ## Dependencies and compiling the code
 The requirements are almost the same as [optix_advanced_samples](https://github.com/nvpro-samples/optix_advanced_samples). 
 We also need opencv 2 for image processing. 
