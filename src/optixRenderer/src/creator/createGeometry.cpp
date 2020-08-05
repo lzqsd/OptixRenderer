@@ -230,6 +230,9 @@ void createGeometry(
                         else if(matInput.cls == std::string("dielectric") ){
                             mat = createDielectricMaterial(context, matInput );
                         }
+                        else if(matInput.cls == std::string("conductor") ){
+                            mat = createConductorMaterial(context, matInput );
+                        }
                         optix_materials.push_back(mat);
                     }
                     optix_materials.push_back(createDefaultMaterial(context ) );

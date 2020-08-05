@@ -42,6 +42,10 @@
         <rgb name="specularTransmittance" value="1.0 1.0 1.0"/>
     </bsdf>
     
+    <bsdf type="conductor" id="mirror">
+        <rgb name="specularReflectance" value="1.0 1.0 1.0"/>
+    </bsdf>
+    
 	<shape type="obj">
         <string name="filename" value="sphere.obj"/>
         <ref id="transparent"/>

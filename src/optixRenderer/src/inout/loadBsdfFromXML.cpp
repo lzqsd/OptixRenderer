@@ -398,6 +398,86 @@ bool loadBsdfFromXML(std::vector<material_t>& materials, TiXmlNode* module, std:
                     }
                 }
             }
+            else if(matAttri -> Value() == std::string("conductor") ){
+                mat.cls = std::string("conductor");
+                
+                // Read the variable for conductor BRDF
+                // Only support rgb radiance and texture radiance
+                for(TiXmlNode* matSubModule = module -> FirstChild(); matSubModule != 0; matSubModule = matSubModule -> NextSibling() ){
+                    if(matSubModule -> Value() == std::string("rgb") ){
+
+                        TiXmlElement* matSubEle = matSubModule -> ToElement();
+                        std::string rgbName;
+                        for(TiXmlAttribute* matSubAttri = matSubEle -> FirstAttribute(); matSubAttri != 0; matSubAttri = matSubAttri -> Next() ){
+                            if(matSubAttri -> Name() == std::string("name") ){
+                                if(matSubAttri -> Value() == std::string("specularReflectance") ){
+                                    rgbName = std::string("specularReflectance" );
+                                }
+                                else if(matSubAttri -> Value() == std::string("reflectanceScale") ){
+                                    rgbName = std::string("reflectanceScale");
+                                }
+                                else{
+                                    std::cout<<"Wrong: unrecognizable name of rgb of conductor BRDF!"<< matSubAttri->Value() <<std::endl;
+                                    std::cout<<matSubAttri -> Value() <<std::endl;
+                                    return false;
+                                }
+                            }
+                        }
+                        for(TiXmlAttribute* matSubAttri = matSubEle -> FirstAttribute(); matSubAttri != 0; matSubAttri = matSubAttri -> Next() ){
+                            if(matSubAttri -> Name() == std::string("value") ){
+                                std::vector<float> paraArr = parseFloatStr(matSubAttri -> Value() );
+                                if(rgbName == std::string("specularReflectance") ){
+                                    mat.specular[0] = paraArr[0];
+                                    mat.specular[1] = paraArr[1];
+                                    mat.specular[2] = paraArr[2];
+                                }
+                                else if(rgbName == std::string("reflectanceScale") ){
+                                    mat.specularScale[0] = paraArr[0];
+                                    mat.specularScale[1] = paraArr[1];
+                                    mat.specularScale[2] = paraArr[2];
+                                }
+                            }
+                        }
+                    }
+                    else if(matSubModule -> Value() == std::string("texture") ){
+
+                        std::string texName;
+                        TiXmlElement* matSubEle = matSubModule -> ToElement();
+                        for(TiXmlAttribute* matSubAttri = matSubEle -> FirstAttribute(); matSubAttri != 0; matSubAttri = matSubAttri -> Next() ){
+                            if(matSubAttri -> Name() == std::string("name") ) {
+                                if(matSubAttri -> Value() == std::string("normal") ){
+                                    texName = matSubAttri -> Value();
+                                }
+                                else{
+                                    std::cout<<"Wrong: unrecognizable name "<<matSubAttri -> Value() <<" of texture of conductor BRDF!"<<std::endl;
+                                    return false;
+                                }
+                            }
+                        }
+                    
+                        TiXmlNode* strModule = matSubModule -> FirstChild();
+                        TiXmlElement* strEle = strModule -> ToElement();
+                        for(TiXmlAttribute* strAttri = strEle->FirstAttribute(); strAttri != 0; strAttri = strAttri->Next() ){
+                            
+                            if(strAttri -> Name() == std::string("value") ){
+                                if(texName == std::string("normal") ){
+                                    mat.normal_texname = relativePath(fileName, std::string(strAttri -> Value() ) );
+                                }
+                            }
+                            else if(strAttri -> Name() == std::string("name") ){
+                                if(strAttri -> Value() != std::string("filename") ){
+                                    std::cout<<"Wrong: unrecognizable name of texture of conductor BRDF!"<<std::endl;
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        std::cout<<"Wrong: unrecognizable module of conductor BRDF!"<<std::endl;
+                        return false;
+                    }
+                }
+            }
             else if(matAttri -> Value() == std::string("microfacet") ){
                 mat.cls = std::string("microfacet");
 

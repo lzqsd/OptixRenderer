@@ -25,6 +25,8 @@ Material createMicrofacetMaterial(Context& context, material_t mat);
 
 Material createDielectricMaterial(Context& context, material_t mat);
 
+Material createConductorMaterial(Context& context, material_t mat);
+
 Material createWhiteMaterial(Context& context );
 
 Material createMaskMaterial(Context& context, bool isAreaLight );
