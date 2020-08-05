@@ -104,6 +104,7 @@ The renderer currently supports three kinds of materials: `diffuse`, `phong` and
 * `phong`: The parameters include `diffuseReflectance`, `specularReflectance`, `alpha` and `normal`. The type of `diffuseReflectance` and `specularReflectance` can be `rgb` or `texture`. The type of `alpha` can be `float` or `texture`. 
 * `microfacet`: The parameters include `albedo`, `normal`, `roughness`, `metallic` and `fresnel`. The type of `albedo` can be `rgb` or `texture`. The type of `roughness`, `metallic` and `fresnel` can be `texture` and `float`. 
 * `dielectric`: The parameters include `specularReflectance`, `specularTransmittance`, `normal`, `intIOR` and `extIOR`. The type of `specularReflectance` and `specularTransmittance` can only be `rgb`. The type of  `intIOR` and `extIOR` can only be `float`. 
+* `conductor`: The parameters include `specularReflectance`. The type of `specularReflectance` can only be `rgb`.
 
 Following is an example of `phong` material. Notice that the path to the texture should be absolute path. 
 ```
