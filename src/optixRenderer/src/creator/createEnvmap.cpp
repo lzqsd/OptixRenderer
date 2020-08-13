@@ -95,7 +95,7 @@ void computeEnvmapDistribution(
                         W += envMat.at<cv::Vec3f>(height - 1 - i, j)[ch] / 3.0;
                 }
             }
-            envWeight[hid*gridWidth + wid] = W / N * sinf(theta) ;
+            envWeight[hid*gridWidth + wid] = W / N * sinf(theta) + 1e-10;   
         }
     }
 
@@ -133,11 +133,11 @@ void computeEnvmapDistribution(
     for(int vId = 0; vId < gridHeight; vId++){
         float vIdf = float(vId + 0.5) / float(gridHeight);
         float sinTheta = sinf(vIdf * PI);
-        for(int uId = 0; uId < gridWidth; uId++){
-            envWeight[vId * gridWidth+ uId] /= 
-                ((colSum * 2 * PI * PI * sinTheta) / gridSize );
+        for(int uId = 0; uId < gridWidth; uId++){ 
+            float deno = ((colSum * 2 * PI * PI * sinTheta) / gridSize );
+            envWeight[vId * gridWidth+ uId] /= ((deno > 1e-6) ? deno : 1e-6);
         }
-    } 
+    }
 
     optix::Buffer envpdf = context["envpdf"] -> getBuffer(); 
     float* envpdf_p = static_cast<float*> (envpdf -> map() );
@@ -147,7 +147,6 @@ void computeEnvmapDistribution(
             envpdf_p[envId] = envWeight[envId];
         }
     }
- 
     envpdf -> unmap();
     envcdfV -> unmap();
     envcdfH -> unmap();
