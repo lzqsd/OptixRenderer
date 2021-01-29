@@ -4,7 +4,7 @@
 void getOutputBuffer(Context& context, float* imgData, int width, int height, unsigned sizeScale)
 {
     Buffer imgBuffer = context[ "output_buffer" ]->getBuffer();
-    float* imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() );
+    float* imgDataBuffer = reinterpret_cast<float*>(imgBuffer -> map() ); 
     for(int r = 0; r < height; r++){
         for(int c = 0; c < width; c++){
             int N = sizeScale * sizeScale;

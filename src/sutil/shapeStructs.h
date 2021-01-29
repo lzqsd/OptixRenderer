@@ -34,7 +34,7 @@ struct material_t {
     std::string metallic_texname;           // map metallic
 
     material_t(){
-        albedo[0] = albedo[1] = albedo[2] = 1.0f;
+        albedo[0] = albedo[1] = albedo[2] = 0.8f;
         specular[0] = specular[1] = specular[2] = 1.0f;
         transmittance[0] = transmittance[1] = transmittance[2] = 1.0f;
         roughness = 1.0;
