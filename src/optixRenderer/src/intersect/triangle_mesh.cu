@@ -92,7 +92,9 @@ void meshIntersect( int primIdx )
             float3 n2 = normal_buffer[vn_idx.z ];
             if(dot(n0, n1) < 0) n1 = -n1;
             if(dot(n0, n2) < 0) n2 = -n2;
-            shading_normal = normalize( n1*beta + n2*gamma + n0*(1.0f-beta-gamma) );
+            shading_normal = normalize( n1*beta + n2*gamma + n0*(1.0f-beta-gamma) ); 
+            if ( (shading_normal.x != shading_normal.x ) )
+                shading_normal = geometric_normal;
           }
       }
 

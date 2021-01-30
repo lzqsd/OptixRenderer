@@ -75,7 +75,7 @@ RT_PROGRAM void closest_hit_radiance()
         N = normalize(2 * N - 1);
         N = N.x * tangent_direction 
             + N.y * bitangent_direction 
-            + N.z * ffnormal;
+            + N.z * ffnormal; 
     }
     N = normalize(N );
 
