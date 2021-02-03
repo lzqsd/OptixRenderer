@@ -319,7 +319,7 @@ RT_PROGRAM void closest_hit_radiance()
             sampleEnvironmapLight(prd_radiance.seed, radiance, L, pdfSolidEnv);
 
             if( fmaxf(dot(L, ffnormal), 0.0f) * fmaxf(dot(V, ffnormal ), 0.0f) > 0.0025){
-                Ray shadowRay = make_Ray(hitPoint + 0.1 * scene_epsilon, L, 1, scene_epsilon, infiniteFar);
+                Ray shadowRay = make_Ray(hitPoint + 0.1 * scene_epsilon * L, L, 1, scene_epsilon, infiniteFar);
                 PerRayData_shadow prd_shadow;
                 prd_shadow.inShadow = false;
                 rtTrace(top_object, shadowRay, prd_shadow);
