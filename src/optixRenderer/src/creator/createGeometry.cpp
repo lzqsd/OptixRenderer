@@ -320,16 +320,22 @@ void createGeometry(
             }
             else{
                 context["isAreaLight"] -> setInt(1);
+                material_t matInput;
                 if(mode == 0){
                     // Render image 
                     Material mat = createAreaLight(context, shape );
                     optix_materials.push_back(mat);
+                } 
+                else if(mode == 1){
+                    optix_materials.push_back(createAlbedoMaterial(context, matInput ) );
                 }
                 else if(mode == 2){
                     // Render normal 
-                    material_t emptyMat;
-                    Material mat = createNormalMaterial(context, emptyMat);
+                    Material mat = createNormalMaterial(context, matInput );
                     optix_materials.push_back(mat );
+                }
+                else if(mode == 3){
+                    optix_materials.push_back(createRoughnessMaterial(context, matInput ) );
                 }
                 else if(mode == 4){
                     // Render Mask 
