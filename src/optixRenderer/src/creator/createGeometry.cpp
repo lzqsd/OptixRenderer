@@ -239,10 +239,10 @@ void createGeometry(
                 }
                 else if(mode == 1){
                     // Output the albedo value 
-                    material_t matInput;
+                    material_t matEmpty;
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
                         if(materials.size() == 0){
-                            Material mat = createAlbedoMaterial(context, matInput );
+                            Material mat = createAlbedoMaterial(context, matEmpty );
                             optix_materials.push_back(mat);
                             continue;
                         }
@@ -250,14 +250,14 @@ void createGeometry(
                         Material mat = createAlbedoMaterial(context, matInput);
                         optix_materials.push_back(mat);
                     }
-                    optix_materials.push_back(createAlbedoMaterial(context, matInput ) );
+                    optix_materials.push_back(createAlbedoMaterial(context, matEmpty ) );
                 }
                 else if(mode == 2){
                     // Output the normal value 
-                    material_t matInput; 
+                    material_t matEmpty; 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
                         if(materials.size() == 0){
-                            Material mat = createNormalMaterial(context, matInput);
+                            Material mat = createNormalMaterial(context, matEmpty );
                             optix_materials.push_back(mat);
                             continue;
                         }
@@ -265,14 +265,14 @@ void createGeometry(
                         Material mat = createNormalMaterial(context, matInput);
                         optix_materials.push_back(mat);
                     }
-                    optix_materials.push_back(createNormalMaterial(context, matInput ) ); 
+                    optix_materials.push_back(createNormalMaterial(context, matEmpty ) ); 
                 }
                 else if(mode == 3){
                     // Output the roughness value 
-                    material_t matInput; 
+                    material_t matEmpty; 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
                         if(materials.size() == 0){
-                            Material mat = createRoughnessMaterial(context, matInput);
+                            Material mat = createRoughnessMaterial(context, matEmpty );
                             optix_materials.push_back(mat);
                             continue;
                         }
@@ -280,7 +280,7 @@ void createGeometry(
                         Material mat = createRoughnessMaterial(context, matInput);
                         optix_materials.push_back(mat);
                     }
-                    optix_materials.push_back(createRoughnessMaterial(context, matInput ) );  
+                    optix_materials.push_back(createRoughnessMaterial(context, matEmpty ) );  
                 }
                 else if(mode == 4){
                     // Output the mask
@@ -300,10 +300,10 @@ void createGeometry(
                 }
                 else if(mode == 6){
                     // Output the metallic  
-                    material_t matInput; 
+                    material_t matEmpty; 
                     for(int i = 0; i < shape.mesh.materialNames.size(); i++){
                         if(materials.size() == 0){
-                            Material mat = createMetallicMaterial(context, matInput);
+                            Material mat = createMetallicMaterial(context, matEmpty );
                             optix_materials.push_back(mat );
                             continue;
                         }
@@ -311,7 +311,7 @@ void createGeometry(
                         Material mat = createMetallicMaterial(context, matInput);
                         optix_materials.push_back(mat );
                     }
-                    optix_materials.push_back(createMetallicMaterial(context, matInput ) );
+                    optix_materials.push_back(createMetallicMaterial(context, matEmpty ) );
                 }
                 else{
                     std::cout<<"Wrong: Unrecognizable mode!"<<std::endl;

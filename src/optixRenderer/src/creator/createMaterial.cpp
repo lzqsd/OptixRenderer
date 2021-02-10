@@ -13,7 +13,7 @@ void loadEmptyToTextureSampler(Context& context,  TextureSampler& Sampler){
 }
 
 Material createDefaultMaterial(Context& context ){
-    const std::string ptx_path = ptxPath( "diffuse.cu" );
+    const std::string ptx_path = ptxPath( "microfacet.cu" );
     Program ch_program = context->createProgramFromPTXFile( ptx_path, "closest_hit_radiance" );
     Program ah_program = context->createProgramFromPTXFile( ptx_path, "any_hit_shadow" );
 
@@ -27,6 +27,12 @@ Material createDefaultMaterial(Context& context ){
     loadEmptyToTextureSampler(context, albedoSampler);
     material["albedo"] -> setFloat(0.8, 0.8, 0.8 );
     material["albedoMap"] -> setTextureSampler(albedoSampler);
+        
+    TextureSampler roughSampler = createTextureSampler(context);
+    material["isRoughTexture"] -> setInt(0);
+    loadEmptyToTextureSampler(context, roughSampler);
+    material["rough"] -> setFloat(1.0 );
+    material["roughMap"] -> setTextureSampler(roughSampler );
    
     TextureSampler normalSampler = createTextureSampler(context);
     material["isNormalTexture"] -> setInt(0);
