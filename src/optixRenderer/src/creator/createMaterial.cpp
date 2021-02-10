@@ -38,6 +38,13 @@ Material createDefaultMaterial(Context& context ){
     material["isNormalTexture"] -> setInt(0);
     loadEmptyToTextureSampler(context, normalSampler);
     material["normalMap"] -> setTextureSampler(normalSampler );
+    
+    TextureSampler metallicSampler = createTextureSampler(context ); 
+    material["isMetallicTexture"] -> setInt(0 );
+    loadEmptyToTextureSampler(context, metallicSampler);
+    material["metallic"] -> setFloat(0 );
+
+
     return material;
 }
 
