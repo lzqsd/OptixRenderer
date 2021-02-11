@@ -43,6 +43,7 @@ Material createDefaultMaterial(Context& context ){
     material["isMetallicTexture"] -> setInt(0 );
     loadEmptyToTextureSampler(context, metallicSampler);
     material["metallic"] -> setFloat(0 );
+    material["metallicMap"] -> setTextureSampler(metallicSampler );
 
 
     return material;
