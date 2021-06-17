@@ -295,7 +295,7 @@ int main( int argc, char** argv )
     bool noiseLimitEnabled = false;
     bool vertexLimitEnabled = false;
     bool intensityLimitEnabled = false;
-    int maxPathLength = 3;
+    int maxPathLength = 7;
     int rrBeginLength = 5;
     
     bool isForceOutput = false;
