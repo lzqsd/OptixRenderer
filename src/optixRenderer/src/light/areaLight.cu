@@ -77,25 +77,21 @@ RT_PROGRAM void closest_hit_radiance()
         }
         else{
             // Use MIS to compute the radiance
-            if(prd_radiance.depth == (max_depth - 1) ){
-                prd_radiance.radiance += radiance * prd_radiance.attenuation;
-            }
-            else{
-                float3 hitPoint = ray.origin + t_hit * ray.direction;
-                float Dist = length(hitPoint - prd_radiance.origin);
-                float3 L = normalize(hitPoint - prd_radiance.origin);
-                float cosPhi = dot(L, ffnormal);
-                if (cosPhi < 0) cosPhi = -cosPhi;
-                if (cosPhi < 1e-14) cosPhi = 0;
-        
-                float pdfAreaBRDF = prd_radiance.pdf * cosPhi / Dist / Dist;
-                float pdfAreaLight = length(radiance) / areaSum;
+            float3 hitPoint = ray.origin + t_hit * ray.direction;
+            float Dist = length(hitPoint - prd_radiance.origin);
+            float3 L = normalize(hitPoint - prd_radiance.origin);
+            float cosPhi = dot(L, ffnormal);
+            if (cosPhi < 0) cosPhi = -cosPhi;
+            if (cosPhi < 1e-14) cosPhi = 0;
+    
+            float pdfAreaBRDF = prd_radiance.pdf * cosPhi / Dist / Dist;
+            float pdfAreaLight = length(radiance) / areaSum;
 
-                float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
-                float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
-       
-                prd_radiance.radiance += radiance * pdfAreaBRDF2 / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
-            }
+            float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
+            float pdfAreaLight2 = pdfAreaLight * pdfAreaLight;
+   
+            float3 radianceInc = radiance * pdfAreaBRDF2 / fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;
+            prd_radiance.radiance += radianceInc;   
         }
     }
     prd_radiance.done = true;

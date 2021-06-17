@@ -159,7 +159,7 @@ RT_CALLABLE_PROGRAM void sample(unsigned& seed,
     float alpha2 = alpha * alpha;
     
     float3 L;
-    if(z < 0.5){
+    if(z < 0.5 ){
         cosine_sample_hemisphere(z1, z2, L);
         onb.inverse_transform(L);
         direction = L;
@@ -180,7 +180,7 @@ RT_CALLABLE_PROGRAM void sample(unsigned& seed,
         direction = L;
 
         float NoV = fmaxf(dot(N, V), 0.0);
-        float NoL = dot(N, L);
+        float NoL = fmaxf(dot(N, L), 0.0);
         float NoH = fmaxf(dot(N, H), 0.0);
         float VoH = fmaxf(dot(V, H), 0.0);
 
@@ -241,7 +241,7 @@ RT_PROGRAM void closest_hit_radiance()
         N = N.x * tangent_direction 
             + N.y * bitangent_direction 
             + N.z * ffnormal;
-    }
+    } 
     N = normalize(N );
     optix::Onb onb(N );
  
@@ -277,9 +277,10 @@ RT_PROGRAM void closest_hit_radiance()
                         float pdfSolidBRDF = pdf(L, V, N, roughValue);
                         float pdfAreaBRDF = pdfSolidBRDF * cosPhi / Dist / Dist;
                         float pdfAreaBRDF2 = pdfAreaBRDF * pdfAreaBRDF;
-
-                        prd_radiance.radiance += intensity * pdfAreaLight / 
+                        
+                        float3 radianceInc = intensity * pdfAreaLight / 
                             fmaxf(pdfAreaBRDF2 + pdfAreaLight2, 1e-14) * prd_radiance.attenuation;            
+                        prd_radiance.radiance += radianceInc;
                     }
                 }
             }
@@ -303,7 +304,8 @@ RT_PROGRAM void closest_hit_radiance()
                     prd_shadow.inShadow = false;
                     rtTrace(top_object, shadowRay, prd_shadow);
                     if(prd_shadow.inShadow == false && prd_radiance.depth != (max_depth - 1) ){
-                        float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance) / Dist/ Dist;
+                        float3 intensity = evaluate(albedoValue, N, roughValue, fresnel, V, L, radiance) / Dist/ Dist; 
+
                         prd_radiance.radiance += intensity * prd_radiance.attenuation;
                     }
                 }
@@ -331,9 +333,11 @@ RT_PROGRAM void closest_hit_radiance()
                     else{
                         float pdfSolidBRDF = pdf(L, V, N, roughValue);
                         float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
-                        float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
-                        prd_radiance.radiance += intensity * pdfSolidEnv / 
-                            fmaxf(pdfSolidEnv2 + pdfSolidBRDF2, 1e-14) * prd_radiance.attenuation; 
+                        float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv; 
+
+                        float3 radianceInc = intensity * pdfSolidEnv / 
+                            fmaxf(pdfSolidEnv2 + pdfSolidBRDF2, 1e-14) * prd_radiance.attenuation;  
+                        prd_radiance.radiance += radianceInc; 
                     }
                 }
             }

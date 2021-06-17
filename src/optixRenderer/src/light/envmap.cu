@@ -114,17 +114,13 @@ RT_PROGRAM void envmap_miss(){
                 prd_radiance.radiance += radiance * prd_radiance.attenuation;
             }
             else{
-                if(prd_radiance.depth == (max_depth - 1) ){
-                    prd_radiance.radiance += radiance  * prd_radiance.attenuation;
-                }
-                else{
-                    float pdfSolidEnv = EnvDirecToPdf(prd_radiance.direction);
-                    float pdfSolidBRDF = prd_radiance.pdf;
-                    float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
-                    float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
+                float pdfSolidEnv = EnvDirecToPdf(prd_radiance.direction);
+                float pdfSolidBRDF = prd_radiance.pdf;
+                float pdfSolidEnv2 = pdfSolidEnv * pdfSolidEnv;
+                float pdfSolidBRDF2 = pdfSolidBRDF * pdfSolidBRDF;
 
-                    prd_radiance.radiance += radiance  * pdfSolidBRDF2 / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-14)* prd_radiance.attenuation;
-                }
+                float3 radianceInc = radiance  * pdfSolidBRDF2 / fmaxf(pdfSolidBRDF2 + pdfSolidEnv2, 1e-14)* prd_radiance.attenuation;
+                prd_radiance.radiance += radianceInc;
             }
         }
     }
