@@ -1,114 +1,5 @@
 #include "creator/createGeometry.h"
 
-void splitShapes(shape_t& shapeLarge, std::vector<shape_t >& shapeArr)
-{
-    int faceNum = shapeLarge.mesh.indicesP.size() / 3;
-    if(faceNum <= faceLimit ){
-        shapeArr.push_back(shapeLarge);
-    }
-    else{
-        int shapeNum = ceil(float(faceNum) / float(faceLimit) );
-        for(int i = 0; i < shapeNum; i++){
-            int fs = i * faceLimit, fe = (i+1) * faceLimit;
-            fe = (fe > faceNum ) ? faceNum : fe;
-
-            shape_t shape; 
-            shape.isLight = shapeLarge.isLight;
-            for(int j = 0; j < 3; j++){
-                shape.radiance[j] = shapeLarge.radiance[j];
-            }
-            char tempNum[10];
-            sprintf(tempNum, "_%d", i);
-            shape.name = shapeLarge.name + std::string(tempNum );
-            
-            // Change the face and vertex 
-            std::map<int, int> facePointMap;
-            std::map<int, int> faceNormalMap;
-            std::map<int, int> faceTexMap;
-            
-            facePointMap[-1] = -1;
-            faceNormalMap[-1] = -1;
-            faceTexMap[-1] = -1;
-            std::map<int, int>::iterator it;
-
-            for(int j = fs; j < fe; j++){
-                for(int k = j * 3; k < j*3 + 3; k++){
-                    // Process the vertex 
-                    if(shapeLarge.mesh.indicesP[k] != -1){
-                        int vId = shapeLarge.mesh.indicesP[k];
-                        it = facePointMap.find(vId );
-                        if(it == facePointMap.end() ){
-                            for(int l = 0; l < 3; l++){
-                                shape.mesh.positions.push_back(
-                                        shapeLarge.mesh.positions[3*vId + l] );
-                            }
-                            facePointMap[vId] = shape.mesh.positions.size() / 3 - 1;
-                        }
-                    }
-                    
-                    // Process the normals 
-                    if(shapeLarge.mesh.indicesN[k] != -1){
-                        int vnId = shapeLarge.mesh.indicesN[k];
-                        it = faceNormalMap.find(vnId );
-                        if(it == faceNormalMap.end() ){
-                            for(int l = 0; l < 3; l++){
-                                shape.mesh.normals.push_back(
-                                        shapeLarge.mesh.normals[3*vnId + l] );
-                            }
-                            faceNormalMap[vnId] = shape.mesh.normals.size() / 3 - 1;
-                        }
-                    }
-                    
-                    // Process the texture 
-                    if(shapeLarge.mesh.indicesT[k] != -1){
-                        int vtId = shapeLarge.mesh.indicesT[k];
-                        it = faceTexMap.find(vtId );
-                        if(it == faceTexMap.end() ){ 
-                            for(int l = 0; l < 2; l++){
-                                shape.mesh.texcoords.push_back(
-                                        shapeLarge.mesh.texcoords[2*vtId + l] );
-                            }
-                        }
-                        faceTexMap[vtId] = shape.mesh.texcoords.size() / 2 - 1;
-                    }
-                }
-            }
-
-            // Process the indexP indexT and indexN
-            for(int j = fs; j < fe; j++){
-                for(int k = j*3; k < j*3 + 3; k++){
-                    shape.mesh.indicesP.push_back(
-                            facePointMap[shapeLarge.mesh.indicesP[k] ] );
-                    shape.mesh.indicesN.push_back(
-                            faceNormalMap[shapeLarge.mesh.indicesN[k] ] );
-                    shape.mesh.indicesT.push_back(
-                            faceTexMap[shapeLarge.mesh.indicesT[k] ] );
-                }
-            }
-            
-
-            // Process the material  
-            std::map<int, int> faceMatMap;
-            for(int j = fs; j < fe; j++){
-                int matId = shapeLarge.mesh.materialIds[j];
-                it = faceMatMap.find(matId );
-                if(it  == faceMatMap.end() ){
-                    faceMatMap[matId] = shape.mesh.materialNames.size();   
-                    if(shape.isLight == false){
-                        shape.mesh.materialNames.push_back(shapeLarge.mesh.materialNames[matId] );
-                        shape.mesh.materialNameIds.push_back(shapeLarge.mesh.materialNameIds[matId] );
-                    }
-                }
-            }
-            
-            for(int j = fs; j < fe; j++){
-                shape.mesh.materialIds.push_back(faceMatMap[shapeLarge.mesh.materialIds[j] ] );
-            }
-            shapeArr.push_back(shape );
-        }
-    }   
-}
-
 void createGeometry(
         Context& context,
         const std::vector<shape_t>& shapes,
@@ -132,7 +23,7 @@ void createGeometry(
         
         shape_t  shapeLarge = shapes[i];
         std::vector<shape_t > shapeArr;
-        splitShapes(shapeLarge, shapeArr );
+        shapeArr.push_back(shapeLarge );
 
         if(shapeArr.size() != 1){
             std::cout<<"Warning: the mesh "<<shapeLarge.name<<" is too large and has been splited into "<<shapeArr.size()<<" parts"<<std::endl;
