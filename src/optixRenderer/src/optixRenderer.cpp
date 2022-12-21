@@ -56,6 +56,7 @@
 #include "structs/cameraInput.h"
 #include "lightStructs.h"
 #include "inout/rgbe.h"
+#include "inout/tinyexr.h"
 #include "inout/relativePath.h"
 #include "Camera.h"
 #include "sutil.h"
@@ -147,24 +148,93 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
         return true;
     }
 
-    if(isHdr){
-        FILE* imgOut = fopen(fileName, "w");
-        if(imgOut == NULL){
-            std::cout<<"Wrong: can not open the output file!"<<std::endl;
-            return false;
+    if(isHdr){ 
+        std::string suffix;
+        std::string fileNameStr(fileName );
+        std::size_t pos = fileNameStr.find_last_of(".");
+        if(pos == std::string::npos ){
+            suffix = std::string("");
         }
-        float* image = new float[width * height * 3];
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                for(int ch = 0; ch < 3; ch ++){
-                    image[3*(i * width + j) + ch] = imgData[3*( (height-1-i) * width + j) + ch];
+        else{
+            suffix = fileNameStr.substr(pos+1, fileNameStr.length() );
+        } 
+
+        if(suffix == std::string("rgbe") || suffix == std::string("hdr") ){
+            FILE* imgOut = fopen(fileName, "w");
+            if(imgOut == NULL){
+                std::cout<<"Wrong: can not open the output file!"<<std::endl;
+                return false;
+            }
+            float* image = new float[width * height * 3];
+            for(int i = 0; i < height; i++){
+                for(int j = 0; j < width; j++){
+                    for(int ch = 0; ch < 3; ch ++){
+                        image[3*(i * width + j) + ch] = imgData[3*( (height-1-i) * width + j) + ch];
+                    }
                 }
             }
+            RGBE_WriteHeader(imgOut, width, height, NULL);
+            RGBE_WritePixels(imgOut, image, width * height);
+            fclose(imgOut);
+            delete [] image;
         }
-        RGBE_WriteHeader(imgOut, width, height, NULL);
-        RGBE_WritePixels(imgOut, image, width * height);
-        fclose(imgOut);
-        delete [] image;
+        else if(suffix == std::string("exr") ){
+            EXRHeader header;
+            InitEXRHeader(&header);
+
+            EXRImage image;
+            InitEXRImage(&image);  image.num_channels = 3;
+
+            std::vector<float> images[3];
+            images[0].resize(width * height);
+            images[1].resize(width * height);
+            images[2].resize(width * height);
+
+            // Split RGBRGBRGB... into R, G and B layer
+            for(int i = 0; i < height; i++){
+                for(int j = 0; j < width; j++){
+                    for(int ch = 0; ch < 3; ch ++){
+                        images[ch][i * width + j] = imgData[3*( (height-1-i) * width + j) + ch];
+                    }
+                }
+            } 
+
+            float* image_ptr[3];
+            image_ptr[0] = &(images[2].at(0)); // B
+            image_ptr[1] = &(images[1].at(0)); // G
+            image_ptr[2] = &(images[0].at(0)); // R
+
+            image.images = (unsigned char**)image_ptr;
+            image.width = width;
+            image.height = height;
+
+            header.num_channels = 3;
+            header.channels = (EXRChannelInfo *)malloc(sizeof(EXRChannelInfo) * header.num_channels);
+            // Must be (A)BGR order, since most of EXR viewers expect this channel order.
+            strncpy(header.channels[0].name, "B", 255); header.channels[0].name[strlen("B")] = '\0';
+            strncpy(header.channels[1].name, "G", 255); header.channels[1].name[strlen("G")] = '\0';
+            strncpy(header.channels[2].name, "R", 255); header.channels[2].name[strlen("R")] = '\0';
+
+            header.pixel_types = (int *)malloc(sizeof(int) * header.num_channels);
+            header.requested_pixel_types = (int *)malloc(sizeof(int) * header.num_channels);
+            for (int i = 0; i < header.num_channels; i++) {
+              header.pixel_types[i] = TINYEXR_PIXELTYPE_FLOAT; // pixel type of input image
+              header.requested_pixel_types[i] = TINYEXR_PIXELTYPE_HALF; // pixel type of output image to be stored in .EXR
+            }
+
+            const char* err = NULL; // or nullptr in C++11 or later.
+            int ret = SaveEXRImageToFile(&image, &header, fileName, &err);
+            if (ret != TINYEXR_SUCCESS) {
+                std::cout<<"Failed to save EXR."<<std::endl;
+            }
+
+            free(header.channels);
+            free(header.pixel_types);
+            free(header.requested_pixel_types);
+        }
+        else{
+            std::cout<<"Unsupported HDR format "<<suffix<<"."<<std::endl;
+        }
     }
     else{
         cv::Mat image(height, width, CV_8UC3);
@@ -209,10 +279,10 @@ std::string generateOutputFilename(std::string fileName, int mode, bool isHdr, i
     
     if(mode == 0){
         if(isHdr){
-            if(suffix != std::string("rgbe") ){
-                std::cout<<"Warning: we only support rgbe image for hdr"<<std::endl;
+            if(suffix != std::string("rgbe") && suffix != std::string("hdr") && suffix != std::string("exr") ){
+                std::cout<<"Warning: we only support rgbe/hdr, exr formats for hdr image"<<std::endl;
+                suffix = std::string("rgbe");
             }
-            suffix = std::string("rgbe");
         }
         else{
             if(suffix != std::string("bmp") && suffix != std::string("png") 

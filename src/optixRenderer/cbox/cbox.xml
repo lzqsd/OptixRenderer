@@ -14,7 +14,7 @@
 			<integer name="sampleCount" value="8192"/>
 		</sampler>
 
-		<film type="ldrfilm">
+		<film type="hdrfilm">
 			<integer name="width" value="512"/>
 			<integer name="height" value="512"/>
 		</film>
@@ -46,7 +46,7 @@
 	<shape type="obj">
         <string name="filename" value="meshes/cbox_luminaire.obj"/>
 		<emitter type="area">
-			<rgb name="radiance" value="20.0 20.0 20.0"/>
+			<rgb name="radiance" value="200.0 200.0 200.0"/>
 		</emitter>
     </shape>
     

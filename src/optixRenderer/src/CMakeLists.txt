@@ -51,6 +51,8 @@ OPTIX_add_sample_executable( optixRenderer
     inout/loadShapeFromXML.cpp
     inout/relativePath.cpp
     inout/rgbe.cpp
+    inout/miniz.c
+    inout/tinyexr.cc
 
     intersect/triangle_mesh.cu
 
