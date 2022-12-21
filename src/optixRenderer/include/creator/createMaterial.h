@@ -6,12 +6,16 @@
 #include <optixu/optixu_math_stream_namespace.h>
 #include <string>
 #include <opencv2/opencv.hpp>
+#include <cmath>
 #include "creator/createTextureSampler.h"
 #include "utils/ptxPath.h"
 #include "shapeStructs.h"
 
 using namespace optix;
 
+float srgb2rgb(float c);
+
+float rgb2srgb(float c);
 
 void loadEmptyToTextureSampler(Context& context,  TextureSampler& Sampler);
 
