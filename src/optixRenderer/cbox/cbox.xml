@@ -46,7 +46,7 @@
 	<shape type="obj">
         <string name="filename" value="meshes/cbox_luminaire.obj"/>
 		<emitter type="area">
-			<rgb name="radiance" value="200.0 200.0 200.0"/>
+			<rgb name="radiance" value="20.0 20.0 20.0"/>
 		</emitter>
     </shape>
     
