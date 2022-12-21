@@ -36,8 +36,8 @@ Material createAlbedoMaterial(Context& context, material_t mat){
 
                 b = srgb2rgb(b / 255.0 ) * mat.albedoScale[2];
                 g = srgb2rgb(g / 255.0 ) * mat.albedoScale[1];
-                r = srgb2rgb(r / 255.0 ) * mat.albedoScale[0];
-                
+                r = srgb2rgb(r / 255.0 ) * mat.albedoScale[0]; 
+
                 b = std::min(b, 1.0f);
                 g = std::min(g, 1.0f); 
                 r = std::min(r, 1.0f);

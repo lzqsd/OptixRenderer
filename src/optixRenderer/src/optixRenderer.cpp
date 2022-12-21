@@ -243,15 +243,15 @@ bool writeBufferToFile(const char* fileName, float* imgData, int width, int heig
                 int ind = 3 * ( (height - 1 -i) * width + j);
                 float r = imgData[ind];
                 float g = imgData[ind + 1]; 
-                float b = imgData[ind + 2];
+                float b = imgData[ind + 2]; 
+                if(mode == 0 || mode == 1){  
+                    r = rgb2srgb(r );
+                    g = rgb2srgb(g );
+                    b = rgb2srgb(b ); 
+                }
                 r = clip(r, 0.0f, 1.0f);
                 g = clip(g, 0.0f, 1.0f);
                 b = clip(b, 0.0f, 1.0f);
-                if(mode == 0 || mode == 1){
-                    r = rgb2srgb(r );
-                    g = rgb2srgb(g );
-                    b = rgb2srgb(b );
-                }
                 image.at<cv::Vec3b>(i, j)[0] = (unsigned char)(b * 255);
                 image.at<cv::Vec3b>(i, j)[1] = (unsigned char)(g * 255);
                 image.at<cv::Vec3b>(i, j)[2] = (unsigned char)(r * 255);
